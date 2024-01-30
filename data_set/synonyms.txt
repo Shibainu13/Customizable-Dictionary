@@ -1,0 +1,1098 @@
+Amazing	Incredible	Unbelievable	Improbable	Astonishing
+Anger	Enrage	Infuriate	Arouse	Nettle
+Angry	Wrathful	Furious	Enraged	Indignant
+Answer	Reply	Respond	Retort	Acknowledge
+Ask	Question	Inquire	Query	Interrogate
+Awful	Dreadful	Terrible	Abominable	Unpleasant
+Bad	Depraved	Rotten	Contaminated	Sinful
+Beautiful	Gorgeous	Dazzling	Splendid	Magnificent
+Begin	Start	Open	Launch	Initiate
+Big	Enormous	Huge	Immense	Gigantic
+Brave	Courageous	Fearless	Dauntless	Intrepid
+Break	Fracture	Wreck	Crash	Demolish
+Bright	Sparkling	Shimmering	Radiant	Vivid
+Calm	Quiet	Peaceful	Unruffled	Tranquil
+Come	Approach	Advance	Near	Arrive
+Cool	Chilly	Cold	Frosty	Frigid
+Crooked	Bent	Twisted	Zigzag	Hooked
+Cry	Weep	Wail	Sob	Bawl
+Cut	Slice	Carve	Cleave	Slit
+Dangerous	Perilous	Hazardous	Risky	Uncertain
+Dark	Shadowy	Unlit	Murky	Gloomy
+Decide	Determine	Settle	Choose	Resolve
+Definite	Certain	Sure	Positive	Determined
+Delicious	Savory	Delectable	Appetizing	Luscious
+Describe	Portray	Characterize	Picture	Narrate
+Destroy	Ruin	Demolish	Raze	Slay
+Difference	Disagreement	Inequity	Contrast	Dissimilarity
+Do	Execute	Enact	Carry Out	Finish
+Dull	Unimaginative	Lifeless	Tedious	Tiresome
+Eager	Keen	Fervent	Enthusiastic	Involved
+End	Stop	Finish	Terminate	Conclude
+Enjoy	Appreciate	Delight In	Be Pleased	Indulge In
+Explain	Elaborate	Clarify	Define	Interpret
+Fair	Just	Impartial	Unbiased	Objective
+Fall	Drop	Descend	Plunge	Topple
+False	Fake	Fraudulent	Counterfeit	Spurious
+Fast	Quick	Rapid	Hasty	Swiftly
+Fat	Stout	Corpulent	Paunchy	Plump
+Fear	Fright	Dread	Terror	Alarm
+Fly	Soar	Hover	Flit	Wing
+Funny	Humorous	Amusing	Droll	Laughable
+Get	Acquire	Obtain	Secure	Procure
+Go	Recede	Depart	Fade	Disappear
+Good	Excellent	Apt	Marvelous	Qualified
+Great	Noteworthy	Worthy	Distinguished	Remarkable
+Gross	Improper	Rude	Coarse	Indecent
+Happy	Pleased	Contented	Satisfied	Delighted
+Hate	Despise	Loathe	Detest	Abhor
+Have	Acquire	Gain	Maintain	Believe
+Help	Aid	Assist	Succor	Encourage
+Hide	Conceal	Camouflage	Shroud	Veil
+Hurry	Hasten	Urge	Accelerate	Bustle
+Hurt	Damage	Distress	Afflict	Pain
+Idea	Thought	Concept	Conception	Notion
+Important	Necessary	Vital	Critical	Indispensable
+Interesting	Fascinating	Bright	Intelligent	Animated
+Keep	Hold	Maintain	Sustain	Support
+Kill	Slay	Execute	Assassinate	Abolish
+Lazy	Indolent	Slothful	Idle	Inactive
+Little	Dinky	Puny	Diminutive	Miniature
+Look	Scrutinize	Inspect	Survey	Study
+Love	Like	Admire	Esteem	Fancy
+Make	Design	Fabricate	Manufacture	Produce
+Mark	Impress	Effect	Trace	Imprint
+Mischievous	Prankish	Waggish	Impish	Sportive
+Move	Plod	Go	Creep	Crawl
+Neat	Trim	Dapper	Natty	Smart
+New	Novel	Modern	Current	Recent
+Old	Aged	Used	Worn	Dilapidated
+Part	Portion	Section	Fraction	Fragment
+Place	Space	Area	Spot	Plot
+Plan	Region	Location	Situation	Position
+Predicament	Quandary	Dilemma	Plight	Spot
+Put	Place	Assign	Keep	Establish
+Quiet	Tranquil	Peaceful	Calm	Restful
+Right	Correct	Accurate	Factual	True
+Run	Race	Sprint	Dash	Rush
+Say	Tell	Recount	Narrate	Explain	Reveal
+Scared	Panicked	Fearful	Unnerved	Insecure
+Show	Display	Exhibit	Present	Note
+Slow	Unhurried	Behind	Tedious	Slack
+Stop	Cease	Halt	Stay	Pause
+Story	Tale	Yarn	Account	Narrative
+Strange	Odd	Peculiar	Unusual	Unfamiliar
+Take	Hold	Catch	Seize	Grasp
+Tell	Disclose	Reveal	Show	Expose
+Think	Consider	Contemplate	Reflect	Mediate
+Trouble	Distress	Anguish	Anxiety	Wretchedness
+True	Accurate	Right	Proper	Precise
+Ugly	Horrible	Unpleasant	Monstrous	Terrifying
+Come	advance	approach	arrive	near	reach
+Go	depart	disappear	fade	move	proceed	recede	travel
+Run	dash	escape	elope	flee	hasten	hurry	race	rush	speed	sprint
+Hurry	rush	run	speed	race	hasten	urge	accelerate	bustle
+Hide	conceal	cover	mask	cloak	camouflage	screen	shroud	veil
+Move	plod	go	creep	crawl	inch	poke	drag	toddle	shuffle	trot	dawdle	walk	traipse	mosey	jog	plug	trudge	slump	lumber	trail	lag	run	sprint	trip	bound	hotfoot	high-tail	streak	stride	tear	breeze	whisk	rush	dash	dart	bolt	fling	scamper	scurry	skedaddle	scoot	scuttle	scramble	race	chase	hasten	hurry	hump	gallop	lope	accelerate	stir	budge	travel	wander	roam	journey	trek	ride	spin	slip	glide	slide	slither	coast	flow	sail	saunter	hobble	amble	stagger	paddle	slouch	prance	straggle	meander	perambulate	waddle	wobble	pace	swagger	promenade	lunge
+Do	execute	enact	carry	out	finish	conclude	effect	accomplish	achieve	attain	
+Have		hold	possess	own	contain	acquire	gain	maintain	believe	bear	beget	occupy	absorb	fill	enjoy	
+Use		employ	utilize	exhaust	spend	expend	consume	exercise	
+Get		acquire	obtain	secure	procure	gain	fetch	find	score	accumulate	win	earn	rep	catch	net	bag	derive	collect	gather	glean	pick	up	accept	come	by	regain	salvage	
+Keep		hold	retain	withhold	preserve	maintain	sustain	support	
+Put		place	set	attach	establish	assign	keep	save	set	aside	effect	achieve	do	build	
+Take		hold	catch	seize	grasp	win	capture	acquire	pick	choose	select	prefer	remove	steal	lift	rob	engage	bewitch	purchase	buy	retract	recall	assume	occupy	consume	
+Make		create	originate	invent	beget	form	construct	design	fabricate	manufacture	produce	build	develop	do	effect	execute	compose	perform	accomplish	earn	gain	obtain	acquire	get	
+Break		fracture	rupture	shatter	smash	wreck	crash	demolish	atomize	
+Destroy		ruin	demolish	raze	waste	kill	slay	end	extinguish	
+Kill		slay	execute	assassinate	murder	destroy	cancel	abolish	
+Cut		gash	slash	prick	nick	sever	slice	carve	cleave	slit	chop	crop	lop	reduce	
+Fall		drop	descend	plunge	topple	tumble	
+Fly		soar	hover	flit	wing	flee	waft	glide	coast	skim	sail	cruise	
+Decide		determine	settle	choose	resolve	
+Help		aid	assist	support	encourage	back	wait	on	attend	serve	relieve	succor	benefit	befriend	abet	
+Mark		label	tag	price	ticket	impress	effect	trace	imprint	stamp	brand	sign	note	heed	notice	designate	
+Plan		plot	scheme	design	draw	map	diagram	procedure	arrangement	intention	device	contrivance	method	way	blueprint	
+Show		display	exhibit	present	note	point	to	indicate	explain	reveal	prove	demonstrate	expose	
+Begin		start	open	launch	initiate	commence	inaugurate	originate	
+End		stop	finish	terminate	conclude	close	halt	cessation	discontinuance	cease	halt	stay	pause	discontinue	conclude	finish	quit	
+Big		large	enormous	huge	immense	gigantic	vast	colossal	gargantuan	sizable	grand	great	tall	substantial	mammoth	astronomical	ample	broad	expansive	spacious	stout	tremendous	titanic	mountainous	
+Little		small	tiny	diminutive	shrimp	runt	miniature	puny	exiguous	dinky	cramped	limited	itsy-bitsy	microscopic	slight	petite	minute	
+New		fresh	unique	original	unusual	novel	modern	current	recent	
+Old		feeble	frail	ancient	weak	aged	used	worn	dilapidated	ragged	faded	broken-down	former	old-fashioned	outmoded	passe	veteran	mature	venerable	primitive	traditional	archaic	conventional	customary	stale	musty	obsolete	extinct	
+False		wrong	fake	fraudulent	counterfeit	spurious	untrue	unfounded	erroneous	deceptive	groundless	fallacious	incorrect	inaccurate	mistaken	erroneous	improper	unsuitable	
+True		right	accurate	proper	precise	exact	valid	genuine	real	actual	trusty	steady	loyal	dependable	sincere	staunch	correct	accurate	factual	true	good	just	honest	upright	lawful	moral	proper	suitable	apt	legal	fair	
+Fast		quick	rapid	speedy	fleet	hasty	snappy	mercurial	swiftly	rapidly	quickly	snappily	speedily	lickety-split	posthaste	hastily	expeditiously	like	a	flash	
+Slow		unhurried	gradual	leisurely	late	behind	tedious	slack	
+Cool		chilly	cold	frosty	wintry	icy	frigid	
+Hot		feverish	warm	heated	sweltering	torrid	equatorial	tropical	erotic	passionate	spicy	peppery	pungent	sharp	tangy	tart	fiery	flaming	sizzling	charged	burning	seared	chafed´	inflamed	irritated	red	smarting	stinging	
+Quiet		silent	still	soundless	mute	tranquil	peaceful	calm	restful	hushed	inaudible	
+reticent	reserved	taciturn	secretive	uncommunicative	tightlipped	
+Noisy		loudly	earsplitting	stentorian	strident	clamorous	boisterous	clangorous	deafening	roisterous	uproarious	pandemoniac	
+All		complete	entire	full	gross	outright	perfect	total	utter	whole	any	complete	every	sum	totality	each	and	every	every	bit	of	bar	none	every	single	everything	everyone	
+None		nothing	nobody	no	one	zero	zilch	no	one	at	all	no	part	not	a	bit	not	a	soul	not	a	thing	not	any	not	anyone	not	anything	not	one	nonexistent	null	
+nadir	nil	naught	void	nada	blank	nix	
+Normal		daily	traditional	familiar	routine	proper	ordinary	typical	everyday	usual	commonplace	natural	classic	standard	general	bona	fide	established	habitual	orthodox	prevalent	run-of-the-mill	time-honored	unvarying	average	conventional	customary	common	regular	garden-variety	household	plain	simple	balanced	
+Strange		abnormal	aberrant	anomalous	bent	bizarre	deviant	queer	eccentric	freakish	fanatical	odd	eerie	peculiar	weird	unorthodox	nonstandard	atypical	different	irregular	nonconforming	offbeat	unusual	extraordinary	insane	irrational	disorderly	rare	exceptional	extreme	outlandish	
+Describe		portray	characterize	picture	narrate	relate	recount	represent	report	record	
+Difference		disagreement	inequity	contrast	dissimilarity	incompatibility	
+Explain		elaborate	clarify	define	interpret	justify	account	for	
+Idea		thought	concept	conception	notion	understanding	opinion	plan	view	belief	
+Look		gaze	see	glance	watch	survey	study	seek	search	for	peek	peep	glimpse	stare	contemplate	examine	gape	ogle	scrutinize	inspect	leer	behold	observe	view	witness	perceive	spy	sight	discover	notice	recognize	peer	eye	gawk	peruse	explore	
+Story		tale	myth	legend	fable	yarn	account	narrative	chronicle	epic	sage	anecdote	record	memoir	
+Tell		disclose	reveal	show	expose	uncover	relate	narrate	inform	advise	explain	divulge	declare	command	order	bid	recount	repeat	
+Think		judge	deem	assume	believe	consider	contemplate	reflect	mediate	
+Anger		enrage	infuriate	arouse	nettle	exasperate	inflame	madden	
+Angry		mad	furious	enraged	excited	wrathful	indignant	exasperated	aroused	inflamed	
+Calm		quiet	peaceful	still	tranquil	mild	serene	smooth	composed	collected	unruffled	level-headed	unexcited	detached	aloof	
+Eager		keen	fervent	enthusiastic	involved	interested	alive	to	
+Fear		fright	dread	terror	alarm	dismay	anxiety	scare	awe	horror	panic	apprehension	
+Happy		pleased	contented	satisfied	delighted	elated	joyful	cheerful	ecstatic	jubilant	gay	tickled	gratified	glad	blissful	overjoyed	
+Hate		despise	loathe	detest	abhor	disfavor	dislike	disapprove	abominate	
+Love		like	admire	esteem	fancy	care	for	cherish	adore	treasure	worship	appreciate	savor	
+Moody		temperamental	changeable	short-tempered	glum	morose	sullen	mopish	irritable	testy	peevish	fretful	spiteful	sulky	touchy	
+Sad		miserable	uncomfortable	wretched	heart-broken	unfortunate	poor	downhearted	sorrowful	depressed	dejected	melancholy	glum	gloomy	dismal	discouraged	unhappy	
+Scared		afraid	frightened	alarmed	terrified	panicked	fearful	unnerved	insecure	timid	shy	skittish	jumpy	disquieted	worried	vexed	troubled	disturbed	horrified	terrorized	shocked	petrified	haunted	timorous	shrinking	tremulous	stupefied	paralyzed	stunned	apprehensive	
+Awful		dreadful	terrible	abominable	bad	poor	unpleasant	
+Bad		evil	immoral	wicked	corrupt	sinful	depraved	rotten	contaminated	spoiled	tainted	harmful	injurious	unfavorable	defective	inferior	imperfect	substandard	faulty	improper	inappropriate	unsuitable	disagreeable	unpleasant	cross	nasty	unfriendly	irascible	horrible	atrocious	outrageous	scandalous	infamous	wrong	noxious	sinister	putrid	snide	deplorable	dismal	gross	heinous	nefarious	base	obnoxious	detestable	despicable	contemptible	foul	rank	ghastly	execrable	
+Crooked		bent	twisted	curved	hooked	zigzag	
+Dangerous		perilous	hazardous	risky	uncertain	unsafe	
+Dark		shadowy	unlit	murky	gloomy	dim	dusky	shaded	sunless	black	dismal	sad	
+Dull		boring	tiring,	tiresome	uninteresting	slow	dumb	stupid	unimaginative	lifeless	dead	insensible	tedious	wearisome	listless	expressionless	plain	monotonous	humdrum	dreary	
+Fat		stout	corpulent	fleshy	beefy	paunchy	plump	full	rotund	tubby	pudgy	chubby	chunky	burly	bulky	elephantine	
+Gross		improper	rude	coarse	indecent	crude	vulgar	outrageous	extreme	grievous	shameful	uncouth	obscene	low	
+Hurt		damage	harm	injure	wound	distress	afflict	pain	
+Lazy		indolent	slothful	idle	inactive	sluggish	
+Predicament		quandary	dilemma	pickle	problem	plight	spot	scrape	jam	
+Trouble		distress	anguish	anxiety	worry	wretchedness	pain	danger	peril	disaster	grief	misfortune	difficulty	concern	pains	inconvenience	exertion	effort	
+Ugly		hideous	frightful	frightening	shocking	horrible	unpleasant	monstrous	terrifying	gross	grisly	ghastly	horrid	unsightly	plain	homely	evil	repulsive	repugnant	gruesome	
+Amazing		incredible	unbelievable	improbable	fabulous	wonderful	fantastic	astonishing	astounding	extraordinary	
+Beautiful		pretty	lovely	handsome	attractive	gorgeous	dazzling	splendid	magnificent	comely	fair	ravishing	graceful	elegant	fine	exquisite	aesthetic	pleasing	shapely	delicate	stunning	glorious	heavenly	resplendent	radiant	glowing	blooming	sparkling	
+Brave		courageous	fearless	dauntless	intrepid	plucky	daring	heroic	valorous	audacious	bold	gallant	valiant	doughty	mettlesome	
+Bright		shining	shiny	gleaming	brilliant	sparkling	shimmering	radiant	vivid	colorful	lustrous	luminous	incandescent	intelligent	knowing	quick-witted	smart	intellectual	
+Delicious		savory	delectable	appetizing	luscious	scrumptious	palatable	delightful	enjoyable	toothsome	exquisite	
+Enjoy		appreciate	delight	in	be	pleased	indulge	in	luxuriate	in	bask	in	relish	devour	savor	like	
+Famous		well-known	renowned	celebrated	famed	eminent	illustrious	distinguished	noted	notorious	
+Funny		humorous	amusing	droll	comic	comical	laughable	silly	
+Good		excellent	fine	superior	wonderful	marvelous	qualified	suited	suitable	apt	proper	capable	generous	kindly	friendly	gracious	obliging	pleasant	agreeable	pleasurable	satisfactory	well-behaved	obedient	honorable	reliable	trustworthy	safe	favorable	profitable	advantageous	righteous	expedient	helpful	valid	genuine	ample	salubrious	estimable	beneficial	splendid	great	noble	worthy	first-rate	top-notch	grand	sterling	superb	respectable	edifying	
+Great		noteworthy	worthy	distinguished	remarkable	grand	considerable	powerful	much	mighty	
+Mischievous		prankish	playful	naughty	roguish	waggish	impish	sportive	
+Neat		clean	orderly	tidy	trim	dapper	natty	smart	elegant	well-organized	super	desirable	spruce	shipshape	well-kept	shapely	
+Popular		well-liked	approved	accepted	favorite	celebrated	common	current	
+Answer		reply	respond	retort	acknowledge	
+Ask		question	inquire	of	seek	information	from	put	a	question	to	demand	request	expect	inquire	query	interrogate	examine	quiz	
+Cry		shout	yell	yowl	scream	roar	bellow	weep	wail	sob	bawl	
+Say/Tell		inform	notify	advise	relate	recount	narrate	explain	reveal	disclose	divulge	declare	command	order	bid	enlighten	instruct	insist	teach	train	direct	issue	remark	converse	speak	affirm	suppose	utter	negate	express	verbalize	voice	articulate	pronounce	deliver	convey	impart	assert	state	allege	mutter	mumble	whisper	sigh	exclaim	yell	sing	yelp	snarl	hiss	grunt	snort	roar	bellow	thunder	boom	scream	shriek	screech	squawk	whine	philosophize	stammer	stutter	lisp	drawl	jabber	protest	announce	swear	vow	content	assure	deny	dispute	
+Mean	Something		add	up	to	affect	be	important	be	of	value	be	substantive	carry	weight	connote	count	denote	express	imply	intend	involve	signify	spell	stand	for	suggest	value	weigh	in	
+Somewhat		a	little	sort	of	kind	of	a	bit	relatively	slightly	moderately	to	some	extent		degree		reasonably	partially	more	or	less	not	much	
+rather	quite	fairly	by	a	long	shot	by	far	rather	significantly	well	
+Somehow		in a way virtually to a	certain	extent	in	some measure to	some extent	to a certain degree	quasi	in	a	manner	of	speaking	effectively	
+anyhow	anyway	anywise	by	hook	or	by	crook	another	howsoever	in	any	way	somehow	or	other	someway	by	some	means	
+Definite	certain	sure	positive	determined	clear	distinct	obvious	
+Fair	just	impartial	unbiased	objective	unprejudiced	honest	
+Important		necessary	vital	critical	indispensable	valuable	essential	significant	primary	principal	considerable	famous	distinguished	notable	well-known	
+Interesting		fascinating	engaging	sharp	keen	bright	intelligent	animated	spirited	attractive	inviting	intriguing	provocative	thought-provoking	challenging	inspiring	involving	moving	titillating	tantalizing	exciting	entertaining	piquant	lively	racy	spicy	engrossing	absorbing	consuming	gripping	arresting	enthralling	spellbinding	curious	captivating	enchanting	bewitching	appealing	
+Part	portion	share	piece	allotment	section	fraction	fragment	
+Place	space	area	spot	plot	region	location	situation	position	residence	dwelling	set	site	station	status	state	
+Abate	Moderate	decrease	Aggravate	
+Adhere	Comply	observe	Condemn	disjoin	
+Abolish	Abrogate	annul	Setup	establish	
+Acumen	Awareness	brilliance	Stupidity	ignorance	
+Abash	Disconcert	rattle	Uphold	Discompose	
+Absolve	Pardon	forgive	Compel	Accuse	
+Abjure	Forsake	renounce	Approve	Sanction	
+Abject	Despicable	servile	Commendable	Praiseworthy	
+Abound	Flourish	proliferate	Deficient	Destitute	
+Abortive	Vain	unproductive	Productive	
+Acrimony	Harshness	bitterness	Courtesy	Benevolence	
+Accord	Agreement	harmony	Discord	
+Adjunct	Joined	Added	Separated	Subtracted	
+Adversity	Misfortune	calamity	Prosperity	Fortune	
+Adherent	Follower	disciple	Rival	Adversary	
+Adamant	Stubborn	inflexible	Flexible	Soft	
+Admonish	Counsel	reprove	Approve	Applaud	
+Allay	Pacify	soothe	Aggravate	Excite	
+Alien	Foreigner	outsider	Native	Resident	
+Ascend	Climb	Escalate	Descend	Decline	
+Alleviate	Abate	relieve	Aggravate	Enhance	
+Allure	Entice	fascinate	Repulse	Repel	
+Arraign	Incriminate	indict	Exculpate	Pardon	
+Amplify	Augment	deepen	Lessen	Contract	
+Axiom	Adage	truism	Absurdity	Blunder	
+Audacity	Boldness	Courage	Mildness	Cowardice	
+Authentic	Accurate	credible	Fictitious	unreal	
+Awkward	Rude	blundering	Adroit	clever	
+Barbarous	Frustrate	perplex	Civilized	
+Bleak	Grim	Austere	Bright	Pleasant	
+Bewitching	Alluring	charming	Repulsive	Repugnant	
+Baroque	Florid	gilt	Plain	unadorned	
+Brittle	Breakable	crisp	Tough	Enduring	
+Barrier	Barricade	Obstacle	Link	Assistance	
+Baffle	Astound	Faze	Facilitate	Clarify	
+Bustle	Commotion	Tumult	Slowness	Quiet	
+Barren	Desolate	Sterile	Damp	Fertile	
+Bawdy	Erotic	Coarse	Decent	Moral	
+Bind	Predicament	Release	
+Batty	Insane	silly	Sane	
+Benevolent	Benign	Generous	Malevolent	Miserly	
+Befogged	Becloud	Dim	Clear	headed	Uncloud	
+Base	Vulgar	Coarse	Summit	Noble	
+Benign	Favorable	friendly	Malignant	Cruel	
+Busy	Active	Engaged	Idle	Lazy	
+Bleak	Austere	Blank	Bright	Cheerful	
+Bold	Adventurous	Timid	
+Boisterous	Clamorous	rowdy	Placid	Calm	
+Blunt	Dull	Insensitive	Keen	Sharp	
+Callous	obdurate	unfeeling	Compassionate	Tender	
+Capable	competent	able	Incompetent	Inept	
+Calamity	adversity	misfortune	Fortune	
+Calculating	Canny	Devious	Artless	honest	
+Calumny	defamation	aspersion	Commendation	Praise	
+Captivity	imprisonment	confinement	Freedom	Liberty	
+Captivate	Charm	fascinate	Disillusion	offend	
+Chaste	virtuous	pure	Sullied	Lustful	
+Cease	terminate	desist	Begin	Originate	
+Compassion	kindness	sympathy	Cruelty	Barbarity	
+Chastise	punish	admonish	Cheer	encourage	
+Concede	yield	permit	Deny	reject	
+Comprise	include	contain	Reject	lack	
+Consent	agree	permit	Object	Disagree	
+Concur	approve	agree	Differ	disagree	
+Consolidate	solidify	strengthen	Separate	Weaken	
+Consequence	effect	outcome	Origin	Start	
+Contempt	scorn	disregard	Regard	Praise	
+Conspicuous	prominent	obvious	Concealed	hidden	
+Contrary	dissimilar	conflicting	Similar	Alike	
+Contradict	deny	oppose	Approve	Confirm	
+Callous	Insensitive	indurated	Kind	merciful	
+Calm	Harmonious	unruffled	Stormy	turbulent	
+Candid	Blunt	bluff	Evasive	
+Camouflage	Cloak	disguise	Reveal	
+Carnal	Earthly	fleshly	Spiritual	
+Captivate	Beguile	bewitch	Repel	
+Celebrated	Acclaimed	lionized	Unknown	Inglorious	
+Catholic	Generic	liberal	Narrow	minded	
+Censure	Rebuke	reprimand	Praise	Acceptance	
+Cement	Plaster	mortar	Disintegrate	
+Clandestine	Covert	furtive	Open	Legal	
+Cheap	Competitive	Inexpensive	Dear	unreasonable	
+Coarse	Bawdy	Boorish	Fine	Chaste	
+Classic	Simple	Typical	Romantic	Unusual	
+Compact	Bunched	thick	Loose	Diffuse	
+Comic	Clown	Jester	Tragic	tragedian	
+Conceit	Egotism	Immodesty	Modesty	
+Compress	Abbreviate	Shrink	Amplify	Expand	
+Condemn	Castigate	Chide	Approve	Praise	
+Concord	Agreement	accord	Discord	
+Consolidate	Centralize	Fortify	Weaken	
+Confident	Bold	Undaunted	Diffident	cowardly	
+Creation	Formation	foundation	Destruction	
+Courtesy	Generosity	Reverence	Disdain	Rudeness	
+Cunning	Acute	Smart	Naive	Coarse	
+Decipher	interpret	reveal	Misinterpret	distort	
+Decay	Collapse	decompose	Flourish	Progress	
+Deceit	deception	artifice	Veracity	Sincerity	
+Defray	spend	pay	Disclaim	Repudiate	
+Defile	contaminate	pollute	Purify	sanctity	
+Demolish	Ruin	devastate	Repair	construct	
+Deliberate	cautious	intentional	Rash	Sudden	
+Deride	mock	taunt	Inspire	Encourage	
+Deprive	despoil	divest	Restore	Renew	
+Dissuade	Remonstrate	Counsel	Insite	Persuade	
+Disdain	detest	despise	Approve	praise	
+Dense	Opaque	piled	Sparse	brainy	
+Denounce	Blame	boycott	Defend	
+Despair	Depression	misery	Contentment	Hope	
+Derogatory	Sarcastic	critical	Laudatory	appreciative	
+Docile	Pliable	pliant	Headstrong	obstinate	
+Destructive	Catastrophic	pernicious	Creative	Constructive	
+Dwarf	Diminutive	Petite	Huge	Giant	
+Eclipse	Diminution	Dimming	Shine	eclipse	
+Eager	Keen	acquisitive	Indifferent	apathetic	
+Ecstasy	delight	exultation	Despair	Calamity	
+Eccentric	strange	abnormal	Natural	Conventional	
+Encumbrance	hindrance	obstacle	Incentive	stimulant	
+Efface	destroy	obliterate	Retain	Maintain	
+Eloquence	expression	fluency	Halting	Stammering	
+Enormous	colossal	mammoth	Diminutive	negligible	
+Endeavour	undertake	aspire	Cease	quit	
+Equivocal	uncertain	hazy	Obvious	lucid	
+Epitome	precise	example	Increment	expansion	
+Eradicate	destroy	exterminate	Secure	plant	
+Fallacy	delusion	mistake	Veracity	Truth	
+Fabricate	construct	produce	Destroy	Dismantle	
+Fanatical	narrow-minded	biased	Liberal	Tolerant	
+Falter	stumble	demur	Persist	Endure	
+Ferocious	cruel	fierce	Gentle	Sympathetic	
+Feeble	weak	frail	Strong	Robust	
+Fluctuate	deflect	vacillate	Stabilize	resolve	
+Feud	strife	quarrel	Harmony	fraternity	
+Fragile	weak	infirm	Enduring	Tough	
+Forsake	desert	renounce	Hold	maintain	
+Frivolous	petty	worthless	Solemn	significant	
+Frantic	violent	agitated	Subdued	gentle	
+Frugality	economy	providence	Lavishness	extravagance	
+Gloom	obscurity	darkness	Delight	mirth	
+Gather	Converge	huddle	Disperse	Dissemble	
+Gorgeous	magnificent	dazzling	Dull	unpretentious	
+Glut	stuff	satiate	Starve	abstain	
+Grisly	disgusting	atrocious	Pleasing	attractive	
+Gracious	courteous	beneficent	Rude	Unforgiving	
+Guile	cunning	deceit	Honesty	frankness	
+Grudge	hatred	aversion	Benevolence	Affection	
+Genuine	Absolute	Factual	Spurious	
+Generosity	Altruism	bounty	Stinginess	greed	
+Glory	Dignity	renown	Shame	Disgrace	
+Gloomy	Bleak	cloudy	Gay	Bright	
+Harass	irritate	molest	Assist	comfort	
+Hamper	retard	prevent	Promote	facilitate	
+Hazard	Peril	danger	Conviction	security	
+Hapless	unfortunate	ill-fated	Fortunate	Lucky	
+Haughty	arrogant	pompous	Humble	Submissive	
+Hideous	frightful	shocking	Attractive	alluring	
+Heretic	non-conformist	secularist	Conformable	religious	
+Harmony	Conformity	Amicability	Discord	discord	
+Hamstrung	Cripple	Debilitate	Strengthen	Encourage	
+Honor	Adoration	Reverence	Denunciation	Shame	
+Hasty	Abrupt	Impetuous	Leisurely	Cautious	
+Humility	Resignation	Fawning	Boldness	Pride	
+Humble	Meek	Timid	Proud	Assertive	
+Impenitent	Uncontrite	Obdurate	Repentant	
+Hypocrisy	Deception	Pharisaism	Sincerity	frankness	
+Indifferent	Equitable	Haughty	Partial	Biased	
+Impulsive	Flaky	Impetuous	Cautious	Deliberate	
+Infernal	Damned	Accursed	Heavenly	
+Indigent	Destitute	Impoverished	Rich	Affluent	
+Interesting	Enchanting	Riveting	Dull	Uninteresting	
+Insipid	Tedious	Prosaic	Pleasing	appetizing	
+Immense	huge	enormous	Puny	Insignificant	
+Immaculate	unsullied	spotless	Defiled	Tarnished	
+Imminent	impending	brewing	Distant	Receding	
+Immerse	submerge	involve	Emerge	uncover	
+Impair	diminish	deteriorate	Restore	Revive	
+Immunity	prerogative	privilege	Blame	Censure	
+Impediment	hurdle	obstruction	Assistant	Concurrence	
+Impartial	just	unbiased	Prejudiced	Biased	
+Impute	attribute	ascribe	Exculpate	support	
+Impious	irreligious	unholy	Pious	Devout	
+Incompetent	inefficient	unskilled	Dexterous	Skilled	
+Inclination	disposition	affection	Indifference	Disinclination	
+Inevitable	unavoidable	ascertained	Unlikely	Doubtful	
+Incongruous	inappropriate	absurd	Compatible	harmonious	
+Ingenuous	undisguised	naive	Wily	Craftly	
+Infringe	violate	encroach	Comply	Concur	
+Insipid	tasteless	vapid	Delicious	luscious	
+Insinuate	allude	hint	Conceal	Camouflage	
+Instill	inculcate	inject	Eradicate	extract	
+Insolvent	indigent	destitute	Wealthy	solvent	
+Intrigue	scheme	conspiracy	Candor	Sincerity	
+Intricate	tangled	complicated	Regulated	Orderly	
+Invective	accusation	censure	Approval	acclamation	
+Intrinsic	genuine	fundamental	Extraneous	incidental	
+Immaculate	Exquisite	Impeccable	Defiled	Tarnished	
+Invincible	unconquerable	impregnable	Effeminate	languid	
+Irrepressible	irresistible	unconfined	Composed	hesitant	
+Jejune	dull	boring	Interesting	exciting	
+Jaded	tired	exhausted	Renewed	recreated	
+Jubilant	rejoicing	triumphant	Melancholy	depressing	
+Jovial	frolicsome	cheerful	Solemn	morose	
+Just	honest	impartial	Unequal	unfair	
+Judicious	thoughtful	prudent	Irrational	foolish	
+Juvenile	young	tender	Dotage	antiquated	
+Justify	defend	exculpate	Impute	arraign	
+Knave	dishonest	scoundrel	Paragon	innocent	
+Knotty	complicated	difficult	Simple	manageable	
+Kindred	relation	species	Unrelated	dissimilar	
+Keen	sharp	poignant	Vapid	insipid	
+Knell	death	knell	last	blow	Reconstruction	rediscovery	
+Lax	slack	careless	Firm	reliable	
+Lavish	abundant	excessive	Scarce	deficient	
+Liable	accountable	bound	Unaccountable	apt	to	
+Lenient	compassionate	merciful	Cruel	severe	
+Lucid	sound	rational	Obscure	hidden	
+Lure	attract	entice	Repel	dissuade	
+Linger	loiter	prolong	Hasten	quicken	
+Liberal	magnanimous	generous	Stingy	malicious	
+Lunacy	delusion	insanity	Normalcy	sanity	
+Luxuriant	profuse	abundant	Scanty	meagre	
+Luscious	palatable	delicious	Unsavory	tart	
+Languid	Sluggish	apathetic	Energetic	spirited	
+Mandatory	Imperative	requisite	Optional	
+Malice	Vengefulness	grudge	Goodwill	Kindness	
+Merit	Stature	Asset	Demerit	dishonor	
+Masculine	Gallant	strapping	Feminine	meek	
+Mitigate	alleviate	relieve	Augment	enhance	
+Miraculous	marvelous	extraordinary	Ordinary	trivial	
+Molest	harass	tease	Console	soothe	
+Modest	humble	courteous	Arrogant	pompous	
+Momentous	notable	eventful	Trivial	insignificant	
+Mollify	appease	assuage	Irritate	infuriate	
+Morbid	Nasty	Macabre	Healthy	Cheerful	
+Monotonous	irksome	tedious	Varied	pleasant	
+Murky	dusky	dreary	Bright	shining	
+Munificent	liberal	hospitable	Frugal	penurious	
+Mutual	joint	identical	Separate	distinct	
+Mutinous	recalcitrant	insurgent	Submissive	faithful	
+Nimble	prompt	brisk	Sluggish	languid	
+Niggardly	miser	covetous	Generous	profuse	
+Noxious	baneful	injurious	Healing	profitable	
+Notion	Conceit	Apprehension	Reality	Concrete	
+Novice	tyro	beginner	Veteran	ingenious	
+Nonchalant	indifferent	negligent	Attentive	considerate	
+Nullify	cancel	annual	Confirm	Uphold	
+Numerous	profuse	various	Scarce	deficient	
+Obliging	Complaisant	Willing	Mulish	Obstinate	
+Obstruct	impede	prevent	Hasten	encourage	
+Obstinate	Stubborn	Adamant	Pliable	flexible	
+Obscure	Arcane	Vague	Prominent	
+Obvious	Evident	apparent	Obscure	ambiguous	
+Obtain	Access	Inherit	Forfeit	
+Offensive	Abhorrent	obnoxious	Engaging	fascinating	
+Odious	Malevolent	obnoxious	Engaging	fascinating	
+Offspring	descendant	sibling	Ancestor	forefather	
+Occult	latent	ambiguous	Intelligible	transparent	
+Opaque	obscure	shady	Transparent	bright	
+Ominous	Menacing	Foreboding	Auspicious	
+Oracular	cryptic	vague	Lucid	distinct	
+Optimist	Idealist	Pessimist	
+Ornamental	decorative	adorned	Unseemly	plain	
+Ordain	Order	impose	Revoke	abolish	
+Outrage	offence	maltreatment	Praise	favour	
+Outbreak	eruption	insurrection	Compliance	subjection	
+Persuade	Cajole	Impress	Dissuade	halt	
+Pacify	Appease	Chasten	Irritate	worsen	
+Propagate	Inseminate	fecundate	Suppress	deplete	
+Perturbed	Flustered	anxious	Calm	
+Prompt	Precise	Punctual	Slow	Negligent	
+Progress	Pace	Betterment	Retrogress	worsening	
+Pamper	Flatter	indulge	Deny	disparage	
+Prudence	Vigilance	Discretion	Indiscretion	
+Peerless	matchless	unrivalled	Mediocre	commonplace	
+Paramount	foremost	eminent	Trivial	inferior	
+Pertness	flippancy	impudence	Modesty	diffidence	
+Peevish	perverse	sullen	Suave	amiable	
+Placid	tranquil	calm	Turbulent	hostile	
+Perverse	petulant	obstinate	Complacent	docile	
+Precarious	doubtful	insecure	Assured	
+Pompous	haughty	arrogant	Unpretentious	humble	
+Predicament	plight	dilemma	Resolution	confidence	
+Quaint	Queer	strange	Familiar	usual	
+Quack	Impostor	deceiver	Upright	unfeigned	
+Quell	subdue	reduce	Exacerbate	agitate	
+Quarantine	seclude	screen	Befriend	socialize	
+Quibble	equivocate	prevaricate	Unfeigned	plain	
+Rapidity	Quickness	Velocity	Inertia	lanquidity	
+Raid	Incursion	Foray	Retreat	release	
+Rebellious	Restless	attacking	Submissive	Compliant	
+Reason	Acumen	Bounds	Folly	Speculation	
+Reluctant	Cautious	Averse	anxious	Eager	
+Rectify	Amend	Remedy	Falsify	Worsen	
+Ravage	Destroy	ruin	Reconstruct	renovate	
+Remnant	Residue	piece	Entire	whole	
+Ratify	consent	approve	Deny	dissent	
+Restrain	Detain	Confine	Incite	
+Redeem	Recover	liberate	Conserve	lose	
+Remorse	Regret	penitence	Ruthlessness	obduracy	
+Remonstrate	Censure	protest	Agree	loud	
+Resentment	Displeasure	wrath	Content	Cheer	
+Rescind	Annul	abrogate	Delegate	permit	
+Reverence	Respect	esteem	Disrespect	affront	
+Retract	Recant	withdraw	Confirm	assert	
+Rustic	Rural	uncivilized	Cultured	Refined	
+Rout	Vanquish	overthrow	Succumb	withdraw	
+Ruthless	Remorseless	inhumane	Compassionate	lenient	
+Savage	Wild	untamed	Polished	Civilized	
+Sacred	Cherish	Divine	Ungodly	Profane	
+Steep	Course	lofty	Flat	gradual	
+Startled	Frightened	Shocked	Waveringly	
+Sublime	Magnificent	eminent	Ridiculous	
+Stranger	Immigrant	guest	Acquaintance	national	
+Sympathy	Tenderness	harmony	Antipathy	Discord	
+Succinct	Concise	Terse	Lengthy	polite	
+Sarcastic	Ironical	derisive	Courteous	gracious	
+System	Scheme	Entity	Chaos	Disorder	
+Shrewd	Cunning	craftly	Simple	imbecile	
+Saucy	Impudent	insolent	Modest	humble	
+Servile	Slavish	Docile	Aggressive	Dominant	
+Scanty	scarce	insufficient	Lavish	multitude	
+Slander	defame	malign	Applaud	approve	
+Shabby	miserable	impoverished	Prosperous	thriving	
+Solicit	entreat	implore	Protest	oppose	
+Sneer	mock	scorn	Flatter	praise	
+Stain	blemish	tarnish	Honor	purify	
+Subterfuge	Deceit	Stratagem	Frankness	Openness	
+Sporadic	intermittent	scattered	Incessant	frequent	
+Spurious	Fake	Counterfeit	Genuine	Authentic	
+Squalid	dirty	filthy	Tidy	Attractive	
+Spry	Nimble	Brisk	Lethargic	Sluggish	
+Sterile	Barren	Impotent	Profitable	Potent	
+Successful	Propitious	Felicitous	Destitute	Untoward	
+Subsequent	consequent	following	Preceding	previous	
+Stupor	lethargy	unconsciousness	Sensibility	Consciousness	
+Subvert	Demolish	sabotage	Generate	organize	
+Substantial	Considerable	solid	Tenuous	fragile	
+Sycophant	Parasite	flatterer	Devoted	loyal	
+Superficial	Partial	shallow	Profound	discerning	
+Taciturn	Reserved	silent	Talkative	extrovert	
+Taboo	Prohibit	ban	Permit	consent	
+Temperate	Cool	moderate	Boisterous	violent	
+Tedious	Wearisome	Irksome	Exhilarating	lively	
+Tenacious	Stubborn	Dodge	Docile	non	resinous	
+Tenement	Apartment	Digs	Breakeven	dislodge	
+Timid	Diffident	coward	Bold	intrepid	
+Throng	Assembly	crowd	Dispersion	sparsity	
+Transient	Temporal	transitory	Lasting	enduring	
+Tranquil	Peaceful	composed	Violent	furious	
+Treacherous	Dishonest	duplicitous	Forthright	reliable	
+Trenchant	Assertive	forceful	Feeble	ambiguous	
+Tumultuous	Violent	riotous	Peaceful	harmonious	
+Trivial	Trifling	insignificant	Significant	veteran	
+Tame	Compliant	Subdued	Wild	untamed	
+Tyro	Beginner	riotous	Proficient	veteran	
+Thick	Chunky	massive	Thin	attenuated	
+Terse	Incisive	Compact	Diffuse	Gentle	
+Tranquil	Amicable	Calm	Agitated	Fierce	
+Thrifty	Frugal	prudent	Extravagant	
+Tremble	Vibrate	Steady	
+Transparent	Diaphanous	Opaque	
+Utterly	Completely	entirely	Deficiently	incomplete	
+Uncouth	Awkward	ungraceful	Elegant	Compensate	
+Uncouth	Boorish	Clownish	Elegant	Compensate	
+Umbrage	Chagrin	offense	Sympathy	goodwill	
+Urge	Incite	Implore	Abhorrence	Abomination	
+Urchin	Foundling	Orphan	Creep	Knave	
+Vagrant	Wander	roaming	Steady	settled	
+Vain	Arrogant	egoistic	Modest	
+Vanity	Conceit	pretension	Modesty	Humility	
+Valor	Bravery	prowess	Fear	cowardice	
+Venom	Poison	malevolence	Antidote	Benevolent	
+Venerable	Esteemed	honored	Unworthy	immature	
+Vicious	Corrupt	obnoxious	Noble	Virtuous	
+Veteran	Ingenious	experienced	Novice	tyro	
+Vivacious	Spirited	Energetic	Dispirited	Unattractive	
+Vigilant	Cautious	alert	Careless	negligent	
+Vouch	Confirm	consent	Repudiate	prohibit	
+Vilify	Malign	Slur	Defame	Cherish	Commend	
+Vivid	Eloquent	lucid	Dull	Dim	
+Virtue	Ethic	morality	Vice	dishonesty	
+Wan	Pale	faded	Bright	healthy	
+Waive	Relinquish	remove	Impose	Clamp	
+Wary	cautious	circumspect	Heedless	negligent	
+Wane	Decline	Dwindle	Ameliorate	Rise	
+Wicked	vicious	immoral	Virtuous	Noble	
+Wed	marry	combine	Divorce	Separate	
+Wile	Trickery	Artifice	Naivety	honor	
+Wield	Exert	employ	Forgo	avoid	
+Wilt	wither	perish	Revive	bloom	
+Winsome	Beautiful	Comely	Alluring	Rapturous	
+Yield	surrender	abdicate	Resist	protest	
+Yell	shout	shriek	Whisper	muted	
+Yoke	connect	harness	Liberate	Release	
+Yearn	languish	crave	Content	satisfy	
+Zenith	summit	apex	Nadir	base	
+Zeal	eagerness	fervor	Apathy	lethargy	
+Zig-zag	oblique	wayward	Straight	unbent	
+Zest	delight	enthusiasm	Disgust	passive	
+Abroad	Overseas	
+Accord	Agreement	
+Admit	Confess	
+Agree	Consent	
+Alike	Same	
+Allow	Permit	
+Amount	Quantity	
+Angry	Mad	
+Answer	Response	
+Ask	Inquire	
+Attire	Dress	
+Away	Absent	
+Awful	Terrible	
+Baby	Infant	
+Beautiful	Pretty	
+Becoming	Fitting	
+Beg	Implore	
+Begin	Commence	
+Belly	Stomach	
+Big	Large	
+Bizarre	Weird	
+Blank	Empty	
+Brave	Bold	
+Broad	Wide	
+Bucket	Pail	
+Busy	Active	
+Calamity	Disaster	
+Candy	Sweets	
+Center	Middle	
+Change	Transform	
+Chiefly	Mainly	
+Choosy	Picky	
+Close	Shut	
+Collect	Gather	
+Complete	Total	
+Confine	Restrict	
+Confuse	Mixed	Up	
+Considerate	Thoughtful	
+Contrary	Opposite	
+Correct	Right	
+Cunning	Clever	
+Dash	Sprint	
+Daybreak	Dawn	
+Dedicated	Committed	
+Deliberate	Planned	
+Delicate	Fragile	
+Destiny	Fate	
+Disclose	Reveal	
+Discount	Reduction	
+Disgrace	Shame	
+Eager	Keen	
+Elevate	Raise	
+Enormous	Huge	
+Enquire	Investigate	
+Evaluate	Assess	
+Evil	Bad	
+Exactly	Precisely	
+Except	Apart	From	
+Exit	Leave	
+Extra	Additional	
+Fair	Unbiased	
+False	Untrue	
+Famous	Renowned	
+Fantastic	Great	
+Fast	Quick	
+Finish	Complete	
+Formerly	Previously	
+Fortunate	Lucky	
+Fun	Entertaining	
+Function	Operate	
+Funny	Amusing	
+Garbage	Trash	
+Get	Receive	
+Glad	Happy	
+Glitter	Sparkle	
+Good	Fine	
+Grab	Seize	
+Grumble	Grouse	
+Hall	Corridor	
+Handsome	Good	Looking	
+Happily	Fortunately	
+Hard	Difficult	
+Hazard	Danger	
+Help	Assist	
+Hint	Tip	
+Huge	Enormous	
+Hurt	Injure	
+Hurry	Rush	
+Ignore	Snub	
+Ill	Sick	
+Imitate	Mimic	
+Immediate	Instantly	
+Impact	Affect	
+Impartial	Neutral	
+Important	Significant	
+Inconsiderate	Thoughtless	
+Infamous	Notorious	
+Infect	Contaminate	
+Informal	Casual	
+abandon	desert	
+abbreviate	shorten	
+ability	aptitude	
+able	qualified	
+above	overhead	
+abundant	ample	
+accurate	correct	
+achieve	accomplish	
+adjourn	recess	
+advocate	support	
+after	following	
+afraid	scared	
+aggressive	militant	
+aid	assist	
+always	forever	
+amateur	novice	
+ambitious	driven	
+antagonize	embitter	
+apparent	obvious	evident	
+approve	ratify	endorse	
+arrive	come	
+arrogant	stuck-up	
+awful	atrocious	
+awkward	clumsy	
+ban	prohibit	
+barren	unproductive	
+bashful	shy	
+beautiful	pretty	
+before	prior	
+beginning	start	
+blend	mix	
+bottom	base	
+brave	heroic	
+break	burst	
+brief	short	
+broad	wide	expansive	
+busy	active	
+buy	purchase	
+calm	quiet	
+capture	arrest	
+care	concern	
+careful	watchful	
+cease	stop	
+certain	positive	
+charming	enchanting	
+chilly	cool	
+chubby	plump	
+comical	amusing	
+complex	complicated	
+competent	capable	
+comprehend	grasp	
+complete	conclude	
+complex	intricate	
+compress	crush	
+concrete	real	
+concur	agree	
+condemn	denounce	
+condense	compress	
+confess	admit	
+confine	contain	
+conflict	oppose	
+conflict	fight	
+conform	comply	
+confuse	muddle	
+congested	overcrowded	
+connect	join	
+conscientious	scrupulous	
+conscious	aware	
+consecutive	successive	
+conservative	cautious	
+considerate	thoughtful	
+constantly	always	
+contaminate	pollute	
+contented	satisfied	
+continue	persevere	
+convalesce	heal	
+convenient	handy	
+cozy	comfortable	
+cranky	irritable	
+crazy	daft	
+cruel	mean	
+cry	sob	
+dally	linger	
+damage	hurt	
+dangerous	perilous	
+daring	bold	
+dark	dismal	
+dawn	daybreak	
+dead	lifeless	
+decay	rot	
+deduct	subtract	
+defend	protect	
+defy	resist	
+delicate	fragile	
+demolish	destroy	
+denounce	blame	
+dense	thick	
+depart	leave	exit	
+detach	separate	
+deter	hinder	prevent	
+determined	sure	
+die	expire	perish	
+different	distinct	
+difficult	hard	
+dilute	weaken	
+drab	dull	
+drastic	severe	
+dreadful	terrible	
+dry	arid	parched	
+dubious	doubtful	
+dull	blunt	
+dumb	dense	
+early	beforetime	
+easy	simple	
+eccentric	unusual	
+ecstasy	elation	
+empty	unload	
+encourage	urge	
+enemy	opponent	
+enjoy	like	
+enlarge	expand	
+evident	apparent	
+evil	bad	
+exceptional	outstanding	
+excite	arouse	
+exhilarated	elated	
+explicit	exact	
+exquisite	delightful	
+exterior	outside	
+extravagant	luxurious	
+fabulous	marvelous	
+face	confront	
+fair	honest	
+fake	artificial	
+false	incorrect	
+fancy	ornate	
+fantastic	outrageous	
+fast	rapid	
+fat	chubby	
+fatal	deadly	
+fatigue	tire	
+feasible	possible	
+feeble	weak	
+ferocious	fierce	
+fertile	fruitful	
+fiction	fantasy	
+fill	load	
+fix	mend	
+follow	succeed	
+forbid	prohibit	
+forgive	pardon	
+former	previous	
+fraction	part	
+frank	candid	
+frenzy	fury	
+fresh	unused	
+friend	comrade	
+frigid	freezing	
+frivolous	trivial	
+front	fore	
+full	packed	
+furious	enraged	
+future	coming	
+gain	acquire	
+gallant	chivalrous	
+gather	accumulate	
+gaudy	showy	
+gaunt	scrawny	
+generous	giving	
+gentle	mild	
+genuine	authentic	
+gigantic	immense	
+give	donate,present	
+glad	happy	
+gloomy	dark	
+glorious	splendid	
+good	nice	
+gratitude	thankfulness	
+great	outstanding	
+handy	useful	
+hard	firm	
+hate	loathe	
+help	aid	
+high	lofty	
+hold	grip	
+honest	sincere	
+hospitable	welcoming	
+hostile	antagonistic	
+huge	vast	
+humble	modest	
+humiliate	embarrass	
+identical	alike	
+idle	inactive	
+ignorant	uninformed	
+immaculate	pure	
+immature	inexperienced	
+immune	resistant	
+impartial	neutral	
+impatient	eager	
+imperative	mandatory	
+imperfect	marred	
+impetuous	impulsive	
+important	significant	
+independent	self-reliant	
+inferior	lesser	
+infuriate	enrage	
+intermittent	sporadic	
+internal	inner	
+jolly	merry	
+jubilant	overjoyed	
+keep	save	
+kind	considerate	
+lament	mourn	
+large	big	
+last	final	
+least	fewest	
+legible	readable	
+lenient	lax	
+listless	lethargic	
+logical	sensible	
+long	lengthy	
+loose	slack	limp	
+lure	attract	
+luxurious	extravagant	
+magnify	expand	
+mandatory	required	
+maneuver	manipulate	
+maximum	greatest	
+meager	scanty	
+mean	unkind	
+mediocre	fair	
+mend	repair	
+migrant	drifting	
+militant	combative	
+minor	lesser	
+mirth	merriment	
+mischievous	naughty	
+misfortune	hardship	
+mobile	moveable	
+moderate	temperate	
+momentous	important	
+monotonous	boring	
+moral	righteous	
+morbid	ghastly	
+morose	moody	
+mourn	lament	
+mysterious	occult	
+naughty	wrong	
+neat	clean	
+negligent	derelict	
+nervous	flustered	
+neutral	impartial	
+new	unused	
+nice	pleasing	
+nonchalant	indifferent	
+normal	ordinary	
+numerous	abundant	
+obey	mind	
+oblivious	dazed	
+obnoxious	abominable	
+observe	examine	
+obsolete	dated	
+obstinate	stubborn	
+odd	peculiar	
+offend	displease	
+ominous	menacing	
+opaque	obscure	
+open	begin	
+opponent	rival	
+optimistic	confident	
+optional	elective	
+ordinary	average	
+outrageous	shocking	
+outstanding	distinguished	
+painstaking	precise	
+passive	compliant	
+past	former	
+patience	tolerance	
+peculiar	weird	
+perfect	flawless	
+permanent	enduring	
+perpetual	eternal	
+persuade	convince	
+plausible	believable	
+plentiful	ample	
+pliable	supple	
+polite	gracious	
+poor	destitute	
+portion	part	
+possible	conceivable	
+precarious	dangerous	
+precious	cherished	
+prejudiced	opinionated	
+premature	early	hasty	
+premeditated	intended	
+preserve	uphold	
+pretty	lovely	
+prevalent	widespread	
+prevent	prohibit	
+probable	liable	
+proficient	adept	
+profit	gain	
+prohibit	forbid	
+prominent	eminent	
+prompt	punctual	
+prosperous	successful	
+proud	elated	
+push	shove	propel	
+qualified	competent	
+question	interrogate	
+quiet	silent	
+quit	cease	
+racket	noise	
+radiant	luminous	
+raise	hoist	
+ratify	approve	
+rational	logical	
+ravage	devastate	
+raze	destroy	
+recreation	amusement	
+reduce	decrease	
+refute	contradict	
+regular	routine	
+regulate	oversee	
+relevant	pertinent	
+reluctant	unwilling	
+remote	secluded	
+repulsive	hideous	
+resist	oppose	
+retaliate	avenge	
+reveal	disclose	
+risky	hazardous	
+rowdy	boisterous	
+rude	impolite	
+sad	unhappy	
+same	alike	
+savage	uncivilized	
+save	preserve	
+scarce	scanty	
+scrawny	skinny	
+seize	apprehend	
+separate	divide	
+serene	peaceful	
+serious	grave	
+shrewd	cunning	
+shy	timid	
+sick	ailing	
+slim	thin	
+sluggish	listless	
+small	little	
+smooth	slick	
+sociable	friendly	
+sorrow	woe	
+special	exceptional	
+spontaneous	instinctive	
+stable	steady	
+stationary	fixed	
+stimulate	motivate	
+stop	quit	
+strenuous	vigorous	
+strict	stringent	
+strong	powerful	
+stupid	unintelligent	
+subsequent	following	
+successful	thriving	
+sufficient	ample	
+superb	magnificent	
+suppress	restrain	
+surplus	excess	
+swift	fast	speedy	hasty	
+synthetic	artificial	
+tall	high	
+tangible	concrete	
+taut	tense	tight	stiff	
+tender	delicate	
+terrible	dreadful	
+thaw	melt	defrost	
+thrifty	economical	
+thrive	prosper	
+total	whole	entire	
+trivial	insignificant	
+turbulent	tumultuous	
+turmoil	commotion	
+unbiased	impartial	
+upset	perturb	ruffle	
+urgent	crucial	
+vacant	unoccupied	
+vague	unclear	
+valiant	courageous	
+vibrate	quiver	tremble	
+vicious	malicious	
+victory	triumph	win	
+virtuous	righteous	
+vulgar	offensive	uncouth	
+wealth	riches	prosperity	
+weary	tired	fatigued	
+wholehearted	earnest	
+wild	uncivilized	
+win	triumph	prevail	
+wise	knowing	smart	
+wonderful	marvelous	
+worn	used	
+wrong	mistaken	
+yield	produce	
+zenith	peak	pinnacle
