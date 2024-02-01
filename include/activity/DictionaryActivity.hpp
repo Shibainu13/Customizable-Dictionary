@@ -33,7 +33,7 @@ class DictionaryActivity : public Activity
 {
 private:
     static constexpr int MAX_SUGGESTIONS = 4;
-    static constexpr int MAX_SIDE_DISPLAY = 20;
+    static constexpr int DEFAULT_HISTORY_QUANTITY = 20;
     static constexpr int DEFAULT_RANDOM_QUANTITY = 10;
     std::string ModeBackgroundTexts[2]{"Search word to definition", "Search definition to word"};
     enum DictionaryMode
@@ -42,6 +42,7 @@ private:
         DEF_TO_WORD,
         COUNT
     };
+    
     enum SidebarState
     {
         HISTORY,
@@ -92,6 +93,10 @@ private:
     void removeFromHistory(const std::string &word);
 
     void getRandomWords(unsigned int quantity);
+
+    void getFavorites();
+    void addFavorites(const std::string &word);
+    void removeFromFavorites(const std::string &word);
 
 private:
     FontManager mFontManager;

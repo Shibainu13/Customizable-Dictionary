@@ -79,6 +79,7 @@ void DictionaryActivity::onCreate()
 
     getHistory();
     getRandomWords(DEFAULT_RANDOM_QUANTITY);
+    getFavorites();
 
     createHeader();
     createSidebar();
@@ -370,6 +371,7 @@ void DictionaryActivity::toggleDataset()
     int i = (int)getCurrentDataset() + 1;
     currentTrie = tries[i % (int)Datasets::ID::Count];
     getHistory();
+    getFavorites();
     switch (sidebarState)
     {
     case SidebarState::HISTORY:
@@ -492,13 +494,13 @@ void DictionaryActivity::getHistory()
     if (message == "Error opening file !")
         std::cerr << message << std::endl;
 
-    if (historyWords.size() < MAX_SIDE_DISPLAY)
+    if (historyWords.size() < DEFAULT_HISTORY_QUANTITY)
     {
-        std::vector<std::string> startupWords = currentTrie->take_First_K_Word(MAX_SIDE_DISPLAY - historyWords.size());
+        std::vector<std::string> startupWords = currentTrie->take_First_K_Word(DEFAULT_HISTORY_QUANTITY - historyWords.size());
         historyWords.insert(historyWords.end(), startupWords.begin(), startupWords.end());
     }
-    else if (historyWords.size() > MAX_SIDE_DISPLAY)
-        historyWords.erase(historyWords.begin() + MAX_SIDE_DISPLAY - 1, historyWords.end() - 1);
+    else if (historyWords.size() > DEFAULT_HISTORY_QUANTITY)
+        historyWords.erase(historyWords.begin() + DEFAULT_HISTORY_QUANTITY - 1, historyWords.end() - 1);
 }
 
 void DictionaryActivity::addHistory(const std::string& word)
@@ -507,11 +509,10 @@ void DictionaryActivity::addHistory(const std::string& word)
         return;
     
     std::string message;
+    removeFromHistory(word);
     currentTrie->addToHistory(word, message);
     if (message == "Error opening file !")
         std::cerr << message << std::endl;
-
-    removeFromHistory(word);
         
     historyWords.pop_back();
     historyWords.insert(historyWords.begin(), word);
@@ -573,4 +574,46 @@ void DictionaryActivity::getRandomWords(unsigned int quantity)
         }
     }
     std::cout << "Daily fetched.\n";
+}
+
+void DictionaryActivity::getFavorites()
+{
+    std::string message;
+    currentTrie->viewFavoriteList(favWords, message);
+    if (message == "File not found\n")
+        std::cerr << message << std::endl;
+    else
+        std::cout << "Favorites fetched.\n";
+}
+
+void DictionaryActivity::addFavorites(const std::string& word)
+{
+    auto found = std::find(favWords.begin(), favWords.end(), word);
+    if (found != favWords.end())
+    {
+        std::cerr << word << " already exists in favorites.\n";
+        return;
+    }
+    std::string message;
+    currentTrie->addToFavoriteList(word, message);
+    std::cout << message << std::endl;
+
+    favWords.insert(favWords.begin(), word);
+    updateSideButtons(favWords);
+}
+
+void DictionaryActivity::removeFromFavorites(const std::string& word)
+{
+    int order = 0;
+    for (int i = favWords.size() - 1; i >= 0; i--)
+    {
+        if (favWords.at(i) == word)
+            break;
+        order++;
+    }
+    std::string message;
+    currentTrie->removeAWordFromFavoriteList(order, message);
+    std::cerr << message << std::endl;
+    getFavorites();
+    updateSideButtons(favWords);
 }

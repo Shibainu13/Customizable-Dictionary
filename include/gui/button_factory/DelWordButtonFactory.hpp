@@ -2,6 +2,8 @@
 #define DEL_WORD_BUTTON_FACTORY
 
 #include <SpriteButtonView.hpp>
+#include <Activity.hpp>
+#include <EventListener.hpp>
 
 class DelWordButtonFactory
 {

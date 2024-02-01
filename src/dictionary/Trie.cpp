@@ -486,6 +486,7 @@ void Trie::readData_FavoriteList(std::vector<std::string> &fav, std::string &mes
         fav.push_back(word);
     fin.close();
     message = "View Favorite List successfully!";
+    std::reverse(fav.begin(), fav.end());
 }
 
 void Trie::viewFavoriteList(std::vector<std::string> &fav, std::string &message)
