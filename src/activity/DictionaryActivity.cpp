@@ -153,6 +153,7 @@ void DictionaryActivity::createHeader()
     {
         setSidebarState(SidebarState::HISTORY);
         updateSideButtons(historyWords);
+
     });
 
     sf::Vector2f dailyButtonPosition(193, 0);
@@ -178,6 +179,7 @@ void DictionaryActivity::createHeader()
             updateSideButtons(dailyWords[Datasets::ID::Emoji]);
             break;
         }
+
     });
 
     sf::Vector2f favButtonPosition(292, 0);
@@ -487,6 +489,18 @@ void DictionaryActivity::setSidebarState(SidebarState state)
     sidebarState = state;
 }
 
+void DictionaryActivity::adjustSideViewScroll()
+{
+    if (sideWordButtons.size() <= DEFAULT_RANDOM_QUANTITY)
+    {
+        sideViewBackground->setMaxScrollDistance(0.f);
+        return;
+    }
+    float buttonGap = 60.f;
+    float scrollDistance = buttonGap * (sideWordButtons.size() - DEFAULT_RANDOM_QUANTITY);
+    sideViewBackground->setMaxScrollDistance(scrollDistance);
+}
+
 void DictionaryActivity::getHistory()
 {
     std::string message;
@@ -544,7 +558,6 @@ void DictionaryActivity::emptySideButtons()
 void DictionaryActivity::updateSideButtons(std::vector<std::string>& sideButtons)
 {
     emptySideButtons();
-
     const sf::Vector2f firstButtonPosition(15, 0);
     const sf::Vector2f buttonSpacing(0, 10);
     const sf::Vector2f wordButtonSize(300, 50);
@@ -561,6 +574,7 @@ void DictionaryActivity::updateSideButtons(std::vector<std::string>& sideButtons
         sideViewBackground->attachView(std::move(wordButton));
         i++;
     }
+    adjustSideViewScroll();
 }
 
 void DictionaryActivity::getRandomWords(unsigned int quantity)

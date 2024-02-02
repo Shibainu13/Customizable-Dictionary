@@ -87,6 +87,7 @@ private:
     void emptySideButtons();
     void updateSideButtons(std::vector<std::string> &sideButtons);
     void setSidebarState(SidebarState state);
+    void adjustSideViewScroll();
 
     void getHistory();
     void addHistory(const std::string &word);
