@@ -23,6 +23,7 @@ enum class TextureID
     // sidebar
     edit_dict,
     del_word,
+    remove_word,
 };
 
 enum class ImageID

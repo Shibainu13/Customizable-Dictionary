@@ -509,7 +509,7 @@ void Trie::removeAWordFromFavoriteList(int order, std::string &message)
 
     for (int i = 0; i < fav.size(); i++)
     {
-        if (i != order - 1)
+        if (i != order)
         {
             fout << fav[i] << "\n";
         }

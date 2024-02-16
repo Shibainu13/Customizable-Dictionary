@@ -80,16 +80,16 @@ ToggleButtonView::ToggleButtonView(EventPublisher *publisher, const sf::Texture 
     setOnMouseButtonReleased([&](EventListener *listener, const sf::Event &event) {});
 }
 
-// void ToggleButtonView::setOnMouseButtonReleased(EventCallback onMouseButtonReleased)
-// {
-//     EventListener::EventDoubleCallback onDoubleEvent = [this](EventListener *listener, const sf::Event &event, EventCallback callback)
-//     {
-//         this->toggleState();
-//         callback(listener, event);
-//     };
-//     EventListener::EventCallback onEvent = std::bind(onDoubleEvent, std::placeholders::_1, std::placeholders::_2, onMouseButtonReleased);
-//     EventListener::setOnMouseButtonReleased(onEvent);
-// }
+void ToggleButtonView::setOnMouseButtonReleased(EventCallback onMouseButtonReleased)
+{
+    EventListener::EventDoubleCallback onDoubleEvent = [this](EventListener *listener, const sf::Event &event, EventCallback callback)
+    {
+        this->toggleState();
+        callback(listener, event);
+    };
+    EventListener::EventCallback onEvent = std::bind(onDoubleEvent, std::placeholders::_1, std::placeholders::_2, onMouseButtonReleased);
+    EventListener::setOnMouseButtonReleased(onEvent);
+}
 
 void ToggleButtonView::setState(bool isOn)
 {

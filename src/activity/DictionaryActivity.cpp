@@ -20,6 +20,7 @@ void DictionaryActivity::onLoadResource()
     // sidebar textures
     mTextureManager.load(TextureID::edit_dict, "res/texture/sidebar/edit_dict.png");
     mTextureManager.load(TextureID::del_word, "res/texture/sidebar/del_word.png");
+    mTextureManager.load(TextureID::remove_word, "res/texture/sidebar/remove_word.png");
 
     // dictionary view textures
     mTextureManager.load(TextureID::add_defi, "res/texture/def_display/add_defi.png");
@@ -74,6 +75,8 @@ void DictionaryActivity::onCreate()
     tries[Datasets::ID::Emoji] = new Trie(Datasets::ID::Emoji);
     currentTrie = tries[Datasets::ID::Eng_Eng];
     currentMode = (int)DictionaryMode::WORD_TO_DEF;
+    delFlag = false;
+    removeFlag = false;
     
     createDictionaryFromOrigin();
 
@@ -116,7 +119,8 @@ void DictionaryActivity::onActivityResult(int requestCode, int resultCode, Inten
 
 void DictionaryActivity::onEvent(const sf::Event &event)
 {
-    // ...
+    if (event.type == sf::Event::MouseButtonPressed && !isSideButtonsHovering(event))
+        removeMarks();
 }
 
 void DictionaryActivity::onDraw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -126,7 +130,22 @@ void DictionaryActivity::onDraw(sf::RenderTarget& target, sf::RenderStates state
 
 void DictionaryActivity::updateCurrent(sf::Time dt)
 {
-    // ...
+    if (delFlag && wordFlagged != "")
+    {   
+        std::string message;
+        currentTrie->remove_Word_FromTrie(wordFlagged, message);
+        removeFromHistory(wordFlagged);
+        removeMarks();
+        wordFlagged = "";
+        delFlag = false;
+    }
+    else if (removeFlag && wordFlagged != "")
+    {
+        removeFromFavorites(wordFlagged);
+        removeMarks();
+        wordFlagged = "";
+        removeFlag = false;
+    }
 }
 
 //========================================================================================================================//
@@ -152,6 +171,7 @@ void DictionaryActivity::createHeader()
     [&](EventListener *listener, const sf::Event &event)
     {
         setSidebarState(SidebarState::HISTORY);
+        removeMarks();
         updateSideButtons(historyWords);
 
     });
@@ -161,6 +181,7 @@ void DictionaryActivity::createHeader()
     [&](EventListener *listener, const sf::Event &event)
     {
         setSidebarState(SidebarState::DAILY);
+        removeMarks();
         switch (getCurrentDataset())
         {
         case Datasets::Eng_Eng:
@@ -179,7 +200,6 @@ void DictionaryActivity::createHeader()
             updateSideButtons(dailyWords[Datasets::ID::Emoji]);
             break;
         }
-
     });
 
     sf::Vector2f favButtonPosition(292, 0);
@@ -187,6 +207,7 @@ void DictionaryActivity::createHeader()
     [&](EventListener *listener, const sf::Event &event)
     {
         setSidebarState(SidebarState::FAVORITE);
+        removeMarks();
         updateSideButtons(favWords);
     });
 
@@ -462,6 +483,7 @@ void DictionaryActivity::emptySuggestButtons()
 void DictionaryActivity::createSidebar() 
 {
     sidebarState = SidebarState::HISTORY;
+    sideButtonMark = SideButtonMark::NONE;
     const sf::Vector2f backgroundSize(330, 3000);
     const sf::Vector2f backgroundPosition(0, 70);
     const sf::FloatRect sideViewRect(0, 0, 330, 650);
@@ -473,15 +495,40 @@ void DictionaryActivity::createSidebar()
 
     const sf::Vector2f editButtonPosition(290, 83);
     SpriteButtonView::Ptr editButton = EditDictButtonFactory::create(this, mTextureManager.get(TextureID::edit_dict), mFontManager.get(FontID::font_awesome), editButtonPosition,
-    [this](EventListener* listener, const sf::Event& event)
+    [&](EventListener* listener, const sf::Event& event)
     {
-        // create delete buttons
+        switch (sidebarState)
+        {
+        case SidebarState::HISTORY:
+            markSideButton(SideButtonMark::DELETE);
+            break;
+        
+        case SidebarState::DAILY:
+            markSideButton(SideButtonMark::DELETE);
+            break;
+
+        case SidebarState::FAVORITE:
+            markSideButton(SideButtonMark::REMOVE);
+            break;
+        
+        default:
+            markSideButton(SideButtonMark::NONE);
+            break;
+        }
     });
 
     updateSideButtons(historyWords);
 
     attachView(std::move(background));
     attachView(std::move(editButton));
+}
+
+bool DictionaryActivity::isSideButtonsHovering(const sf::Event& event)
+{
+    for (auto& button : sideWordButtons)
+        if (button->getGlobalBounds().contains(sideViewBackground->getSideMouseCoords()))
+            return true;
+    return false;
 }
 
 void DictionaryActivity::setSidebarState(SidebarState state)
@@ -512,6 +559,7 @@ void DictionaryActivity::getHistory()
     {
         std::vector<std::string> startupWords = currentTrie->take_First_K_Word(DEFAULT_HISTORY_QUANTITY - historyWords.size());
         historyWords.insert(historyWords.end(), startupWords.begin(), startupWords.end());
+        std::cout << historyWords.at(0) << std::endl;
     }
     else if (historyWords.size() > DEFAULT_HISTORY_QUANTITY)
         historyWords.erase(historyWords.begin() + DEFAULT_HISTORY_QUANTITY - 1, historyWords.end() - 1);
@@ -541,6 +589,7 @@ void DictionaryActivity::removeFromHistory(const std::string& word)
     if (message == "Error opening file !")
         std::cerr << message << std::endl;
 
+    std::cout << word << " deleted.\n";
     getHistory();
     updateSideButtons(historyWords);
 }
@@ -565,13 +614,30 @@ void DictionaryActivity::updateSideButtons(std::vector<std::string>& sideButtons
     for (int i = 0; auto& word : sideButtons)
     {
         sf::Vector2f buttonPosition = firstButtonPosition + sf::Vector2f(buttonSpacing.x, i * (buttonSpacing.y + wordButtonSize.y));
-        ButtonView::Ptr wordButton = WordButtonFactory::create(this, mFontManager.get(FontID::frank_ruhl), word, buttonPosition, sideViewBackground,
-        [this](EventListener* listener, const sf::Event& event)
+        WordButtonView::Ptr wordButtonView = std::make_unique<WordButtonView>(this, mFontManager.get(FontID::frank_ruhl), word, buttonPosition, sideViewBackground);
+        wordButtonView->setOnMouseButtonReleased([&](EventListener* listener, const sf::Event& event)
         {
-            // init definition view
+            WordButtonView* button = dynamic_cast<WordButtonView*>(listener);
+            std::cout << button->getText() << std::endl;
+            std::string message;
+            switch (sideButtonMark)
+            {
+            case SideButtonMark::DELETE:
+                delFlag = true;
+                wordFlagged = word;
+                return;
+            
+            case SideButtonMark::REMOVE:
+                removeFlag = true;
+                wordFlagged = word;
+                return;
+            
+            case SideButtonMark::NONE:
+                return;
+            }
         });
-        sideWordButtons.push_back(wordButton.get());
-        sideViewBackground->attachView(std::move(wordButton));
+        sideWordButtons.push_back(wordButtonView.get());
+        sideViewBackground->attachView(std::move(wordButtonView));
         i++;
     }
     adjustSideViewScroll();
@@ -618,6 +684,7 @@ void DictionaryActivity::addFavorites(const std::string& word)
 
 void DictionaryActivity::removeFromFavorites(const std::string& word)
 {
+    std::cout << "removing\n";
     int order = 0;
     for (int i = favWords.size() - 1; i >= 0; i--)
     {
@@ -627,7 +694,41 @@ void DictionaryActivity::removeFromFavorites(const std::string& word)
     }
     std::string message;
     currentTrie->removeAWordFromFavoriteList(order, message);
-    std::cerr << message << std::endl;
+    std::cerr << word << ' ' << message << std::endl;
     getFavorites();
     updateSideButtons(favWords);
+}
+
+void DictionaryActivity::markSideButton(SideButtonMark mark)
+{
+    if (mark == sideButtonMark)
+        return;
+    else
+        sideButtonMark = mark;
+    if (mark == SideButtonMark::NONE)
+    {
+        removeMarks();
+        return;
+    }
+    const sf::Texture& texture = (mark == SideButtonMark::REMOVE) ? mTextureManager.get(TextureID::remove_word) : mTextureManager.get(TextureID::del_word);
+    sf::Vector2f markPosition(282.f, 14.f);
+    const sf::Vector2f markSize(22.f, 22.f);
+    for (auto& sideButton : sideWordButtons)
+    {
+        SpriteView::Ptr delMark = std::make_unique<SpriteView>(this, texture, markPosition, markSize, sf::IntRect(0, 0, 22, 22));
+        sideButtonMarks.push_back(delMark.get());
+        sideViewBackground->attachView(std::move(delMark));
+        markPosition += sf::Vector2f(0, 60.f);
+    }
+}
+
+void DictionaryActivity::removeMarks()
+{
+    while (!sideButtonMarks.empty())
+    {
+        SpriteView* mark = sideButtonMarks.back();
+        sideButtonMarks.pop_back();
+        sideViewBackground->detachView(*mark);
+    }
+    sideButtonMark = SideButtonMark::NONE;
 }

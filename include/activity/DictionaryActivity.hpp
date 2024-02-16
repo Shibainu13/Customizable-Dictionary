@@ -18,9 +18,9 @@
 #include <EditDictButtonFactory.hpp>
 #include <AddFavButtonFactory.hpp>
 #include <AddDefButtonFactory.hpp>
-#include <WordButtonFactory.hpp>
 #include <SuggestButtonFactory.hpp>
-#include <DelWordButtonFactory.hpp>
+#include <SetStateButtonView.hpp>
+#include <WordButtonView.hpp>
 
 #include <SearchBarFactory.hpp>
 #include <SideBackgroundView.hpp>
@@ -42,12 +42,19 @@ private:
         DEF_TO_WORD,
         COUNT
     };
-    
+
     enum SidebarState
     {
         HISTORY,
         DAILY,
         FAVORITE,
+    };
+
+    enum SideButtonMark
+    {
+        DELETE,
+        REMOVE,
+        NONE
     };
 
 protected:
@@ -88,6 +95,7 @@ private:
     void updateSideButtons(std::vector<std::string> &sideButtons);
     void setSidebarState(SidebarState state);
     void adjustSideViewScroll();
+    bool isSideButtonsHovering(const sf::Event &event);
 
     void getHistory();
     void addHistory(const std::string &word);
@@ -99,6 +107,9 @@ private:
     void addFavorites(const std::string &word);
     void removeFromFavorites(const std::string &word);
 
+    void markSideButton(SideButtonMark mark);
+    void removeMarks();
+
 private:
     FontManager mFontManager;
     TextureManager mTextureManager;
@@ -108,11 +119,16 @@ private:
 
     SideBackgroundView *sideViewBackground;
     SidebarState sidebarState;
+    SideButtonMark sideButtonMark;
 
     bool currentMode;
+    bool delFlag;
+    bool removeFlag;
+    std::string wordFlagged;
 
     std::list<ColoredButtonView *> suggestButtons;
-    std::list<ButtonView *> sideWordButtons;
+    std::list<WordButtonView *> sideWordButtons;
+    std::list<SpriteView *> sideButtonMarks;
 
     std::vector<std::string> historyWords;
     std::vector<std::string> dailyWords[Datasets::ID::Count];
