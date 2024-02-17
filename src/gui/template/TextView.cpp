@@ -36,6 +36,11 @@ void TextView::setFillColor(const sf::Color &color)
     text.setFillColor(color);
 }
 
+void TextView::setCharacterSize(unsigned int size)
+{
+    text.setCharacterSize(size);
+}
+
 std::string TextView::getText() const
 {
     return text.getString();

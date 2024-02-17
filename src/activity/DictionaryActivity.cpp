@@ -78,7 +78,7 @@ void DictionaryActivity::onCreate()
     currentMode = (int)DictionaryMode::WORD_TO_DEF;
     delFlag = false;
     removeFlag = false;
-    
+
     createDictionaryFromOrigin();
 
     getHistory();
@@ -124,7 +124,7 @@ void DictionaryActivity::onEvent(const sf::Event &event)
         removeMarks();
 }
 
-void DictionaryActivity::onDraw(sf::RenderTarget& target, sf::RenderStates states) const
+void DictionaryActivity::onDraw(sf::RenderTarget &target, sf::RenderStates states) const
 {
     // ...
 }
@@ -132,7 +132,7 @@ void DictionaryActivity::onDraw(sf::RenderTarget& target, sf::RenderStates state
 void DictionaryActivity::updateCurrent(sf::Time dt)
 {
     if (delFlag && wordFlagged != "")
-    {   
+    {
         std::string message;
         currentTrie->remove_Word_FromTrie(wordFlagged, message);
         removeFromHistory(wordFlagged);
@@ -168,68 +168,67 @@ void DictionaryActivity::createHeader()
     RectangleView::Ptr separator = std::make_unique<RectangleView>(this, separatorSize, separatorPosition, sf::Color::White);
 
     sf::Vector2f dictionaryButtonPosition(94, 0);
-    ColoredButtonView::Ptr dictionaryButton = DictionaryButtonFactory::create(this, mTextureManager.get(TextureID::dictionary_icon), mFontManager.get(FontID::font_awesome), dictionaryButtonPosition, 
-    [&](EventListener *listener, const sf::Event &event)
-    {
-        setSidebarState(SidebarState::HISTORY);
-        removeMarks();
-        updateSideButtons(historyWords);
-
-    });
+    ColoredButtonView::Ptr dictionaryButton = DictionaryButtonFactory::create(this, mTextureManager.get(TextureID::dictionary_icon), mFontManager.get(FontID::font_awesome), dictionaryButtonPosition,
+                                                                              [&](EventListener *listener, const sf::Event &event)
+                                                                              {
+                                                                                  setSidebarState(SidebarState::HISTORY);
+                                                                                  removeMarks();
+                                                                                  updateSideButtons(historyWords);
+                                                                              });
 
     sf::Vector2f dailyButtonPosition(193, 0);
-    ColoredButtonView::Ptr dailyButton = DailyButtonFactory::create(this, mTextureManager.get(TextureID::daily_icon), mFontManager.get(FontID::font_awesome), dailyButtonPosition, 
-    [&](EventListener *listener, const sf::Event &event)
-    {
-        setSidebarState(SidebarState::DAILY);
-        removeMarks();
-        switch (getCurrentDataset())
-        {
-        case Datasets::Eng_Eng:
-            updateSideButtons(dailyWords[Datasets::ID::Eng_Eng]);
-            break;
+    ColoredButtonView::Ptr dailyButton = DailyButtonFactory::create(this, mTextureManager.get(TextureID::daily_icon), mFontManager.get(FontID::font_awesome), dailyButtonPosition,
+                                                                    [&](EventListener *listener, const sf::Event &event)
+                                                                    {
+                                                                        setSidebarState(SidebarState::DAILY);
+                                                                        removeMarks();
+                                                                        switch (getCurrentDataset())
+                                                                        {
+                                                                        case Datasets::Eng_Eng:
+                                                                            updateSideButtons(dailyWords[Datasets::ID::Eng_Eng]);
+                                                                            break;
 
-        case Datasets::Eng_Viet:
-            updateSideButtons(dailyWords[Datasets::ID::Eng_Viet]);
-            break;
+                                                                        case Datasets::Eng_Viet:
+                                                                            updateSideButtons(dailyWords[Datasets::ID::Eng_Viet]);
+                                                                            break;
 
-        case Datasets::Viet_Eng:
-            updateSideButtons(dailyWords[Datasets::ID::Viet_Eng]);
-            break;
+                                                                        case Datasets::Viet_Eng:
+                                                                            updateSideButtons(dailyWords[Datasets::ID::Viet_Eng]);
+                                                                            break;
 
-        case Datasets::Emoji:
-            updateSideButtons(dailyWords[Datasets::ID::Emoji]);
-            break;
-        }
-    });
+                                                                        case Datasets::Emoji:
+                                                                            updateSideButtons(dailyWords[Datasets::ID::Emoji]);
+                                                                            break;
+                                                                        }
+                                                                    });
 
     sf::Vector2f favButtonPosition(292, 0);
-    ColoredButtonView::Ptr favButton = FavButtonFactory::create(this, mTextureManager.get(TextureID::favorite_icon), mFontManager.get(FontID::font_awesome), favButtonPosition, 
-    [&](EventListener *listener, const sf::Event &event)
-    {
-        setSidebarState(SidebarState::FAVORITE);
-        removeMarks();
-        updateSideButtons(favWords);
-    });
+    ColoredButtonView::Ptr favButton = FavButtonFactory::create(this, mTextureManager.get(TextureID::favorite_icon), mFontManager.get(FontID::font_awesome), favButtonPosition,
+                                                                [&](EventListener *listener, const sf::Event &event)
+                                                                {
+                                                                    setSidebarState(SidebarState::FAVORITE);
+                                                                    removeMarks();
+                                                                    updateSideButtons(favWords);
+                                                                });
 
     sf::Vector2f gameButtonPosition(391, 0);
-    ColoredButtonView::Ptr gameButton = GameButtonFactory::create(this, mTextureManager.get(TextureID::game_icon), mFontManager.get(FontID::font_awesome), gameButtonPosition, 
-    [this](EventListener *listener, const sf::Event &event)
-    {
-        // start game activity
-    });
+    ColoredButtonView::Ptr gameButton = GameButtonFactory::create(this, mTextureManager.get(TextureID::game_icon), mFontManager.get(FontID::font_awesome), gameButtonPosition,
+                                                                  [this](EventListener *listener, const sf::Event &event)
+                                                                  {
+                                                                      // start game activity
+                                                                  });
 
     ColoredButtonView::Ptr setLangButton = createSetLangButton();
 
     RectangleView::Ptr searchbar = createSearchbar();
 
     sf::Vector2f logOutButtonPosition(1205, 12);
-    SpriteButtonView::Ptr logOutButton = LogOutButtonFactory::create(this, mTextureManager.get(TextureID::logout), mFontManager.get(FontID::font_awesome), logOutButtonPosition, 
-    [this](EventListener *listener, const sf::Event &event)
-    {
-        // log out
-    });
-    
+    SpriteButtonView::Ptr logOutButton = LogOutButtonFactory::create(this, mTextureManager.get(TextureID::logout), mFontManager.get(FontID::font_awesome), logOutButtonPosition,
+                                                                     [this](EventListener *listener, const sf::Event &event)
+                                                                     {
+                                                                         // log out
+                                                                     });
+
     header->attachView(std::move(appIcon));
     header->attachView(std::move(separator));
     header->attachView(std::move(dictionaryButton));
@@ -254,45 +253,46 @@ RectangleView::Ptr DictionaryActivity::createSearchbar()
     int characterSize = 20;
     sf::Vector2f backgroundTextRelativePosition(0, 4);
     TextView::Ptr backgroundText = std::make_unique<TextView>(this, ModeBackgroundTexts[currentMode], mFontManager.get(FontID::dm_sans), backgroundTextRelativePosition, characterSize, sf::Color(0, 0, 0, 100));
-    TextView* backgroundTextPtr = backgroundText.get();
+    TextView *backgroundTextPtr = backgroundText.get();
 
     sf::Vector2f searchbarRelativePosition(49, 9);
-    EditTextView::Ptr searchbar = SearchBarFactory::create(this, mFontManager.get(FontID::serif), mFontManager.get(FontID::dm_sans), searchbarRelativePosition, 
-    [&](EventListener *listener, const sf::Event &event) // on text entered
-    {
-        EditTextView* textbox = dynamic_cast<EditTextView*>(listener);
-        std::string currentString = textbox->getText();
-        std::vector<std::string> suggestions = getSuggestions(currentString);
-        updateSuggestButtons(suggestions);
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) // enter
+    EditTextView::Ptr searchbar = SearchBarFactory::create(
+        this, mFontManager.get(FontID::serif), mFontManager.get(FontID::dm_sans), searchbarRelativePosition,
+        [&](EventListener *listener, const sf::Event &event) // on text entered
         {
-            if (textbox->getText() == "")
+            EditTextView *textbox = dynamic_cast<EditTextView *>(listener);
+            std::string currentString = textbox->getText();
+            std::vector<std::string> suggestions = getSuggestions(currentString);
+            updateSuggestButtons(suggestions);
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) // enter
+            {
+                if (textbox->getText() == "")
+                    backgroundTextPtr->setText(ModeBackgroundTexts[this->getCurrentMode()]);
+                else if (textbox->getText() != "" && suggestButtons.size() == 1)
+                    addHistory(textbox->getText());
+
+                emptySuggestButtons();
+            }
+
+            // defi view when press enter
+        },
+        [this, backgroundTextPtr](EventListener *listener, const sf::Event &event) // on mouse released
+        {
+            EditTextView *textbox = dynamic_cast<EditTextView *>(listener);
+            if (!textbox->isFocused() && textbox->getText() != "" && !this->isSuggestButtonsHovering(event))
+                this->emptySuggestButtons();
+
+            else if (!textbox->isFocused() && textbox->getText() == "" && !this->isSuggestButtonsHovering(event))
+            {
+                this->emptySuggestButtons();
                 backgroundTextPtr->setText(ModeBackgroundTexts[this->getCurrentMode()]);
-            else if (textbox->getText() != "" && suggestButtons.size() == 1)
-                addHistory(textbox->getText());
+            }
 
-            emptySuggestButtons();
-        }
-
-        // defi view when press enter
-    },
-    [this, backgroundTextPtr](EventListener* listener, const sf::Event& event) // on mouse released
-    {
-        EditTextView* textbox = dynamic_cast<EditTextView*>(listener);
-        if (!textbox->isFocused() && textbox->getText() != "" && !this->isSuggestButtonsHovering(event))
-            this->emptySuggestButtons();
-
-        else if (!textbox->isFocused() && textbox->getText() == "" && !this->isSuggestButtonsHovering(event))
-        {
-            this->emptySuggestButtons();
-            backgroundTextPtr->setText(ModeBackgroundTexts[this->getCurrentMode()]);
-        }
-
-        else if (textbox->isFocused())
-            backgroundTextPtr->setText("");
-    });
-    EditTextView* searchbarPtr = searchbar.get();
+            else if (textbox->isFocused())
+                backgroundTextPtr->setText("");
+        });
+    EditTextView *searchbarPtr = searchbar.get();
 
     sf::Vector2f searchIconRelativePosition(9, 6);
     sf::Vector2f searchIconSize(32, 32);
@@ -300,12 +300,11 @@ RectangleView::Ptr DictionaryActivity::createSearchbar()
 
     sf::Vector2f modeConfigRelativePosition(432, 3);
     SpriteButtonView::Ptr modeConfigButton = ModeButtonFactory::create(this, mTextureManager.get(TextureID::mode_config), mFontManager.get(FontID::serif), modeConfigRelativePosition);
-    modeConfigButton->setOnMouseButtonReleased([this, backgroundTextPtr, searchbarPtr](EventListener* listener, const sf::Event& event)
-    {
+    modeConfigButton->setOnMouseButtonReleased([this, backgroundTextPtr, searchbarPtr](EventListener *listener, const sf::Event &event)
+                                               {
         this->toggleMode();
         searchbarPtr->clearText();
-        backgroundTextPtr->setText(ModeBackgroundTexts[this->getCurrentMode()]);
-    });
+        backgroundTextPtr->setText(ModeBackgroundTexts[this->getCurrentMode()]); });
 
     searchbar->attachView(std::move(backgroundText));
     searchbarBackground->attachView(std::move(searchbar));
@@ -314,9 +313,9 @@ RectangleView::Ptr DictionaryActivity::createSearchbar()
     return std::move(searchbarBackground);
 }
 
-bool DictionaryActivity::isSuggestButtonsHovering(const sf::Event& event)
+bool DictionaryActivity::isSuggestButtonsHovering(const sf::Event &event)
 {
-    for (auto& button : suggestButtons)
+    for (auto &button : suggestButtons)
         if (button->isMouseHovering(sf::Vector2f(event.mouseButton.x, event.mouseButton.y)))
             return true;
     return false;
@@ -339,46 +338,46 @@ ColoredButtonView::Ptr DictionaryActivity::createSetLangButton()
 
     int characterSize = 30;
     TextView::Ptr firstLang = std::make_unique<TextView>(this, "Eng", mFontManager.get(FontID::serif), sf::Vector2f(), characterSize, sf::Color::White);
-    TextView* firstLangPtr = firstLang.get();
+    TextView *firstLangPtr = firstLang.get();
     TextView::Ptr secondLang = std::make_unique<TextView>(this, "Eng", mFontManager.get(FontID::serif), sf::Vector2f(), characterSize, sf::Color::White);
-    TextView* secondLangPtr = secondLang.get();
+    TextView *secondLangPtr = secondLang.get();
 
     firstLangPtr->setPosition(sf::Vector2f((HALF_BUTTON_WIDTH - HALF_SPRITE_WIDTH - firstLangPtr->getGlobalBounds().getSize().x) / 2.f, 23.f));
     secondLangPtr->setPosition(sf::Vector2f(HALF_BUTTON_WIDTH + HALF_SPRITE_WIDTH + (HALF_BUTTON_WIDTH - HALF_SPRITE_WIDTH - secondLangPtr->getGlobalBounds().getSize().x) / 2.f, 23.f));
 
     sf::Vector2f setLangButtonPosition(490, 0);
-    ColoredButtonView::Ptr setLangButton = SetLangButtonFactory::create(this, mTextureManager.get(TextureID::lang_arrow), mFontManager.get(FontID::serif), setLangButtonPosition, 
-    [this, firstLangPtr, secondLangPtr](EventListener *listener, const sf::Event &event)
-    {
-        this->toggleDataset();
-        switch (this->getCurrentDataset())
-        {
-        case Datasets::ID::Eng_Eng:
-            firstLangPtr->setText("Eng");
-            secondLangPtr->setText("Eng");
-            break;
-        
-        case Datasets::ID::Eng_Viet:
-            firstLangPtr->setText("Eng");
-            secondLangPtr->setText("Vie");
-            break;
+    ColoredButtonView::Ptr setLangButton = SetLangButtonFactory::create(this, mTextureManager.get(TextureID::lang_arrow), mFontManager.get(FontID::serif), setLangButtonPosition,
+                                                                        [this, firstLangPtr, secondLangPtr](EventListener *listener, const sf::Event &event)
+                                                                        {
+                                                                            this->toggleDataset();
+                                                                            switch (this->getCurrentDataset())
+                                                                            {
+                                                                            case Datasets::ID::Eng_Eng:
+                                                                                firstLangPtr->setText("Eng");
+                                                                                secondLangPtr->setText("Eng");
+                                                                                break;
 
-        case Datasets::ID::Viet_Eng:
-            firstLangPtr->setText("Vie");
-            secondLangPtr->setText("Eng");
-            break;
+                                                                            case Datasets::ID::Eng_Viet:
+                                                                                firstLangPtr->setText("Eng");
+                                                                                secondLangPtr->setText("Vie");
+                                                                                break;
 
-        case Datasets::ID::Emoji:
-            firstLangPtr->setText("Emo");
-            secondLangPtr->setText("Eng");
-            break;
-        
-        default:
-            throw std::runtime_error("Dataset not exist.");
-        }
-        firstLangPtr->setPosition(sf::Vector2f((HALF_BUTTON_WIDTH - HALF_SPRITE_WIDTH - firstLangPtr->getGlobalBounds().getSize().x) / 2.f, 23.f));
-        secondLangPtr->setPosition(sf::Vector2f(HALF_BUTTON_WIDTH + HALF_SPRITE_WIDTH + (HALF_BUTTON_WIDTH - HALF_SPRITE_WIDTH - secondLangPtr->getGlobalBounds().getSize().x) / 2.f, 23.f));
-    });
+                                                                            case Datasets::ID::Viet_Eng:
+                                                                                firstLangPtr->setText("Vie");
+                                                                                secondLangPtr->setText("Eng");
+                                                                                break;
+
+                                                                            case Datasets::ID::Emoji:
+                                                                                firstLangPtr->setText("Emo");
+                                                                                secondLangPtr->setText("Eng");
+                                                                                break;
+
+                                                                            default:
+                                                                                throw std::runtime_error("Dataset not exist.");
+                                                                            }
+                                                                            firstLangPtr->setPosition(sf::Vector2f((HALF_BUTTON_WIDTH - HALF_SPRITE_WIDTH - firstLangPtr->getGlobalBounds().getSize().x) / 2.f, 23.f));
+                                                                            secondLangPtr->setPosition(sf::Vector2f(HALF_BUTTON_WIDTH + HALF_SPRITE_WIDTH + (HALF_BUTTON_WIDTH - HALF_SPRITE_WIDTH - secondLangPtr->getGlobalBounds().getSize().x) / 2.f, 23.f));
+                                                                        });
 
     setLangButton->attachView(std::move(firstLang));
     setLangButton->attachView(std::move(secondLang));
@@ -422,14 +421,14 @@ void DictionaryActivity::toggleDataset()
             break;
         }
         break;
-    
+
     case SidebarState::FAVORITE:
         updateSideButtons(favWords);
         break;
     }
 }
 
-std::vector<std::string> DictionaryActivity::getSuggestions(std::string& subWord)
+std::vector<std::string> DictionaryActivity::getSuggestions(std::string &subWord)
 {
     std::vector<std::string> suggestions;
     if (subWord != "" && currentMode == DictionaryMode::WORD_TO_DEF)
@@ -439,7 +438,7 @@ std::vector<std::string> DictionaryActivity::getSuggestions(std::string& subWord
     return suggestions;
 }
 
-void DictionaryActivity::updateSuggestButtons(std::vector<std::string>& suggestions)
+void DictionaryActivity::updateSuggestButtons(std::vector<std::string> &suggestions)
 {
     emptySuggestButtons();
 
@@ -453,12 +452,12 @@ void DictionaryActivity::updateSuggestButtons(std::vector<std::string>& suggesti
 
     for (int i = 0; i < numberOfSuggestions; i++)
     {
-        ColoredButtonView::Ptr buttonPtr = SuggestButtonFactory::create(this, mFontManager.get(FontID::dm_sans), "", buttonPosition, 
-        [this](EventListener* listener, const sf::Event& event)
+        ColoredButtonView::Ptr buttonPtr = SuggestButtonFactory::create(this, mFontManager.get(FontID::dm_sans), "", buttonPosition,
+        [this](EventListener *listener, const sf::Event &event)
         {
-            ColoredButtonView* button = dynamic_cast<ColoredButtonView*>(listener);
+            ColoredButtonView *button = dynamic_cast<ColoredButtonView *>(listener);
             this->addHistory(button->getText());
-            // init defi view
+            this->displayDefi(button->getText());
         });
         buttonPtr->setText(suggestions.at(i), textRelativePos);
         suggestButtons.push_back(buttonPtr.get());
@@ -471,7 +470,7 @@ void DictionaryActivity::emptySuggestButtons()
 {
     while (!suggestButtons.empty())
     {
-        ColoredButtonView* button = suggestButtons.back();
+        ColoredButtonView *button = suggestButtons.back();
         suggestButtons.pop_back();
         detachView(*button);
     }
@@ -481,7 +480,7 @@ void DictionaryActivity::emptySuggestButtons()
 // Sidebar //
 //========================================================================================================================//
 
-void DictionaryActivity::createSidebar() 
+void DictionaryActivity::createSidebar()
 {
     sidebarState = SidebarState::HISTORY;
     sideButtonMark = SideButtonMark::NONE;
@@ -491,14 +490,14 @@ void DictionaryActivity::createSidebar()
 
     const sf::Vector2f editButtonPosition(290, 83);
     SpriteButtonView::Ptr editButton = EditDictButtonFactory::create(this, mTextureManager.get(TextureID::edit_dict), mFontManager.get(FontID::font_awesome), editButtonPosition,
-    [&](EventListener* listener, const sf::Event& event)
+    [&](EventListener *listener, const sf::Event &event)
     {
         switch (sidebarState)
         {
         case SidebarState::HISTORY:
             markSideButton(SideButtonMark::DELETE);
             break;
-        
+
         case SidebarState::DAILY:
             markSideButton(SideButtonMark::DELETE);
             break;
@@ -506,7 +505,7 @@ void DictionaryActivity::createSidebar()
         case SidebarState::FAVORITE:
             markSideButton(SideButtonMark::REMOVE);
             break;
-        
+
         default:
             markSideButton(SideButtonMark::NONE);
             break;
@@ -519,9 +518,9 @@ void DictionaryActivity::createSidebar()
     attachView(std::move(editButton));
 }
 
-bool DictionaryActivity::isSideButtonsHovering(const sf::Event& event)
+bool DictionaryActivity::isSideButtonsHovering(const sf::Event &event)
 {
-    for (auto& button : sideWordButtons)
+    for (auto &button : sideWordButtons)
         if (button->getGlobalBounds().contains(sideViewBackground->getRectMouseCoords()))
             return true;
     return false;
@@ -561,24 +560,24 @@ void DictionaryActivity::getHistory()
         historyWords.erase(historyWords.begin() + DEFAULT_HISTORY_QUANTITY - 1, historyWords.end() - 1);
 }
 
-void DictionaryActivity::addHistory(const std::string& word)
+void DictionaryActivity::addHistory(const std::string &word)
 {
     if (historyWords.at(0) == word)
         return;
-    
+
     std::string message;
     removeFromHistory(word);
     currentTrie->addToHistory(word, message);
     if (message == "Error opening file !")
         std::cerr << message << std::endl;
-        
+
     historyWords.pop_back();
     historyWords.insert(historyWords.begin(), word);
 
     updateSideButtons(historyWords);
 }
 
-void DictionaryActivity::removeFromHistory(const std::string& word)
+void DictionaryActivity::removeFromHistory(const std::string &word)
 {
     std::string message;
     currentTrie->removeFromHistory(word, message);
@@ -594,24 +593,24 @@ void DictionaryActivity::emptySideButtons()
 {
     while (!sideWordButtons.empty())
     {
-        ButtonView* button = sideWordButtons.back();
+        ButtonView *button = sideWordButtons.back();
         sideWordButtons.pop_back();
         sideViewBackground->detachView(*button);
     }
 }
 
-void DictionaryActivity::updateSideButtons(std::vector<std::string>& sideButtons)
+void DictionaryActivity::updateSideButtons(std::vector<std::string> &sideButtons)
 {
     emptySideButtons();
     const sf::Vector2f firstButtonPosition(15, 0);
     const sf::Vector2f buttonSpacing(0, 10);
     const sf::Vector2f wordButtonSize(300, 50);
 
-    for (int i = 0; auto& word : sideButtons)
+    for (int i = 0; auto &word : sideButtons)
     {
         sf::Vector2f buttonPosition = firstButtonPosition + sf::Vector2f(buttonSpacing.x, i * (buttonSpacing.y + wordButtonSize.y));
         WordButtonView::Ptr wordButtonView = std::make_unique<WordButtonView>(this, mFontManager.get(FontID::frank_ruhl), word, buttonPosition, sideViewBackground);
-        wordButtonView->setOnMouseButtonReleased([&](EventListener* listener, const sf::Event& event)
+        wordButtonView->setOnMouseButtonReleased([&](EventListener *listener, const sf::Event &event)
         {
             WordButtonView* button = dynamic_cast<WordButtonView*>(listener);
             std::cout << button->getText() << std::endl;
@@ -629,9 +628,9 @@ void DictionaryActivity::updateSideButtons(std::vector<std::string>& sideButtons
                 return;
             
             case SideButtonMark::NONE:
+                displayDefi(word);
                 return;
-            }
-        });
+        }});
         sideWordButtons.push_back(wordButtonView.get());
         sideViewBackground->attachView(std::move(wordButtonView));
         i++;
@@ -644,7 +643,7 @@ void DictionaryActivity::getRandomWords(unsigned int quantity)
     for (int i = 0; i < Datasets::ID::Count; i++)
     {
         for (int j = 0; j < quantity; j++)
-        {   
+        {
             std::string word = tries[i]->getRandomWord();
             dailyWords[i].push_back(word);
         }
@@ -662,7 +661,7 @@ void DictionaryActivity::getFavorites()
         std::cout << "Favorites fetched.\n";
 }
 
-void DictionaryActivity::addFavorites(const std::string& word)
+void DictionaryActivity::addFavorites(const std::string &word)
 {
     auto found = std::find(favWords.begin(), favWords.end(), word);
     if (found != favWords.end())
@@ -678,7 +677,7 @@ void DictionaryActivity::addFavorites(const std::string& word)
     updateSideButtons(favWords);
 }
 
-void DictionaryActivity::removeFromFavorites(const std::string& word)
+void DictionaryActivity::removeFromFavorites(const std::string &word)
 {
     std::cout << "removing\n";
     int order = 0;
@@ -706,10 +705,10 @@ void DictionaryActivity::markSideButton(SideButtonMark mark)
         removeMarks();
         return;
     }
-    const sf::Texture& texture = (mark == SideButtonMark::REMOVE) ? mTextureManager.get(TextureID::remove_word) : mTextureManager.get(TextureID::del_word);
+    const sf::Texture &texture = (mark == SideButtonMark::REMOVE) ? mTextureManager.get(TextureID::remove_word) : mTextureManager.get(TextureID::del_word);
     sf::Vector2f markPosition(282.f, 14.f);
     const sf::Vector2f markSize(22.f, 22.f);
-    for (auto& sideButton : sideWordButtons)
+    for (auto &sideButton : sideWordButtons)
     {
         SpriteView::Ptr delMark = std::make_unique<SpriteView>(this, texture, markPosition, markSize, sf::IntRect(0, 0, 22, 22));
         sideButtonMarks.push_back(delMark.get());
@@ -722,7 +721,7 @@ void DictionaryActivity::removeMarks()
 {
     while (!sideButtonMarks.empty())
     {
-        SpriteView* mark = sideButtonMarks.back();
+        SpriteView *mark = sideButtonMarks.back();
         sideButtonMarks.pop_back();
         sideViewBackground->detachView(*mark);
     }
@@ -738,6 +737,7 @@ void DictionaryActivity::createDefinitionView()
     const sf::Vector2f defiHeaderSize(950.f, 152.f);
     const sf::Vector2f defiHeaderPos(330.f, 70.f);
     RectangleView::Ptr defiHeader = std::make_unique<RectangleView>(this, defiHeaderSize, defiHeaderPos, sf::Color(17, 105, 142));
+    defiHeaderPtr = defiHeader.get();
 
     const sf::Vector2f defiFooterSize(950.f, 40.f);
     const sf::Vector2f defiFooterPos(330.f, 680.f);
@@ -747,23 +747,92 @@ void DictionaryActivity::createDefinitionView()
     ScrollRectView::Ptr defiView = DefiViewFactory::create(this, defiViewPos);
     defiViewBackground = defiView.get();
 
-    const sf::Vector2f addFavButtonPos(410.f, 70.f);
-    ToggleButtonView::Ptr addFavButton = AddFavButtonFactory::create(this, mTextureManager.get(TextureID::add_fav), mFontManager.get(FontID::dm_sans), addFavButtonPos, 
-    [&](EventListener* listener, const sf::Event& event)
+    const sf::Vector2f addFavButtonPos(413.f, 85.f);
+    ToggleButtonView::Ptr addFavButton = AddFavButtonFactory::create(this, mTextureManager.get(TextureID::add_fav), mFontManager.get(FontID::dm_sans), addFavButtonPos,
+    [&](EventListener *listener, const sf::Event &event)
     {
         // add word to favorite
     });
 
-    const sf::Vector2f editDefButtonPos(505.f, 70.f);
-    SpriteButtonView::Ptr editDefButton = EditDefButtonFactory::create(this, mTextureManager.get(TextureID::edit_defi), mFontManager.get(FontID::dm_sans), editDefButtonPos, 
-    [&](EventListener* listener, const sf::Event& event)
+    const sf::Vector2f editDefButtonPos(505.f, 85.f);
+    SpriteButtonView::Ptr editDefButton = EditDefButtonFactory::create(this, mTextureManager.get(TextureID::edit_defi), mFontManager.get(FontID::dm_sans), editDefButtonPos,
+    [&](EventListener *listener, const sf::Event &event)
     {
         // edit defi
     });
+
+    const sf::Vector2f addDefButtonPos(1212.f, 620.f);
+    SpriteButtonView::Ptr addDefButton = AddDefButtonFactory::create(this, mTextureManager.get(TextureID::add_defi), mFontManager.get(FontID::dm_sans), addDefButtonPos,
+    [&](EventListener *listener, const sf::Event &event)
+    {
+        // add new word
+    });
+
+    displayDefi("halloo");
 
     defiHeader->attachView(std::move(addFavButton));
     defiHeader->attachView(std::move(editDefButton));
     attachView(std::move(defiView));
     attachView(std::move(defiHeader));
     attachView(std::move(defiFooter));
+    attachView(std::move(addDefButton));
+}
+
+void DictionaryActivity::displayDefi(const std::string &word)
+{
+    defiViewBackground->detachAllViews();
+    if (displayTextPtr)
+        defiHeaderPtr->detachView(*displayTextPtr);
+
+    std::vector<std::string> defiLists;
+    if (currentTrie->findWordInTrie(word, defiLists))
+    {
+        TextView::Ptr displayText = std::make_unique<TextView>(this, word, mFontManager.get(FontID::open_sans));
+        displayTextPtr = displayText.get();
+        displayText->setCharacterSize(35);
+        displayText->setPosition(defiHeaderPtr->getGlobalBounds().getSize().x / 2.f - displayText->getGlobalBounds().getSize().x / 2.f, 28.f);
+        displayText->setFillColor(sf::Color::White);
+        defiHeaderPtr->attachView(std::move(displayText));
+        split_Definition(defiLists, currentDefinition);
+    }
+    else
+    {
+        std::cout << word << " not found.\n";
+        return;
+    }
+
+    sf::Vector2f textPosition(25.f, 28.f);
+    std::string prevType = "";
+    for (int i = 0; auto &pair : currentDefinition)
+    {
+        if (pair.first != prevType)
+        {
+            TextView::Ptr wordType = std::make_unique<TextView>(this, pair.first, mFontManager.get(FontID::open_sans), textPosition, 30, sf::Color(17, 105, 142));
+            prevType = pair.first;
+            defiViewBackground->attachView(std::move(wordType));
+            textPosition += sf::Vector2f(0.f, 50.f);
+        }
+        TextView::Ptr defi = std::make_unique<TextView>(this, pair.second, mFontManager.get(FontID::open_sans), textPosition, 20, sf::Color::Black);
+        defiViewBackground->attachView(std::move(defi));
+        textPosition += sf::Vector2f(0.f, 50.f);
+        ++i;
+    }
+    adjustDefiViewScroll();
+}
+
+void DictionaryActivity::adjustDefiViewScroll()
+{
+    int lines = 0;
+    std::string prevType = "";
+    for (auto &pair : currentDefinition)
+    {
+        if (pair.first != prevType)
+        {
+            ++lines;
+            prevType = pair.first;
+        }
+        ++lines;
+    }
+    std::cout << lines << std::endl;
+    defiViewBackground->setMaxScrollDistance((lines - 7) * 50.f);
 }

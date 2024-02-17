@@ -111,6 +111,9 @@ private:
     void markSideButton(SideButtonMark mark);
     void removeMarks();
 
+    void displayDefi(const std::string &word);
+    void adjustDefiViewScroll();
+
 private:
     FontManager mFontManager;
     TextureManager mTextureManager;
@@ -136,6 +139,9 @@ private:
     std::vector<std::string> favWords;
 
     ScrollRectView *defiViewBackground;
+    RectangleView *defiHeaderPtr;
+    TextView *displayTextPtr;
+    std::vector<std::pair<std::string, std::string>> currentDefinition;
 };
 
 #endif

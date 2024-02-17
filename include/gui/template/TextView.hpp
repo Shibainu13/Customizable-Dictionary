@@ -25,6 +25,7 @@ public:
 
     void setText(const std::string &text);
     void setFillColor(const sf::Color &color);
+    void setCharacterSize(unsigned int size);
     std::string getText() const;
     bool isMouseHovering(const sf::Vector2f &mousePoint) const;
 
