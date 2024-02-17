@@ -8,6 +8,7 @@ enum class TextureID
     // definition display
     add_defi,
     edit_defi,
+    add_fav,
 
     // header
     app_icon,

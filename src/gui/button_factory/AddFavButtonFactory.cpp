@@ -13,14 +13,15 @@ ToggleButtonView::Ptr AddFavButtonFactory::create(Activity *context, const sf::T
     sf::Vector2f textureSize(24, 22);
     ToggleButtonView::Ptr saveIndicator = std::make_unique<ToggleButtonView>(context, texture, font, textureRects, "", 0, position, buttonSize, textureSize);
     saveIndicator->setCircleButton();
+    saveIndicator->setBorderColor(sf::Color::White, 2.f);
 
     EventListener::EventDoubleCallback onDoubleEvent = [&](EventListener* listener, const sf::Event& event, EventListener::EventCallback callback)
     {
-        saveIndicator->toggleState();
-        if (saveIndicator->getState())
-            saveIndicator->setBorderColor(sf::Color(22, 199, 154), BORDER_WIDTH);
-        else if (!saveIndicator->getState())
-            saveIndicator->setBorderColor(sf::Color::White, BORDER_WIDTH);
+        ToggleButtonView* button = dynamic_cast<ToggleButtonView*>(listener);
+        if (button->getState())
+            button->setBorderColor(sf::Color(22, 199, 154), BORDER_WIDTH);
+        else
+            button->setBorderColor(sf::Color::White, BORDER_WIDTH);
         callback(listener, event);
     };
 

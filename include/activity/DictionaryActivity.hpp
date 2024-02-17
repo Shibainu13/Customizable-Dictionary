@@ -23,7 +23,8 @@
 #include <WordButtonView.hpp>
 
 #include <SearchBarFactory.hpp>
-#include <SideBackgroundView.hpp>
+#include <SideViewFactory.hpp>
+#include <DefiViewFactory.hpp>
 #include <RectangleView.hpp>
 #include <TextView.hpp>
 
@@ -78,7 +79,7 @@ private:
     RectangleView::Ptr createSearchbar();
     ColoredButtonView::Ptr createSetLangButton();
     void createSidebar();
-    // void createDictionaryView();
+    void createDefinitionView();
 
     bool getCurrentMode() const;
     void toggleMode();
@@ -117,7 +118,7 @@ private:
     Trie *tries[Datasets::ID::Count];
     Trie *currentTrie;
 
-    SideBackgroundView *sideViewBackground;
+    ScrollRectView *sideViewBackground;
     SidebarState sidebarState;
     SideButtonMark sideButtonMark;
 
@@ -133,6 +134,8 @@ private:
     std::vector<std::string> historyWords;
     std::vector<std::string> dailyWords[Datasets::ID::Count];
     std::vector<std::string> favWords;
+
+    ScrollRectView *defiViewBackground;
 };
 
 #endif

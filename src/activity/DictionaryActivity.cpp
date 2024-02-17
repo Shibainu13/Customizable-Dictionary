@@ -25,6 +25,7 @@ void DictionaryActivity::onLoadResource()
     // dictionary view textures
     mTextureManager.load(TextureID::add_defi, "res/texture/def_display/add_defi.png");
     mTextureManager.load(TextureID::edit_defi, "res/texture/def_display/edit_defi.png");
+    mTextureManager.load(TextureID::add_fav, "res/texture/def_display/add_fav.png");
 
     // fonts
     mFontManager.load(FontID::font_awesome, "res/font/font-awesome-5/Font Awesome 5 Free-Solid-900.otf");
@@ -86,7 +87,7 @@ void DictionaryActivity::onCreate()
 
     createHeader();
     createSidebar();
-    // createDictionaryView();
+    createDefinitionView();
 }
 
 void DictionaryActivity::onAttach()
@@ -484,13 +485,8 @@ void DictionaryActivity::createSidebar()
 {
     sidebarState = SidebarState::HISTORY;
     sideButtonMark = SideButtonMark::NONE;
-    const sf::Vector2f backgroundSize(330, 3000);
     const sf::Vector2f backgroundPosition(0, 70);
-    const sf::FloatRect sideViewRect(0, 0, 330, 650);
-    float outlineThickness = 0.2f;
-    SideBackgroundView::Ptr background = std::make_unique<SideBackgroundView>(this, backgroundSize, backgroundPosition, sf::Color(237, 237, 237), sideViewRect);
-    background->setOutineColor(sf::Color::Black);
-    background->setOutlineThickness(outlineThickness);
+    ScrollRectView::Ptr background = SideViewFactory::create(this, backgroundPosition);
     sideViewBackground = background.get();
 
     const sf::Vector2f editButtonPosition(290, 83);
@@ -526,7 +522,7 @@ void DictionaryActivity::createSidebar()
 bool DictionaryActivity::isSideButtonsHovering(const sf::Event& event)
 {
     for (auto& button : sideWordButtons)
-        if (button->getGlobalBounds().contains(sideViewBackground->getSideMouseCoords()))
+        if (button->getGlobalBounds().contains(sideViewBackground->getRectMouseCoords()))
             return true;
     return false;
 }
@@ -731,4 +727,43 @@ void DictionaryActivity::removeMarks()
         sideViewBackground->detachView(*mark);
     }
     sideButtonMark = SideButtonMark::NONE;
+}
+
+//========================================================================================================================//
+// Definition View //
+//========================================================================================================================//
+
+void DictionaryActivity::createDefinitionView()
+{
+    const sf::Vector2f defiHeaderSize(950.f, 152.f);
+    const sf::Vector2f defiHeaderPos(330.f, 70.f);
+    RectangleView::Ptr defiHeader = std::make_unique<RectangleView>(this, defiHeaderSize, defiHeaderPos, sf::Color(17, 105, 142));
+
+    const sf::Vector2f defiFooterSize(950.f, 40.f);
+    const sf::Vector2f defiFooterPos(330.f, 680.f);
+    RectangleView::Ptr defiFooter = std::make_unique<RectangleView>(this, defiFooterSize, defiFooterPos, sf::Color(17, 105, 142));
+
+    const sf::Vector2f defiViewPos(330.f, 222.f);
+    ScrollRectView::Ptr defiView = DefiViewFactory::create(this, defiViewPos);
+    defiViewBackground = defiView.get();
+
+    const sf::Vector2f addFavButtonPos(410.f, 70.f);
+    ToggleButtonView::Ptr addFavButton = AddFavButtonFactory::create(this, mTextureManager.get(TextureID::add_fav), mFontManager.get(FontID::dm_sans), addFavButtonPos, 
+    [&](EventListener* listener, const sf::Event& event)
+    {
+        // add word to favorite
+    });
+
+    const sf::Vector2f editDefButtonPos(505.f, 70.f);
+    SpriteButtonView::Ptr editDefButton = EditDefButtonFactory::create(this, mTextureManager.get(TextureID::edit_defi), mFontManager.get(FontID::dm_sans), editDefButtonPos, 
+    [&](EventListener* listener, const sf::Event& event)
+    {
+        // edit defi
+    });
+
+    defiHeader->attachView(std::move(addFavButton));
+    defiHeader->attachView(std::move(editDefButton));
+    attachView(std::move(defiView));
+    attachView(std::move(defiHeader));
+    attachView(std::move(defiFooter));
 }
