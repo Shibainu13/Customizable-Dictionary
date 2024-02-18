@@ -17,9 +17,12 @@ public:
         COUNT
     };
 
+    static constexpr int DEFAULT_BORDER_WIDTH = 2.f;
+
 private:
     std::string mTexts[(int)ButtonType::COUNT];
     sf::IntRect mTextureRects[(int)ButtonType::COUNT];
+    sf::Color mBorderColors[(int)ButtonType::COUNT];
     bool mIsOn = false;
 
 public:
@@ -28,6 +31,7 @@ public:
     ToggleButtonView(EventPublisher *publisher, const sf::Texture &texture, const sf::Font &font, const sf::IntRect *textureRects, const std::string *texts, unsigned int characterSize, const sf::Vector2f &position);
 
     ToggleButtonView(EventPublisher *publisher, const sf::Texture &texture, const sf::Font &font, const sf::IntRect *textureRects, const std::string &text, unsigned int characterSize, const sf::Vector2f &position, const sf::Vector2f &size, const sf::Vector2f &spriteSize);
+    ToggleButtonView(EventPublisher *publisher, const sf::Texture &texture, const sf::Font &font, const sf::IntRect *textureRects, const std::string &text, unsigned int characterSize, const sf::Vector2f &position, const sf::Vector2f &size, const sf::Vector2f &spriteSize, const sf::Color *borderColors);
 
     ToggleButtonView(EventPublisher *publisher, const sf::Texture &texture, const sf::Font &font, const sf::IntRect *textureRects, const std::string &text, unsigned int characterSize, const sf::Vector2f &position, const sf::Vector2f &size);
     ToggleButtonView(EventPublisher *publisher, const sf::Texture &texture, const sf::Font &font, const sf::IntRect *textureRects, const char *text, unsigned int characterSize, const sf::Vector2f &position, const sf::Vector2f &size);

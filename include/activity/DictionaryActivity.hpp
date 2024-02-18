@@ -112,7 +112,9 @@ private:
     void removeMarks();
 
     void displayDefi(const std::string &word);
-    void adjustDefiViewScroll();
+    void displayHeaderText(const std::string& word);
+    void displayEngEngDefi();
+    void displayOtherDefi();
 
 private:
     FontManager mFontManager;
@@ -141,6 +143,7 @@ private:
     ScrollRectView *defiViewBackground;
     RectangleView *defiHeaderPtr;
     TextView *displayTextPtr;
+    ToggleButtonView *addFavButtonPtr;
     std::vector<std::pair<std::string, std::string>> currentDefinition;
 };
 

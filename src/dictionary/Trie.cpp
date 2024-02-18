@@ -495,7 +495,7 @@ void Trie::viewFavoriteList(std::vector<std::string> &fav, std::string &message)
 }
 
 // Question 11 : User can remove a word from their favorite list.
-void Trie::removeAWordFromFavoriteList(int order, std::string &message)
+void Trie::removeAWordFromFavoriteList(const std::string& word, std::string &message)
 {
     std::vector<std::string> fav;
     readData_FavoriteList(fav, message);
@@ -509,9 +509,9 @@ void Trie::removeAWordFromFavoriteList(int order, std::string &message)
 
     for (int i = 0; i < fav.size(); i++)
     {
-        if (i != order)
+        if (fav.at(i) != word)
         {
-            fout << fav[i] << "\n";
+            fout << fav.at(i) << "\n";
         }
     }
     fout.close();

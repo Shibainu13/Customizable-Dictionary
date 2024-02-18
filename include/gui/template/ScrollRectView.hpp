@@ -17,6 +17,8 @@ public:
     void move(float x, float y);
     void move(const sf::Vector2f &direction);
 
+    void moveToTop();
+
     void setScrollSpeed(float scrollSpeed);
     float getScrollSpeed() const;
 

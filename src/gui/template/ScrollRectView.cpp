@@ -57,6 +57,11 @@ void ScrollRectView::move(const sf::Vector2f &direction)
     move(direction.x, direction.y);
 }
 
+void ScrollRectView::moveToTop()
+{
+    move(0, -scrolledDistance);
+}
+
 void ScrollRectView::setScrollSpeed(float scrollSpeed)
 {
     this->scrollSpeed = scrollSpeed;

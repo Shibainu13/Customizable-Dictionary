@@ -23,9 +23,12 @@ public:
 
     int getCharacterSize() const;
 
-    void setText(const std::string &text);
+    void setText(const sf::String &text);
     void setFillColor(const sf::Color &color);
     void setCharacterSize(unsigned int size);
+
+    sf::Vector2f findCharacterPos(unsigned int index);
+
     std::string getText() const;
     bool isMouseHovering(const sf::Vector2f &mousePoint) const;
 

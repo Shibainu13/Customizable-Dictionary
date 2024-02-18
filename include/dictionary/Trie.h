@@ -68,7 +68,7 @@ public:
     void search_and_addToFavoriteList(std::string &subWord);
     void addToFavoriteList(std::string word, std::string &message);
     void viewFavoriteList(std::vector<std::string> &fav, std::string &message);
-    void removeAWordFromFavoriteList(int order, std::string &message);
+    void removeAWordFromFavoriteList(const std::string& word, std::string &message);
 
     // History task
     void addToHistory(std::string word, std::string &message);
