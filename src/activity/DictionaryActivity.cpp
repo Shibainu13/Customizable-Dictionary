@@ -26,6 +26,8 @@ void DictionaryActivity::onLoadResource()
     mTextureManager.load(TextureID::add_defi, "res/texture/def_display/add_defi.png");
     mTextureManager.load(TextureID::edit_defi, "res/texture/def_display/edit_defi.png");
     mTextureManager.load(TextureID::add_fav, "res/texture/def_display/add_fav.png");
+    mTextureManager.load(TextureID::confirm, "res/texture/def_display/confirm.png");
+    mTextureManager.load(TextureID::cancel, "res/texture/def_display/cancel.png");
 
     // fonts
     mFontManager.load(FontID::font_awesome, "res/font/font-awesome-5/Font Awesome 5 Free-Solid-900.otf");
@@ -88,6 +90,7 @@ void DictionaryActivity::onCreate()
     createHeader();
     createSidebar();
     createDefinitionView();
+    createAddNewWordView();
 }
 
 void DictionaryActivity::onAttach()
@@ -767,13 +770,15 @@ void DictionaryActivity::createDefinitionView()
     {
         // edit defi
     });
+    editDefButtonPtr = editDefButton.get();
 
     const sf::Vector2f addDefButtonPos(1212.f, 620.f);
-    SpriteButtonView::Ptr addDefButton = AddDefButtonFactory::create(this, mTextureManager.get(TextureID::add_defi), mFontManager.get(FontID::dm_sans), addDefButtonPos,
+    SpriteButtonView::Ptr addDefButton = ModDefButtonFactory::create(this, mTextureManager.get(TextureID::add_defi), mFontManager.get(FontID::dm_sans), addDefButtonPos,
     [&](EventListener *listener, const sf::Event &event)
     {
         // add new word
     });
+    addDefButtonPtr = addDefButton.get();
 
     displayDefi("halloo");
 
@@ -902,4 +907,43 @@ void DictionaryActivity::displayOtherDefi()
         defiViewBackground->setMaxScrollDistance((scrollIndex - 7) * 50.f);
     else 
         defiViewBackground->setMaxScrollDistance(0.f);
+}
+
+void DictionaryActivity::createAddNewWordView()
+{
+    const sf::Vector2f newWordTextBoxPos(336.f, 35.f);
+    EditTextView::Ptr newWordTextBox = NewWordFactory::create(this, mFontManager.get(FontID::open_sans), newWordTextBoxPos);
+    newWordTextBoxPtr = newWordTextBox.get();
+
+    const sf::Vector2f addWordTypePos(30.f, 37.f);
+    ColoredButtonView::Ptr addWordTypeButton = NewDefiButtonFactory::create(this, mFontManager.get(FontID::open_sans), "+ Add word type", addWordTypePos, 
+    [&](EventListener *listener, const sf::Event &event)
+    {
+        // generate text box...
+    });
+    addWordTypeButtonPtr = addWordTypeButton.get();
+
+    const sf::Vector2f addDefiLinePos(0.f, 54.f);
+    ColoredButtonView::Ptr addDefLineButton = NewDefiButtonFactory::create(this, mFontManager.get(FontID::open_sans), "+ Add definition", addDefiLinePos,
+    [&](EventListener *listener, const sf::Event &event)
+    {
+        // generate text box...
+    });
+    addWordTypeButton->attachView(std::move(addDefLineButton));
+
+    const sf::Vector2f confirmPos(1210.f, 620.f);
+    SpriteButtonView::Ptr confirmButton = ModDefButtonFactory::create(this, mTextureManager.get(TextureID::confirm), mFontManager.get(FontID::open_sans), confirmPos,
+    [&](EventListener *listener, const sf::Event &event)
+    {
+        // confirm changes
+    });
+    confirmButtonPtr = confirmButtonPtr.get();
+
+    const sf::Vector2f cancelPos(0.f, -63.f);
+    SpriteButtonView::Ptr cancelButton = ModDefButtonFactory::create(this, mTextureManager.get(TextureID::cancel), mFontManager.get(FontID::open_sans), cancelPos,
+    [&](EventListener *listener, const sf::Event &event)
+    {
+        // cancel changes
+    });
+    confirmButton->attachView(std::move(cancelButton));
 }

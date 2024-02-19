@@ -16,12 +16,7 @@ EditTextView::EditTextView(EventPublisher *publisher, const sf::Font &font, cons
 }
 
 EditTextView::EditTextView(EventPublisher *publisher, const sf::Font &cursorFont, const sf::Font &font, unsigned int characterSize, const std::string &text, const sf::Vector2f &position, const sf::Vector2f &size)
-    : ViewGroup(publisher)
-    , mRect(size)
-    , mText(text, font, characterSize)
-    , mCursor("|", cursorFont, characterSize)
-    , mIsFocused(false)
-    , alignment(Alignment::LEFT)
+    : ViewGroup(publisher), mRect(size), mText(text, font, characterSize), mCursor("|", cursorFont, characterSize), mIsFocused(false), alignment(Alignment::LEFT)
 {
     mString = text;
     setPosition(position);

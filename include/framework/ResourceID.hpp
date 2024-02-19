@@ -9,6 +9,8 @@ enum class TextureID
     add_defi,
     edit_defi,
     add_fav,
+    confirm,
+    cancel,
 
     // header
     app_icon,

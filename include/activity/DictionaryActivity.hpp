@@ -17,12 +17,15 @@
 #include <EditDefButtonFactory.hpp>
 #include <EditDictButtonFactory.hpp>
 #include <AddFavButtonFactory.hpp>
-#include <AddDefButtonFactory.hpp>
+#include <ModDefButtonFactory.hpp>
 #include <SuggestButtonFactory.hpp>
 #include <SetStateButtonView.hpp>
 #include <WordButtonView.hpp>
+#include <NewDefiButtonFactory.hpp>
 
 #include <SearchBarFactory.hpp>
+#include <NewWordFactory.hpp>
+
 #include <SideViewFactory.hpp>
 #include <DefiViewFactory.hpp>
 #include <RectangleView.hpp>
@@ -80,6 +83,7 @@ private:
     ColoredButtonView::Ptr createSetLangButton();
     void createSidebar();
     void createDefinitionView();
+    void createAddNewWordView();
 
     bool getCurrentMode() const;
     void toggleMode();
@@ -112,7 +116,7 @@ private:
     void removeMarks();
 
     void displayDefi(const std::string &word);
-    void displayHeaderText(const std::string& word);
+    void displayHeaderText(const std::string &word);
     void displayEngEngDefi();
     void displayOtherDefi();
 
@@ -142,8 +146,18 @@ private:
 
     ScrollRectView *defiViewBackground;
     RectangleView *defiHeaderPtr;
+
+    // defi view objects
     TextView *displayTextPtr;
     ToggleButtonView *addFavButtonPtr;
+    SpriteButtonView *editDefButtonPtr;
+    SpriteButtonView *addDefButtonPtr;
+
+    // edit view objects
+    EditTextView *newWordTextBoxPtr;
+    ColoredButtonView *addWordTypeButtonPtr;
+    SpriteButtonView *confirmButtonPtr;
+
     std::vector<std::pair<std::string, std::string>> currentDefinition;
 };
 
