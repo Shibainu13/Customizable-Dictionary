@@ -1,6 +1,6 @@
 #include <NewDefiButtonFactory.hpp>
 
-ColoredButtonView::Ptr NewDefiButtonFactory::create(Activity *publisher, const sf::Font &font, const std::string &text, const sf::Vector2f &position, EventListener::EventCallback onMouseReleased)
+WordButtonView::Ptr NewDefiButtonFactory::create(Activity *publisher, const sf::Font &font, const std::string &text, const sf::Vector2f &position, ScrollRectView *rectView, EventListener::EventCallback onMouseReleased)
 {
     const sf::Color buttonColors[3]
     {
@@ -9,9 +9,11 @@ ColoredButtonView::Ptr NewDefiButtonFactory::create(Activity *publisher, const s
         sf::Color(190, 190, 190)
     };
     const sf::Vector2f newDefiButtonSize(890.f, 27.f);
-    ColoredButtonView::Ptr newDefiButton = std::make_unique<ColoredButtonView>(publisher, font, text, position, newDefiButtonSize, buttonColors);
-    newDefiButton->setBorderColor(sf::Color::Black, 0.2);
+    WordButtonView::Ptr newDefiButton = std::make_unique<WordButtonView>(publisher, font, text, 20, position, newDefiButtonSize, buttonColors, rectView);
+    // newDefiButton->setBorderColor(sf::Color::Black, 0.2);
     newDefiButton->setOnMouseButtonReleased(onMouseReleased);
+    newDefiButton->setText(text, sf::Vector2f(10.f, 2.f));
+    newDefiButton->setTextColor(sf::Color(0, 0, 0, 100.f));
 
     return std::move(newDefiButton);
 }

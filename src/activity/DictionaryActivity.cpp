@@ -80,6 +80,8 @@ void DictionaryActivity::onCreate()
     currentMode = (int)DictionaryMode::WORD_TO_DEF;
     delFlag = false;
     removeFlag = false;
+    defiState = true;
+    prevDefiState = true;
 
     createDictionaryFromOrigin();
 
@@ -90,7 +92,6 @@ void DictionaryActivity::onCreate()
     createHeader();
     createSidebar();
     createDefinitionView();
-    createAddNewWordView();
 }
 
 void DictionaryActivity::onAttach()
@@ -150,11 +151,14 @@ void DictionaryActivity::updateCurrent(sf::Time dt)
         wordFlagged = "";
         removeFlag = false;
     }
-    auto found = std::find(favWords.begin(), favWords.end(), displayTextPtr->getText());
-    if (found != favWords.end())
-        addFavButtonPtr->setState(true);
-    else
-        addFavButtonPtr->setState(false);
+    if (prevDefiState != defiState)
+        setDefiState(!defiState);
+
+    // auto found = std::find(favWords.begin(), favWords.end(), displayTextPtr->getText());
+    // if (found != favWords.end())
+    //     addFavButtonPtr->setState(true);
+    // else
+    //     addFavButtonPtr->setState(false);
 }
 
 //========================================================================================================================//
@@ -620,7 +624,7 @@ void DictionaryActivity::updateSideButtons(std::vector<std::string> &sideButtons
     for (int i = 0; auto &word : sideButtons)
     {
         sf::Vector2f buttonPosition = firstButtonPosition + sf::Vector2f(buttonSpacing.x, i * (buttonSpacing.y + wordButtonSize.y));
-        WordButtonView::Ptr wordButtonView = std::make_unique<WordButtonView>(this, mFontManager.get(FontID::frank_ruhl), word, buttonPosition, sideViewBackground);
+        WordButtonView::Ptr wordButtonView = std::make_unique<WordButtonView>(this, mFontManager.get(FontID::frank_ruhl), word, buttonPosition, wordButtonSize, sideViewBackground);
         wordButtonView->setOnMouseButtonReleased([&](EventListener *listener, const sf::Event &event)
         {
             WordButtonView* button = dynamic_cast<WordButtonView*>(listener);
@@ -752,42 +756,13 @@ void DictionaryActivity::createDefinitionView()
     ScrollRectView::Ptr defiView = DefiViewFactory::create(this, defiViewPos);
     defiViewBackground = defiView.get();
 
-    const sf::Vector2f addFavButtonPos(413.f, 85.f);
-    ToggleButtonView::Ptr addFavButton = AddFavButtonFactory::create(this, mTextureManager.get(TextureID::add_fav), mFontManager.get(FontID::dm_sans), addFavButtonPos,
-    [&](EventListener *listener, const sf::Event &event)
-    {
-        ToggleButtonView* button = dynamic_cast<ToggleButtonView*>(listener);
-        if (button->getState())
-            addFavorites(displayTextPtr->getText());
-        else
-            removeFromFavorites(displayTextPtr->getText());
-    });
-    addFavButtonPtr = addFavButton.get();
-
-    const sf::Vector2f editDefButtonPos(505.f, 85.f);
-    SpriteButtonView::Ptr editDefButton = EditDefButtonFactory::create(this, mTextureManager.get(TextureID::edit_defi), mFontManager.get(FontID::dm_sans), editDefButtonPos,
-    [&](EventListener *listener, const sf::Event &event)
-    {
-        // edit defi
-    });
-    editDefButtonPtr = editDefButton.get();
-
-    const sf::Vector2f addDefButtonPos(1212.f, 620.f);
-    SpriteButtonView::Ptr addDefButton = ModDefButtonFactory::create(this, mTextureManager.get(TextureID::add_defi), mFontManager.get(FontID::dm_sans), addDefButtonPos,
-    [&](EventListener *listener, const sf::Event &event)
-    {
-        // add new word
-    });
-    addDefButtonPtr = addDefButton.get();
-
-    displayDefi("halloo");
-
-    defiHeader->attachView(std::move(addFavButton));
-    defiHeader->attachView(std::move(editDefButton));
     attachView(std::move(defiView));
     attachView(std::move(defiHeader));
     attachView(std::move(defiFooter));
-    attachView(std::move(addDefButton));
+
+    // attachEditComponents();
+    attachDefiComponents();
+    // displayDefi("halloo");
 }
 
 void DictionaryActivity::displayDefi(const std::string &word)
@@ -810,6 +785,11 @@ void DictionaryActivity::displayDefi(const std::string &word)
         displayEngEngDefi();
     else   
         displayOtherDefi();
+    auto found = std::find(favWords.begin(), favWords.end(), word);
+    if (found != favWords.end())
+        addFavButtonPtr->setState(true);
+    else
+        addFavButtonPtr->setState(false);
 }
 
 void DictionaryActivity::displayHeaderText(const std::string& word)
@@ -909,22 +889,20 @@ void DictionaryActivity::displayOtherDefi()
         defiViewBackground->setMaxScrollDistance(0.f);
 }
 
-void DictionaryActivity::createAddNewWordView()
+void DictionaryActivity::attachEditComponents()
 {
-    const sf::Vector2f newWordTextBoxPos(336.f, 35.f);
+    const sf::Vector2f newWordTextBoxPos(185.f, 35.f);
     EditTextView::Ptr newWordTextBox = NewWordFactory::create(this, mFontManager.get(FontID::open_sans), newWordTextBoxPos);
-    newWordTextBoxPtr = newWordTextBox.get();
 
     const sf::Vector2f addWordTypePos(30.f, 37.f);
-    ColoredButtonView::Ptr addWordTypeButton = NewDefiButtonFactory::create(this, mFontManager.get(FontID::open_sans), "+ Add word type", addWordTypePos, 
+    WordButtonView::Ptr addWordTypeButton = NewDefiButtonFactory::create(this, mFontManager.get(FontID::open_sans), "+ Add word type", addWordTypePos, defiViewBackground,
     [&](EventListener *listener, const sf::Event &event)
     {
         // generate text box...
     });
-    addWordTypeButtonPtr = addWordTypeButton.get();
 
     const sf::Vector2f addDefiLinePos(0.f, 54.f);
-    ColoredButtonView::Ptr addDefLineButton = NewDefiButtonFactory::create(this, mFontManager.get(FontID::open_sans), "+ Add definition", addDefiLinePos,
+    WordButtonView::Ptr addDefLineButton = NewDefiButtonFactory::create(this, mFontManager.get(FontID::open_sans), "+ Add definition", addDefiLinePos, defiViewBackground,
     [&](EventListener *listener, const sf::Event &event)
     {
         // generate text box...
@@ -935,15 +913,84 @@ void DictionaryActivity::createAddNewWordView()
     SpriteButtonView::Ptr confirmButton = ModDefButtonFactory::create(this, mTextureManager.get(TextureID::confirm), mFontManager.get(FontID::open_sans), confirmPos,
     [&](EventListener *listener, const sf::Event &event)
     {
-        // confirm changes
+        prevDefiState = !prevDefiState;
     });
-    confirmButtonPtr = confirmButtonPtr.get();
+    confirmButtonPtr = confirmButton.get();
 
     const sf::Vector2f cancelPos(0.f, -63.f);
     SpriteButtonView::Ptr cancelButton = ModDefButtonFactory::create(this, mTextureManager.get(TextureID::cancel), mFontManager.get(FontID::open_sans), cancelPos,
     [&](EventListener *listener, const sf::Event &event)
     {
-        // cancel changes
+        prevDefiState = !prevDefiState;
     });
     confirmButton->attachView(std::move(cancelButton));
+
+    defiHeaderPtr->attachView(std::move(newWordTextBox));
+    defiViewBackground->attachView(std::move(addWordTypeButton));
+    attachView(std::move(confirmButton));
+}
+
+void DictionaryActivity::detachEditComponents()
+{
+    defiHeaderPtr->detachAllViews();
+    defiViewBackground->detachAllViews();
+    detachView(*confirmButtonPtr);
+}
+
+void DictionaryActivity::attachDefiComponents()
+{
+    const sf::Vector2f addFavButtonPos(413.f, 85.f);
+    ToggleButtonView::Ptr addFavButton = AddFavButtonFactory::create(this, mTextureManager.get(TextureID::add_fav), mFontManager.get(FontID::dm_sans), addFavButtonPos,
+    [&](EventListener *listener, const sf::Event &event)
+    {
+        ToggleButtonView* button = dynamic_cast<ToggleButtonView*>(listener);
+        if (button->getState())
+            addFavorites(displayTextPtr->getText());
+        else
+            removeFromFavorites(displayTextPtr->getText());
+    });
+    addFavButtonPtr = addFavButton.get();
+
+    const sf::Vector2f editDefButtonPos(505.f, 85.f);
+    SpriteButtonView::Ptr editDefButton = EditDefButtonFactory::create(this, mTextureManager.get(TextureID::edit_defi), mFontManager.get(FontID::dm_sans), editDefButtonPos,
+    [&](EventListener *listener, const sf::Event &event)
+    {
+        // edit defi
+    });
+
+    const sf::Vector2f addDefButtonPos(1212.f, 620.f);
+    SpriteButtonView::Ptr addDefButton = ModDefButtonFactory::create(this, mTextureManager.get(TextureID::add_defi), mFontManager.get(FontID::dm_sans), addDefButtonPos,
+    [&](EventListener *listener, const sf::Event &event)
+    {
+        prevDefiState = !prevDefiState;
+    });
+    addDefButtonPtr = addDefButton.get();
+
+    defiHeaderPtr->attachView(std::move(addFavButton));
+    defiHeaderPtr->attachView(std::move(editDefButton));
+    attachView(std::move(addDefButton));
+    displayDefi("halloo");
+}
+
+void DictionaryActivity::detachDefiComponents()
+{
+    defiHeaderPtr->detachAllViews();
+    defiViewBackground->detachAllViews();
+    detachView(*addDefButtonPtr);
+    displayTextPtr = nullptr;
+}
+
+void DictionaryActivity::setDefiState(bool defiState)
+{
+    this->defiState = defiState;
+    if (defiState)
+    {
+        detachEditComponents();
+        attachDefiComponents();
+    }
+    else
+    {
+        detachDefiComponents();
+        attachEditComponents();
+    }
 }

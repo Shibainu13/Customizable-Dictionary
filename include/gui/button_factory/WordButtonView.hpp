@@ -22,11 +22,14 @@ public:
     typedef std::unique_ptr<WordButtonView> Ptr;
 
 public:
-    WordButtonView(EventPublisher *publisher, const sf::Font &font, const std::string &text, const sf::Vector2f &position, ScrollRectView *sideView);
+    WordButtonView(EventPublisher *publisher, const sf::Font &font, const std::string &text, const sf::Vector2f &position, const sf::Vector2f& size, ScrollRectView *sideView);
+    WordButtonView(EventPublisher *publisher, const sf::Font &font, const std::string &text, unsigned int characterSize, const sf::Vector2f &position, const sf::Vector2f& size, const sf::Color* colors, ScrollRectView *sideView);
 
     void setOnMouseButtonPressed(EventCallback onMouseButtonPressed) override;
     void setOnMouseButtonReleased(EventCallback onMouseButtonReleased) override;
     void setOnMouseMoved(EventCallback onMouseMoved) override;
+
+    void setColors(const sf::Color* colors);
 
 private:
     ScrollRectView *sideView;

@@ -40,26 +40,9 @@ private:
     static constexpr int DEFAULT_HISTORY_QUANTITY = 20;
     static constexpr int DEFAULT_RANDOM_QUANTITY = 10;
     std::string ModeBackgroundTexts[2]{"Search word to definition", "Search definition to word"};
-    enum DictionaryMode
-    {
-        WORD_TO_DEF,
-        DEF_TO_WORD,
-        COUNT
-    };
-
-    enum SidebarState
-    {
-        HISTORY,
-        DAILY,
-        FAVORITE,
-    };
-
-    enum SideButtonMark
-    {
-        DELETE,
-        REMOVE,
-        NONE
-    };
+    enum DictionaryMode {WORD_TO_DEF, DEF_TO_WORD, COUNT};
+    enum SidebarState {HISTORY, DAILY, FAVORITE};
+    enum SideButtonMark {DELETE, REMOVE, NONE};
 
 protected:
     virtual void onEvent(const sf::Event &event) override;
@@ -83,7 +66,6 @@ private:
     ColoredButtonView::Ptr createSetLangButton();
     void createSidebar();
     void createDefinitionView();
-    void createAddNewWordView();
 
     bool getCurrentMode() const;
     void toggleMode();
@@ -120,6 +102,13 @@ private:
     void displayEngEngDefi();
     void displayOtherDefi();
 
+    void attachDefiComponents();
+    void detachDefiComponents();
+    void attachEditComponents();
+    void detachEditComponents();
+    
+    void setDefiState(bool defiState); // true to enable defi view, disable edit view and vice versa.
+
 private:
     FontManager mFontManager;
     TextureManager mTextureManager;
@@ -146,19 +135,13 @@ private:
 
     ScrollRectView *defiViewBackground;
     RectangleView *defiHeaderPtr;
-
-    // defi view objects
     TextView *displayTextPtr;
-    ToggleButtonView *addFavButtonPtr;
-    SpriteButtonView *editDefButtonPtr;
-    SpriteButtonView *addDefButtonPtr;
-
-    // edit view objects
-    EditTextView *newWordTextBoxPtr;
-    ColoredButtonView *addWordTypeButtonPtr;
     SpriteButtonView *confirmButtonPtr;
+    SpriteButtonView *addDefButtonPtr;
+    ToggleButtonView *addFavButtonPtr;
 
     std::vector<std::pair<std::string, std::string>> currentDefinition;
+    bool defiState, prevDefiState;
 };
 
 #endif

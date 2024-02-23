@@ -245,4 +245,5 @@ void EditTextView::resetBlink()
 void EditTextView::setAlignment(Alignment alignment)
 {
     this->alignment = alignment;
+    updateTextPosition();
 }

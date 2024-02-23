@@ -19,6 +19,7 @@ ToggleButtonView::Ptr AddFavButtonFactory::create(Activity *context, const sf::T
     ToggleButtonView::Ptr saveIndicator = std::make_unique<ToggleButtonView>(context, texture, font, textureRects, "", 0, position, buttonSize, textureSize, borderColors);
     saveIndicator->setCircleButton();
     saveIndicator->setOnMouseButtonReleased(callback);
+    saveIndicator->setState(false);
 
     return std::move(saveIndicator);
 }
