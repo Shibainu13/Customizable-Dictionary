@@ -25,6 +25,8 @@
 
 #include <SearchBarFactory.hpp>
 #include <NewWordFactory.hpp>
+#include <NewWordTypeFactory.hpp>
+#include <NewDefiFactory.hpp>
 
 #include <SideViewFactory.hpp>
 #include <DefiViewFactory.hpp>
@@ -40,9 +42,24 @@ private:
     static constexpr int DEFAULT_HISTORY_QUANTITY = 20;
     static constexpr int DEFAULT_RANDOM_QUANTITY = 10;
     std::string ModeBackgroundTexts[2]{"Search word to definition", "Search definition to word"};
-    enum DictionaryMode {WORD_TO_DEF, DEF_TO_WORD, COUNT};
-    enum SidebarState {HISTORY, DAILY, FAVORITE};
-    enum SideButtonMark {DELETE, REMOVE, NONE};
+    enum DictionaryMode
+    {
+        WORD_TO_DEF,
+        DEF_TO_WORD,
+        COUNT
+    };
+    enum SidebarState
+    {
+        HISTORY,
+        DAILY,
+        FAVORITE
+    };
+    enum SideButtonMark
+    {
+        DELETE,
+        REMOVE,
+        NONE
+    };
 
 protected:
     virtual void onEvent(const sf::Event &event) override;
@@ -77,7 +94,6 @@ private:
     void updateSuggestButtons(std::vector<std::string> &suggestions);
     void emptySuggestButtons();
     bool isSuggestButtonsHovering(const sf::Event &event);
-
     void emptySideButtons();
     void updateSideButtons(std::vector<std::string> &sideButtons);
     void setSidebarState(SidebarState state);
@@ -106,8 +122,10 @@ private:
     void detachDefiComponents();
     void attachEditComponents();
     void detachEditComponents();
-    
+
     void setDefiState(bool defiState); // true to enable defi view, disable edit view and vice versa.
+    void attachWordTypeTextbox();
+    void attachDefiTextbox();
 
 private:
     FontManager mFontManager;
@@ -139,8 +157,14 @@ private:
     SpriteButtonView *confirmButtonPtr;
     SpriteButtonView *addDefButtonPtr;
     ToggleButtonView *addFavButtonPtr;
+    WordButtonView *addWordTypeButtonPtr;
+    WordButtonView *addDefiLineButtonPtr;
 
     std::vector<std::pair<std::string, std::string>> currentDefinition;
+    std::vector<std::pair<int, EditTextOnScrollView *>> addedWordType;
+    std::vector<std::pair<int, EditTextOnScrollView *>> addedDefinitions;
+    sf::Vector2f defiTextPosition;
+
     bool defiState, prevDefiState;
 };
 

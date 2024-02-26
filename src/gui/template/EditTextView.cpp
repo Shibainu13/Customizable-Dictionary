@@ -16,7 +16,13 @@ EditTextView::EditTextView(EventPublisher *publisher, const sf::Font &font, cons
 }
 
 EditTextView::EditTextView(EventPublisher *publisher, const sf::Font &cursorFont, const sf::Font &font, unsigned int characterSize, const std::string &text, const sf::Vector2f &position, const sf::Vector2f &size)
-    : ViewGroup(publisher), mRect(size), mText(text, font, characterSize), mCursor("|", cursorFont, characterSize), mIsFocused(false), alignment(Alignment::LEFT)
+    : ViewGroup(publisher), mRect(size)
+    , mText(text, font, characterSize)
+    , mCursor("|", cursorFont, characterSize)
+    , mIsFocused(false)
+    , mWrapEnabled(false)
+    , alignment(Alignment::LEFT)
+    , numLines(1)
 {
     mString = text;
     setPosition(position);
@@ -33,7 +39,6 @@ EditTextView::EditTextView(EventPublisher *publisher, const sf::Font &cursorFont
     setInputType(InputType::TEXT);
 
     setOnMouseButtonPressed([&](EventListener *listener, const sf::Event &event) {});
-
     setOnTextEntered([&](EventListener *listener, const sf::Event &event) {});
 }
 
@@ -160,15 +165,33 @@ void EditTextView::appendCharacter(char character)
     mText.setString(formerText + character);
     if (mText.getGlobalBounds().getSize().x <= mRect.getSize().x)
         setText(formerText + character);
+    else if (mWrapEnabled && mText.getGlobalBounds().getSize().x >= mRect.getGlobalBounds().getSize().x)
+    {
+        sf::String txt = mText.getString();
+        for (int i = txt.getSize() - 1; i >= 0; i--)
+        {
+            if (txt[i] == ' ')
+            {
+                txt.erase(i);
+                txt.insert(i, "\n");
+                break;
+            }
+        }
+        mText.setString(txt);
+        ++numLines;
+        mRect.setSize(sf::Vector2f(mRect.getGlobalBounds().getSize().x, mText.getGlobalBounds().getSize().y));
+    }
     else
         setText(formerText);
-    // mText.setString(mText.getString() + character);
 }
 
 void EditTextView::removeCharacter()
 {
     if (mText.getString().getSize() > 0)
+    {
         setText(mText.getString().substring(0, mText.getString().getSize() - 1));
+        
+    }
 }
 
 void EditTextView::clearText()
@@ -205,6 +228,11 @@ bool EditTextView::isOnTextEntered(const sf::Event &event) const
 bool EditTextView::isFocused() const
 {
     return mIsFocused;
+}
+
+int EditTextView::getNumLines() const
+{
+    return numLines;
 }
 
 void EditTextView::setFocused(bool focused)
@@ -246,4 +274,10 @@ void EditTextView::setAlignment(Alignment alignment)
 {
     this->alignment = alignment;
     updateTextPosition();
+}
+
+void EditTextView::setWrapEnabled(bool enable)
+{
+    mWrapEnabled = enable;
+    
 }

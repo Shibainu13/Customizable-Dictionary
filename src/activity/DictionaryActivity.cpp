@@ -153,12 +153,6 @@ void DictionaryActivity::updateCurrent(sf::Time dt)
     }
     if (prevDefiState != defiState)
         setDefiState(!defiState);
-
-    // auto found = std::find(favWords.begin(), favWords.end(), displayTextPtr->getText());
-    // if (found != favWords.end())
-    //     addFavButtonPtr->setState(true);
-    // else
-    //     addFavButtonPtr->setState(false);
 }
 
 //========================================================================================================================//
@@ -849,6 +843,7 @@ void DictionaryActivity::displayEngEngDefi()
         defiViewBackground->setMaxScrollDistance((scrollIndex - 7) * 50.f);
     else 
         defiViewBackground->setMaxScrollDistance(0.f);
+    defiTextPosition = textPosition;
 }
 
 void DictionaryActivity::displayOtherDefi()
@@ -887,6 +882,7 @@ void DictionaryActivity::displayOtherDefi()
         defiViewBackground->setMaxScrollDistance((scrollIndex - 7) * 50.f);
     else 
         defiViewBackground->setMaxScrollDistance(0.f);
+    defiTextPosition = textPosition;
 }
 
 void DictionaryActivity::attachEditComponents()
@@ -894,19 +890,21 @@ void DictionaryActivity::attachEditComponents()
     const sf::Vector2f newWordTextBoxPos(185.f, 35.f);
     EditTextView::Ptr newWordTextBox = NewWordFactory::create(this, mFontManager.get(FontID::open_sans), newWordTextBoxPos);
 
-    const sf::Vector2f addWordTypePos(30.f, 37.f);
+    const sf::Vector2f addWordTypePos(30.f, 28.f);
     WordButtonView::Ptr addWordTypeButton = NewDefiButtonFactory::create(this, mFontManager.get(FontID::open_sans), "+ Add word type", addWordTypePos, defiViewBackground,
     [&](EventListener *listener, const sf::Event &event)
-    {
-        // generate text box...
+    {   
+        attachWordTypeTextbox();
     });
+    addWordTypeButtonPtr = addWordTypeButton.get();
 
     const sf::Vector2f addDefiLinePos(0.f, 54.f);
     WordButtonView::Ptr addDefLineButton = NewDefiButtonFactory::create(this, mFontManager.get(FontID::open_sans), "+ Add definition", addDefiLinePos, defiViewBackground,
     [&](EventListener *listener, const sf::Event &event)
     {
-        // generate text box...
+        attachDefiTextbox();
     });
+    addDefiLineButtonPtr = addDefLineButton.get();
     addWordTypeButton->attachView(std::move(addDefLineButton));
 
     const sf::Vector2f confirmPos(1210.f, 620.f);
@@ -926,7 +924,13 @@ void DictionaryActivity::attachEditComponents()
     confirmButton->attachView(std::move(cancelButton));
 
     defiHeaderPtr->attachView(std::move(newWordTextBox));
-    defiViewBackground->attachView(std::move(addWordTypeButton));
+    if (defiViewBackground->getViews().size() == 0)
+        defiViewBackground->attachView(std::move(addWordTypeButton));
+    else
+    {
+        addWordTypeButton->setPosition(10.f, 50.f);
+        defiViewBackground->getViews().at(defiViewBackground->getViews().size() - 1)->attachView(std::move(addWordTypeButton));
+    }
     attachView(std::move(confirmButton));
 }
 
@@ -935,6 +939,9 @@ void DictionaryActivity::detachEditComponents()
     defiHeaderPtr->detachAllViews();
     defiViewBackground->detachAllViews();
     detachView(*confirmButtonPtr);
+    defiTextPosition = sf::Vector2f(25.f, 28.f);
+    addedWordType.clear();
+    addedDefinitions.clear();
 }
 
 void DictionaryActivity::attachDefiComponents()
@@ -978,6 +985,7 @@ void DictionaryActivity::detachDefiComponents()
     defiViewBackground->detachAllViews();
     detachView(*addDefButtonPtr);
     displayTextPtr = nullptr;
+    defiTextPosition = sf::Vector2f(25.f, 28.f);
 }
 
 void DictionaryActivity::setDefiState(bool defiState)
@@ -993,4 +1001,53 @@ void DictionaryActivity::setDefiState(bool defiState)
         detachDefiComponents();
         attachEditComponents();
     }
+}
+
+void DictionaryActivity::attachWordTypeTextbox()
+{
+    const sf::Vector2f textboxPos(defiTextPosition);
+    defiTextPosition += sf::Vector2f(0.f, 50.f);
+    
+    EditTextOnScrollView::Ptr wordTypeTextbox = NewWordTypeFactory::create(this, mFontManager.get(FontID::open_sans), textboxPos, defiViewBackground);
+    defiViewBackground->attachView(std::move(wordTypeTextbox));
+    addWordTypeButtonPtr->setPosition(addWordTypeButtonPtr->getPosition().x, addWordTypeButtonPtr->getPosition().y + 50.f);
+    
+    std::pair<int, EditTextOnScrollView *> pair(addedWordType.size(), wordTypeTextbox.get());
+    addedWordType.push_back(pair);
+}
+
+void DictionaryActivity::attachDefiTextbox()
+{
+    const sf::Vector2f textboxPos(defiTextPosition);
+    defiTextPosition += sf::Vector2f(0.f, 50.f);
+
+    EditTextOnScrollView::Ptr defiTextbox = NewDefiFactory::create(this, mFontManager.get(FontID::open_sans), textboxPos, defiViewBackground,
+    [&](EventListener *listener, const sf::Event &event)
+    {
+        EditTextOnScrollView *textbox = dynamic_cast<EditTextOnScrollView *>(listener);
+        sf::Vector2f lineHeigt(0.f, 20.f * (textbox->getNumLines() - 1));
+        if (textbox->getNumLines() > 1)
+        {
+            addWordTypeButtonPtr->setPosition(addWordTypeButtonPtr->getPosition() + lineHeigt);
+            bool afterThisLine = false;
+            for (auto &pair : addedWordType)
+            {
+                if (afterThisLine)
+                {
+                    pair.second->setPosition(pair.second->getPosition() + lineHeigt);
+                    defiTextPosition += lineHeigt;
+                }
+                if (pair.second == textbox)
+                {
+                    afterThisLine = true;
+                    continue;
+                }
+            }
+        }
+    });
+    defiViewBackground->attachView(std::move(defiTextbox));
+    addWordTypeButtonPtr->setPosition(addWordTypeButtonPtr->getPosition().x, addWordTypeButtonPtr->getPosition().y + 50.f);
+
+    std::pair<int, EditTextOnScrollView *> pair(addedWordType.size() - 1, defiTextbox.get());
+    addedDefinitions.push_back(pair);
 }

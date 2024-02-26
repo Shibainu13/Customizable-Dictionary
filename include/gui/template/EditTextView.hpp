@@ -13,6 +13,7 @@ class EditTextView : public ViewGroup
 {
 public:
     typedef std::unique_ptr<EditTextView> Ptr;
+    static const unsigned int DEFAULT_WORD_LIMIT = 100;
 
 public:
     enum InputType
@@ -26,8 +27,9 @@ public:
         LEFT
     };
 
-private:
+protected:
     bool mIsFocused;
+    bool mWrapEnabled;
     sf::RectangleShape mRect;
     sf::Text mCursor;
     sf::Text mText;
@@ -37,6 +39,7 @@ private:
     InputType mInputType;
     Alignment alignment;
     sf::Color mFocusBackgroundColor, mUnfocusBackgroundColor;
+    int numLines;
 
 public:
     EditTextView(EventPublisher *publisher, const sf::Font &font, const std::string &text, const sf::Vector2f &size);
@@ -59,16 +62,19 @@ public:
     bool isMouseHovering(const sf::Vector2f &mousePoint) const;
     bool isFocused() const;
     void setFocused(bool focused);
+    void setWrapEnabled(bool enable);
 
     void setOnTextEntered(EventCallback onTextEntered) override;
     void setOnMouseButtonReleased(EventCallback onMouseButtonReleased) override;
+
+    int getNumLines() const;
 
 protected:
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const override;
     virtual bool isOnMouseButtonPressed(const sf::Event &event) const override;
     virtual bool isOnTextEntered(const sf::Event &event) const override;
 
-private:
+protected:
     void setText(const std::string &text);
 
     void updateTextPosition();
