@@ -1025,25 +1025,7 @@ void DictionaryActivity::attachDefiTextbox()
     [&](EventListener *listener, const sf::Event &event)
     {
         EditTextOnScrollView *textbox = dynamic_cast<EditTextOnScrollView *>(listener);
-        sf::Vector2f lineHeigt(0.f, 20.f * (textbox->getNumLines() - 1));
-        if (textbox->getNumLines() > 1)
-        {
-            addWordTypeButtonPtr->setPosition(addWordTypeButtonPtr->getPosition() + lineHeigt);
-            bool afterThisLine = false;
-            for (auto &pair : addedWordType)
-            {
-                if (afterThisLine)
-                {
-                    pair.second->setPosition(pair.second->getPosition() + lineHeigt);
-                    defiTextPosition += lineHeigt;
-                }
-                if (pair.second == textbox)
-                {
-                    afterThisLine = true;
-                    continue;
-                }
-            }
-        }
+
     });
     defiViewBackground->attachView(std::move(defiTextbox));
     addWordTypeButtonPtr->setPosition(addWordTypeButtonPtr->getPosition().x, addWordTypeButtonPtr->getPosition().y + 50.f);

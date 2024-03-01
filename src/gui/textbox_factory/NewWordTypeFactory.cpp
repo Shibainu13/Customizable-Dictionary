@@ -8,6 +8,8 @@ EditTextOnScrollView::Ptr NewWordTypeFactory::create(Activity *publisher, const 
     newWordTypeTextBox->setTextColor(sf::Color(17, 105, 142));
     newWordTypeTextBox->setUnfocusBackgroundColor(sf::Color::White);
     newWordTypeTextBox->setFocusBackgroundColor(sf::Color::White);
+    newWordTypeTextBox->setUnFocusBorder(sf::Color::Transparent, 0.2);
+    newWordTypeTextBox->setFocusBorder(sf::Color(17, 105, 142), 0.2);
 
     newWordTypeTextBox->setOnTextEntered([&](EventListener *listener, const sf::Event &event) {});
     newWordTypeTextBox->setOnMouseButtonReleased([&](EventListener *listener, const sf::Event &event) {});

@@ -16,7 +16,8 @@ EditTextView::EditTextView(EventPublisher *publisher, const sf::Font &font, cons
 }
 
 EditTextView::EditTextView(EventPublisher *publisher, const sf::Font &cursorFont, const sf::Font &font, unsigned int characterSize, const std::string &text, const sf::Vector2f &position, const sf::Vector2f &size)
-    : ViewGroup(publisher), mRect(size)
+    : ViewGroup(publisher)
+    , mRect(size)
     , mText(text, font, characterSize)
     , mCursor("|", cursorFont, characterSize)
     , mIsFocused(false)
@@ -25,6 +26,16 @@ EditTextView::EditTextView(EventPublisher *publisher, const sf::Font &cursorFont
     , numLines(1)
 {
     mString = text;
+    // for (int i = 0; i < DEFAULT_LINE_LIMIT; i++)
+    // {
+    //     mTexts.at(i).setFont(font);
+    //     mTexts.at(i).setCharacterSize(characterSize);
+    //     if (i != 0)
+    //         mTexts.at(i).setString("");
+    //     else 
+    //         mTexts.at(i).setString(text);
+    // }
+
     setPosition(position);
     setTextColor(sf::Color::Black);
     updateTextPosition();
@@ -32,6 +43,10 @@ EditTextView::EditTextView(EventPublisher *publisher, const sf::Font &cursorFont
     setFocusBackgroundColor(sf::Color(245, 245, 245));
     setUnfocusBackgroundColor(sf::Color(245, 245, 245));
     setBackgroundColor(mUnfocusBackgroundColor);
+
+    setUnFocusBorder(sf::Color::Transparent, 0.f);
+    setFocusBorder(sf::Color::Transparent, 0.f);
+    setBorderColor(mUnFocusBorderColor, 0.f);
 
     setBlinkTime(sf::seconds(0.5f));
     resetBlink();
@@ -161,36 +176,50 @@ void EditTextView::setText(const std::string &text)
 
 void EditTextView::appendCharacter(char character)
 {
+    if (mWrapEnabled) // remove the cursor
+        setText(mText.getString().substring(0, mText.getString().getSize() - 1));
+
     std::string formerText = mText.getString();
     mText.setString(formerText + character);
     if (mText.getGlobalBounds().getSize().x <= mRect.getSize().x)
         setText(formerText + character);
-    else if (mWrapEnabled && mText.getGlobalBounds().getSize().x >= mRect.getGlobalBounds().getSize().x)
+    else if (mWrapEnabled && numLines <= DEFAULT_LINE_LIMIT && mText.getGlobalBounds().getSize().x >= mRect.getGlobalBounds().getSize().x)
     {
-        sf::String txt = mText.getString();
-        for (int i = txt.getSize() - 1; i >= 0; i--)
+        std::size_t lastSpaceIndex = 0;
+        for (int i = mText.getString().getSize() - 1; i >= 0; i--)
         {
-            if (txt[i] == ' ')
+            if (mText.getString()[i] == ' ')
             {
-                txt.erase(i);
-                txt.insert(i, "\n");
+                lastSpaceIndex = i;
                 break;
             }
         }
-        mText.setString(txt);
-        ++numLines;
+        sf::String str = mText.getString();
+        str.erase(lastSpaceIndex);
+        str.insert(lastSpaceIndex, "\n");
+        mText.setString(str);
         mRect.setSize(sf::Vector2f(mRect.getGlobalBounds().getSize().x, mText.getGlobalBounds().getSize().y));
+        ++numLines;
     }
     else
         setText(formerText);
+    if (mWrapEnabled)
+        setText(mText.getString() + "|");
 }
 
 void EditTextView::removeCharacter()
 {
-    if (mText.getString().getSize() > 0)
-    {
+    if (!mWrapEnabled && mText.getString().getSize() > 0)
         setText(mText.getString().substring(0, mText.getString().getSize() - 1));
-        
+    else if (mWrapEnabled && mText.getString().getSize() > 0)
+    {
+        setText(mText.getString().substring(0, mText.getString().getSize() - 2));
+        setText(mText.getString() + "|");
+    }
+    if (mWrapEnabled && mRect.getGlobalBounds().getSize().y > mText.getGlobalBounds().getSize().y)
+    {
+        --numLines;
+        mRect.setSize(sf::Vector2f(mRect.getGlobalBounds().getSize().x, mText.getGlobalBounds().getSize().y));
     }
 }
 
@@ -237,8 +266,15 @@ int EditTextView::getNumLines() const
 
 void EditTextView::setFocused(bool focused)
 {
+    if (mIsFocused == focused)
+        return;
     mIsFocused = focused;
     updateBackgroundColor();
+    updateBorderColor();
+    if (mIsFocused && mWrapEnabled)
+        setText(mText.getString() + "|");
+    else if (!mIsFocused && mWrapEnabled)
+        setText(mText.getString().substring(0, mText.getString().getSize() - 1));
 }
 
 void EditTextView::updateCurrent(sf::Time delta)
@@ -255,7 +291,7 @@ void EditTextView::drawCurrent(sf::RenderTarget &target, sf::RenderStates states
 {
     target.draw(mRect, states);
     target.draw(mText, states);
-    if (mCursorVisible && isFocused())
+    if (!mWrapEnabled && mCursorVisible && isFocused())
         target.draw(mCursor, states);
 }
 
@@ -279,5 +315,32 @@ void EditTextView::setAlignment(Alignment alignment)
 void EditTextView::setWrapEnabled(bool enable)
 {
     mWrapEnabled = enable;
-    
+}
+
+void EditTextView::setFocusBorder(const sf::Color &color, float thickness)
+{
+    mFocusBorderColor = color;
+    focusThickness = thickness;
+    updateBorderColor();
+}
+
+void EditTextView::setUnFocusBorder(const sf::Color &color, float thickness)
+{
+    mUnFocusBorderColor = color;
+    unfocusThickness = thickness;
+    updateBorderColor();
+}
+
+void EditTextView::setBorderColor(const sf::Color &color, float thickness)
+{
+    mRect.setOutlineColor(color);
+    mRect.setOutlineThickness(thickness);
+}
+
+void EditTextView::updateBorderColor()
+{
+    if (isFocused())
+        setBorderColor(mFocusBorderColor, focusThickness);
+    else
+        setBorderColor(mUnFocusBorderColor, unfocusThickness);
 }

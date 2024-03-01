@@ -5,7 +5,9 @@
 #include <ViewGroup.hpp>
 #include <EventListener.hpp>
 #include <AppConfig.hpp>
+#include <TextView.hpp>
 
+#include <array>
 #include <memory>
 #include <iostream>
 
@@ -13,7 +15,7 @@ class EditTextView : public ViewGroup
 {
 public:
     typedef std::unique_ptr<EditTextView> Ptr;
-    static const unsigned int DEFAULT_WORD_LIMIT = 100;
+    static const unsigned int DEFAULT_LINE_LIMIT = 5;
 
 public:
     enum InputType
@@ -32,6 +34,8 @@ protected:
     bool mWrapEnabled;
     sf::RectangleShape mRect;
     sf::Text mCursor;
+    // std::array<sf::Text, DEFAULT_LINE_LIMIT> mTexts;
+    // std::array<TextView::Ptr, DEFAULT_LINE_LIMIT> mTexts;
     sf::Text mText;
     std::string mString;
     sf::Time mCursorBlinkTime, mCurrentTime;
@@ -40,6 +44,8 @@ protected:
     Alignment alignment;
     sf::Color mFocusBackgroundColor, mUnfocusBackgroundColor;
     int numLines;
+    sf::Color mFocusBorderColor, mUnFocusBorderColor;
+    float focusThickness, unfocusThickness;
 
 public:
     EditTextView(EventPublisher *publisher, const sf::Font &font, const std::string &text, const sf::Vector2f &size);
@@ -68,16 +74,18 @@ public:
     void setOnMouseButtonReleased(EventCallback onMouseButtonReleased) override;
 
     int getNumLines() const;
+    void setFocusBorder(const sf::Color &color, float thickness);
+    void setUnFocusBorder(const sf::Color &color, float thickness);
 
 protected:
-    virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const override;
+    virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual bool isOnMouseButtonPressed(const sf::Event &event) const override;
     virtual bool isOnTextEntered(const sf::Event &event) const override;
 
 protected:
     void setText(const std::string &text);
 
-    void updateTextPosition();
+    virtual void updateTextPosition();
     void updateBackgroundColor();
     virtual void updateCurrent(sf::Time delta) override;
 
@@ -85,6 +93,8 @@ protected:
     void resetBlink();
 
     void setBackgroundColor(const sf::Color &color);
+    void setBorderColor(const sf::Color &color, float thickness);
+    void updateBorderColor();
 };
 
 #endif

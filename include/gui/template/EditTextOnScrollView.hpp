@@ -13,6 +13,9 @@ public:
     EditTextOnScrollView(EventPublisher *publisher, const sf::Font &font, const std::string &text, unsigned int characterSize, const sf::Vector2f &position, const sf::Vector2f &size, ScrollRectView *rectView);
     void setOnMouseButtonReleased(EventCallback onMouseButtonReleased) override;
 
+protected:
+    void updateTextPosition() override;
+
 private:
     ScrollRectView *rectView;
 };
