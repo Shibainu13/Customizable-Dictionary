@@ -163,6 +163,7 @@ private:
     std::vector<std::pair<std::string, std::string>> currentDefinition;
     std::vector<std::pair<int, EditTextOnScrollView *>> addedWordType;
     std::vector<std::pair<int, EditTextOnScrollView *>> addedDefinitions;
+    std::vector<unsigned int> cumulativeDefLines;
     sf::Vector2f defiTextPosition;
 
     bool defiState, prevDefiState;

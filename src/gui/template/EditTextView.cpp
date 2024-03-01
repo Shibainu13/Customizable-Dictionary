@@ -35,7 +35,6 @@ EditTextView::EditTextView(EventPublisher *publisher, const sf::Font &cursorFont
     //     else 
     //         mTexts.at(i).setString(text);
     // }
-
     setPosition(position);
     setTextColor(sf::Color::Black);
     updateTextPosition();
@@ -209,6 +208,10 @@ void EditTextView::appendCharacter(char character)
 
 void EditTextView::removeCharacter()
 {
+    sf::Vector2f lastCharPos;
+    if (mWrapEnabled)
+        lastCharPos = mText.findCharacterPos(mText.getString().getSize() - 1);
+
     if (!mWrapEnabled && mText.getString().getSize() > 0)
         setText(mText.getString().substring(0, mText.getString().getSize() - 1));
     else if (mWrapEnabled && mText.getString().getSize() > 0)
@@ -216,7 +219,7 @@ void EditTextView::removeCharacter()
         setText(mText.getString().substring(0, mText.getString().getSize() - 2));
         setText(mText.getString() + "|");
     }
-    if (mWrapEnabled && mRect.getGlobalBounds().getSize().y > mText.getGlobalBounds().getSize().y)
+    if (mWrapEnabled && mText.findCharacterPos(mText.getString().getSize() - 1).y != lastCharPos.y)
     {
         --numLines;
         mRect.setSize(sf::Vector2f(mRect.getGlobalBounds().getSize().x, mText.getGlobalBounds().getSize().y));
