@@ -119,14 +119,13 @@ private:
     void markSideButton(SideButtonMark mark);
     void removeMarks();
 
-    void displayDefi(const std::string &word);
-    void displayHeaderText(const std::string &word);
-    void displayEngEngDefi();
-    void displayOtherDefi();
+    void displayDefi(const std::string &word); // split the definitions and store them in currentDefinitions, then call displayHeaderText and displayDetails
+    void displayHeaderText(const std::string &word); // display the chosen header text by modifying displayTextPtr
+    void displayDefiDetails(); // display word types and definitions stored in currentDefinitions
 
-    void attachDefiComponents();
+    void attachDefiComponents(); // display word and definition already in the dictionary
     void detachDefiComponents();
-    void attachEditComponents();
+    void attachEditComponents(); // display add-new-word view.
     void detachEditComponents();
 
     void setDefiState(bool defiState); // true to enable defi view, disable edit view and vice versa.
