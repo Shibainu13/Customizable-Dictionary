@@ -16,14 +16,7 @@ EditTextView::EditTextView(EventPublisher *publisher, const sf::Font &font, cons
 }
 
 EditTextView::EditTextView(EventPublisher *publisher, const sf::Font &cursorFont, const sf::Font &font, unsigned int characterSize, const std::string &text, const sf::Vector2f &position, const sf::Vector2f &size)
-    : ViewGroup(publisher)
-    , mRect(size)
-    , mText(text, font, characterSize)
-    , mCursor("|", cursorFont, characterSize)
-    , mIsFocused(false)
-    , mWrapEnabled(false)
-    , alignment(Alignment::LEFT)
-    , numLines(1)
+    : ViewGroup(publisher), mRect(size), mText(text, font, characterSize), mCursor("|", cursorFont, characterSize), mIsFocused(false), mWrapEnabled(false), alignment(Alignment::LEFT), numLines(1), mWrapUp(false), mDropdown(false)
 {
     mString = text;
     // for (int i = 0; i < DEFAULT_LINE_LIMIT; i++)
@@ -32,7 +25,7 @@ EditTextView::EditTextView(EventPublisher *publisher, const sf::Font &cursorFont
     //     mTexts.at(i).setCharacterSize(characterSize);
     //     if (i != 0)
     //         mTexts.at(i).setString("");
-    //     else 
+    //     else
     //         mTexts.at(i).setString(text);
     // }
     setPosition(position);
@@ -199,6 +192,7 @@ void EditTextView::appendCharacter(char character)
         mText.setString(str);
         mRect.setSize(sf::Vector2f(mRect.getGlobalBounds().getSize().x, mText.getGlobalBounds().getSize().y));
         ++numLines;
+        mDropdown = true;
     }
     else
         setText(formerText);
@@ -222,6 +216,7 @@ void EditTextView::removeCharacter()
     if (mWrapEnabled && mText.findCharacterPos(mText.getString().getSize() - 1).y != lastCharPos.y)
     {
         --numLines;
+        mWrapUp = true;
         mRect.setSize(sf::Vector2f(mRect.getGlobalBounds().getSize().x, mText.getGlobalBounds().getSize().y));
     }
 }
@@ -346,4 +341,20 @@ void EditTextView::updateBorderColor()
         setBorderColor(mFocusBorderColor, focusThickness);
     else
         setBorderColor(mUnFocusBorderColor, unfocusThickness);
+}
+
+bool EditTextView::alertDropdown() const
+{
+    return mDropdown;
+}
+
+bool EditTextView::alertWrapUp() const
+{
+    return mWrapUp;
+}
+
+void EditTextView::disableAlerts()
+{
+    mDropdown = false;
+    mWrapUp = false;
 }

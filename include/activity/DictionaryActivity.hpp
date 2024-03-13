@@ -60,6 +60,12 @@ private:
         REMOVE,
         NONE
     };
+    enum DefiViewType
+    {
+        BUTTON,
+        WORD_TYPE,
+        DEFINITION
+    };
 
 protected:
     virtual void onEvent(const sf::Event &event) override;
@@ -161,9 +167,7 @@ private:
     WordButtonView *addDefiLineButtonPtr;
 
     std::vector<std::pair<std::string, std::string>> currentDefinition;
-    std::vector<std::pair<int, EditTextOnScrollView *>> addedWordType;
-    std::vector<std::pair<int, EditTextOnScrollView *>> addedDefinitions;
-    std::vector<unsigned int> cumulativeDefLines;
+    std::vector<DefiViewType> defiViewAttachType;
     sf::Vector2f defiTextPosition;
 
     bool defiState, prevDefiState;

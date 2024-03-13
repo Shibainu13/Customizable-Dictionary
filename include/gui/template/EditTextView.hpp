@@ -46,6 +46,7 @@ protected:
     int numLines;
     sf::Color mFocusBorderColor, mUnFocusBorderColor;
     float focusThickness, unfocusThickness;
+    bool mWrapUp, mDropdown;
 
 public:
     EditTextView(EventPublisher *publisher, const sf::Font &font, const std::string &text, const sf::Vector2f &size);
@@ -77,6 +78,11 @@ public:
     void setFocusBorder(const sf::Color &color, float thickness);
     void setUnFocusBorder(const sf::Color &color, float thickness);
 
+    bool alertWrapUp() const;
+    bool alertDropdown() const;
+
+    void disableAlerts();
+    
 protected:
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual bool isOnMouseButtonPressed(const sf::Event &event) const override;
