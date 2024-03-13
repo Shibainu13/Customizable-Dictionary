@@ -165,6 +165,7 @@ private:
     ToggleButtonView *addFavButtonPtr;
     WordButtonView *addWordTypeButtonPtr;
     WordButtonView *addDefiLineButtonPtr;
+    EditTextView *newWordTextboxPtr;
 
     std::vector<std::pair<std::string, std::string>> currentDefinition;
     std::vector<DefiViewType> defiViewAttachType;

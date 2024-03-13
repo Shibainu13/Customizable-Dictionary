@@ -892,6 +892,7 @@ void DictionaryActivity::attachEditComponents()
 {
     const sf::Vector2f newWordTextBoxPos(185.f, 35.f);
     EditTextView::Ptr newWordTextBox = NewWordFactory::create(this, mFontManager.get(FontID::open_sans), newWordTextBoxPos);
+    newWordTextboxPtr = newWordTextBox.get();
 
     const sf::Vector2f addWordTypePos(30.f, 28.f);
     WordButtonView::Ptr addWordTypeButton = NewDefiButtonFactory::create(this, mFontManager.get(FontID::open_sans), "+ Add word type", addWordTypePos, defiViewBackground,
@@ -909,13 +910,23 @@ void DictionaryActivity::attachEditComponents()
         attachDefiTextbox();
     });
     addDefiLineButtonPtr = addDefLineButton.get();
-    defiViewAttachType.push_back(DefiViewType::BUTTON);
     addWordTypeButton->attachView(std::move(addDefLineButton));
 
     const sf::Vector2f confirmPos(1210.f, 620.f);
     SpriteButtonView::Ptr confirmButton = ModDefButtonFactory::create(this, mTextureManager.get(TextureID::confirm), mFontManager.get(FontID::open_sans), confirmPos,
     [&](EventListener *listener, const sf::Event &event)
     {
+        std::cout << "New word: " << newWordTextboxPtr->getText() << std::endl;
+        for (int i = 0; i < defiViewBackground->getViews().size(); i++)
+        {
+            EditTextOnScrollView *textbox = dynamic_cast<EditTextOnScrollView *>(defiViewBackground->getViews().at(i).get());
+            if (textbox)
+                textbox->setFocused(false);
+            if (defiViewAttachType.at(i) == DefiViewType::WORD_TYPE && textbox)
+                std::cout << "Word type: " << textbox->getText() << std::endl;
+            else if (defiViewAttachType.at(i) == DefiViewType::DEFINITION && textbox)
+                std::cout << "defi: " << textbox->getText() << std::endl;
+        }
         prevDefiState = !prevDefiState;
     });
     confirmButtonPtr = confirmButton.get();
