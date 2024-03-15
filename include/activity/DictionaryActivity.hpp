@@ -134,6 +134,7 @@ private:
     void attachDefiTextbox(const std::string &defi = "New definition");
     void attachEditingWord(const std::string &word);
     void adjustDefiSpacing(); // only call when editing an existing word.
+    bool getDefiState() const;
 
 private:
     FontManager mFontManager;
@@ -175,7 +176,7 @@ private:
     std::vector<DefiViewType> defiViewAttachType;
     sf::Vector2f defiTextPosition;
 
-    bool defiState, prevDefiState;
+    bool defiState, prevDefiState; // defi mode if true, edit mode if false
 };
 
 #endif
