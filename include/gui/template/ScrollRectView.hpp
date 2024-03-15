@@ -30,6 +30,7 @@ public:
     void setCenter(const sf::Vector2f &pos);
 
     void setMaxScrollDistance(float maxScrollDistance);
+    float getMaxScrollDistance() const;
 
 protected:
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;

@@ -8,7 +8,7 @@
 class NewWordFactory
 {
 public:
-    static EditTextView::Ptr create(Activity *publisher, const sf::Font &font, const sf::Vector2f &position);
+    static EditTextView::Ptr create(Activity *publisher, const sf::Font &font, const std::string &text, const sf::Vector2f &position);
 };
 
 #endif

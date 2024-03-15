@@ -7,7 +7,7 @@
 class NewDefiFactory
 {
 public:
-    static EditTextOnScrollView::Ptr create(Activity *publisher, const sf::Font &font, const sf::Vector2f &position, ScrollRectView *rectView, EventListener::EventCallback onTextEntered);
+    static EditTextOnScrollView::Ptr create(Activity *publisher, const sf::Font &font, const std::string &text, const sf::Vector2f &position, ScrollRectView *rectView, EventListener::EventCallback onTextEntered);
 };
 
 #endif

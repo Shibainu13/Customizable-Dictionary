@@ -83,6 +83,8 @@ void DictionaryActivity::onCreate()
     defiState = true;
     prevDefiState = true;
 
+    currentDisplayWord = "halloo";
+
     createDictionaryFromOrigin();
 
     getHistory();
@@ -688,14 +690,15 @@ void DictionaryActivity::addFavorites(const std::string &word)
         updateSideButtons(favWords);
 }
 
-void DictionaryActivity::removeFromFavorites(const std::string &word)
+bool DictionaryActivity::removeFromFavorites(const std::string &word)
 {
     std::string message;
-    currentTrie->removeAWordFromFavoriteList(word, message);
+    bool exist = currentTrie->removeAWordFromFavoriteList(word, message);
     std::cerr << word << ' ' << message << std::endl;
     getFavorites();
     if (sidebarState == SidebarState::FAVORITE)
         updateSideButtons(favWords);
+    return exist;
 }
 
 void DictionaryActivity::markSideButton(SideButtonMark mark)
@@ -733,7 +736,7 @@ void DictionaryActivity::removeMarks()
 }
 
 //========================================================================================================================//
-// Definition View //
+// Definition - Edit View //
 //========================================================================================================================//
 
 void DictionaryActivity::createDefinitionView()
@@ -760,22 +763,31 @@ void DictionaryActivity::createDefinitionView()
     // displayDefi("halloo");
 }
 
-void DictionaryActivity::displayDefi(const std::string &word)
+bool DictionaryActivity::splitDefintions(const std::string &word)
 {
-    defiViewBackground->moveToTop();
     std::vector<std::string> defiLists;
     if (currentTrie->findWordInTrie(word, defiLists))
     {
-        defiViewBackground->detachAllViews();
-        displayHeaderText(word);
         split_Definition(defiLists, currentDefinition);
+        return true;
     }
-    else
+    return false;
+}
+
+void DictionaryActivity::displayDefi(const std::string &word)
+{    
+    if (!splitDefintions(word))
     {
         std::cout << word << " not found.\n";
         return;
     }
-
+    else
+    {
+        defiViewBackground->detachAllViews();
+        displayHeaderText(word);
+    }
+    defiViewBackground->moveToTop();
+    currentDisplayWord = word;
     displayDefiDetails();
     auto found = std::find(favWords.begin(), favWords.end(), word);
     if (found != favWords.end())
@@ -813,11 +825,7 @@ void DictionaryActivity::displayDefiDetails()
             ++scrollIndex;
             defiViewAttachType.push_back(DefiViewType::WORD_TYPE);
         }
-        std::string displayText;
-        if (pair.second == "")
-            displayText = pair.first;
-        else
-            displayText = pair.second;
+        std::string displayText = (pair.second == "") ? pair.first : pair.second;
         TextView::Ptr defi = std::make_unique<TextView>(this, std::to_string(i) + "   :  " + displayText, mFontManager.get(FontID::open_sans), textPosition, 20, sf::Color::Black);
         if (defi->getGlobalBounds().getSize().x > 890.f)
         {
@@ -851,13 +859,25 @@ void DictionaryActivity::displayDefiDetails()
     defiTextPosition = textPosition;
 }
 
-void DictionaryActivity::attachEditComponents()
+void DictionaryActivity::attachEditComponents(const std::string &headerText)
 {
+    std::string headerTextCpy;
+    if (headerText == "")
+    {
+        headerTextCpy = "Enter new word";
+        defiViewBackground->setMaxScrollDistance(0.f);
+    }
+    else
+    {
+        headerTextCpy = headerText;
+        attachEditingWord(headerText);
+    }
+
     const sf::Vector2f newWordTextBoxPos(185.f, 35.f);
-    EditTextView::Ptr newWordTextBox = NewWordFactory::create(this, mFontManager.get(FontID::open_sans), newWordTextBoxPos);
+    EditTextView::Ptr newWordTextBox = NewWordFactory::create(this, mFontManager.get(FontID::open_sans), headerTextCpy, newWordTextBoxPos);
     newWordTextboxPtr = newWordTextBox.get();
 
-    const sf::Vector2f addWordTypePos(30.f, 28.f);
+    const sf::Vector2f addWordTypePos = defiTextPosition + sf::Vector2f(5.f, 0.f);
     WordButtonView::Ptr addWordTypeButton = NewDefiButtonFactory::create(this, mFontManager.get(FontID::open_sans), "+ Add word type", addWordTypePos, defiViewBackground,
     [&](EventListener *listener, const sf::Event &event)
     {
@@ -879,27 +899,35 @@ void DictionaryActivity::attachEditComponents()
     SpriteButtonView::Ptr confirmButton = ModDefButtonFactory::create(this, mTextureManager.get(TextureID::confirm), mFontManager.get(FontID::open_sans), confirmPos,
     [&](EventListener *listener, const sf::Event &event)
     {
+        std::string message;
+        currentTrie->remove_Word_FromTrie(currentDisplayWord, message);
+        removeFromHistory(currentDisplayWord);
+        bool isFavorite = removeFromFavorites(currentDisplayWord);
+        std::cout << message << std::endl;
+
         std::string curWordType;
-        bool isAdded = false;
         for (int i = 0; i < defiViewBackground->getViews().size(); i++)
         {
-            if (!isAdded && defiViewAttachType.at(i) == DefiViewType::BUTTON)
-                isAdded = true;
-            else if (isAdded && defiViewAttachType.at(i) == DefiViewType::WORD_TYPE)
+            if (defiViewAttachType.at(i) == DefiViewType::WORD_TYPE)
             {
                 EditTextOnScrollView *textbox = dynamic_cast<EditTextOnScrollView *>(defiViewBackground->getViews().at(i).get());
                 textbox->setFocused(false);
                 curWordType = "(" + textbox->getText() + ") ";
             }
-            else if (isAdded && defiViewAttachType.at(i) == DefiViewType::DEFINITION)
+            else if (defiViewAttachType.at(i) == DefiViewType::DEFINITION)
             {
                 EditTextOnScrollView *textbox = dynamic_cast<EditTextOnScrollView *>(defiViewBackground->getViews().at(i).get());
                 textbox->setFocused(false);
+                std::cout << textbox->getText() << std::endl;
                 std::string newDefi = curWordType + textbox->getText();
                 currentTrie->addWordAndDefiToTrie(newWordTextboxPtr->getText(), newDefi);
                 std::cout << newWordTextboxPtr->getText() << ": " << newDefi << " added.\n";
             }
         }
+        currentDisplayWord = newWordTextboxPtr->getText();
+        addHistory(currentDisplayWord);
+        if (isFavorite)
+            addFavorites(currentDisplayWord);
         prevDefiState = !prevDefiState;
     });
     confirmButtonPtr = confirmButton.get();
@@ -908,19 +936,13 @@ void DictionaryActivity::attachEditComponents()
     SpriteButtonView::Ptr cancelButton = ModDefButtonFactory::create(this, mTextureManager.get(TextureID::cancel), mFontManager.get(FontID::open_sans), cancelPos,
     [&](EventListener *listener, const sf::Event &event)
     {
+        currentDisplayWord = "halloo";
         prevDefiState = !prevDefiState;
     });
     confirmButton->attachView(std::move(cancelButton));
-
-    defiHeaderPtr->attachView(std::move(newWordTextBox));
-    if (defiViewBackground->getViews().size() == 0)
-        defiViewBackground->attachView(std::move(addWordTypeButton));
-    else
-    {
-        addWordTypeButton->setPosition(10.f, 50.f);
-        defiViewBackground->getViews().at(defiViewBackground->getViews().size() - 1)->attachView(std::move(addWordTypeButton));
-    }
     attachView(std::move(confirmButton));
+    defiHeaderPtr->attachView(std::move(newWordTextBox));
+    defiViewBackground->attachView(std::move(addWordTypeButton));
 }
 
 void DictionaryActivity::detachEditComponents()
@@ -930,9 +952,10 @@ void DictionaryActivity::detachEditComponents()
     detachView(*confirmButtonPtr);
     defiTextPosition = sf::Vector2f(25.f, 28.f);
     defiViewAttachType.clear();
+    addWordTypeButtonPtr = nullptr;
 }
 
-void DictionaryActivity::attachDefiComponents()
+void DictionaryActivity::attachDefiComponents(const std::string &startupWord)
 {
     const sf::Vector2f addFavButtonPos(413.f, 85.f);
     ToggleButtonView::Ptr addFavButton = AddFavButtonFactory::create(this, mTextureManager.get(TextureID::add_fav), mFontManager.get(FontID::dm_sans), addFavButtonPos,
@@ -950,13 +973,14 @@ void DictionaryActivity::attachDefiComponents()
     SpriteButtonView::Ptr editDefButton = EditDefButtonFactory::create(this, mTextureManager.get(TextureID::edit_defi), mFontManager.get(FontID::dm_sans), editDefButtonPos,
     [&](EventListener *listener, const sf::Event &event)
     {
-        // edit defi
+        prevDefiState = !prevDefiState;
     });
 
     const sf::Vector2f addDefButtonPos(1212.f, 620.f);
     SpriteButtonView::Ptr addDefButton = ModDefButtonFactory::create(this, mTextureManager.get(TextureID::add_defi), mFontManager.get(FontID::dm_sans), addDefButtonPos,
     [&](EventListener *listener, const sf::Event &event)
     {
+        currentDisplayWord = "";
         prevDefiState = !prevDefiState;
     });
     addDefButtonPtr = addDefButton.get();
@@ -964,7 +988,7 @@ void DictionaryActivity::attachDefiComponents()
     defiHeaderPtr->attachView(std::move(addFavButton));
     defiHeaderPtr->attachView(std::move(editDefButton));
     attachView(std::move(addDefButton));
-    displayDefi("halloo");
+    displayDefi(startupWord);
 }
 
 void DictionaryActivity::detachDefiComponents()
@@ -983,32 +1007,36 @@ void DictionaryActivity::setDefiState(bool defiState)
     if (defiState)
     {
         detachEditComponents();
-        attachDefiComponents();
+        attachDefiComponents(currentDisplayWord);
     }
     else
     {
         detachDefiComponents();
-        attachEditComponents();
+        attachEditComponents(currentDisplayWord);
     }
 }
 
-void DictionaryActivity::attachWordTypeTextbox()
+void DictionaryActivity::attachWordTypeTextbox(const std::string &wordType)
 {
     const sf::Vector2f textboxPos(defiTextPosition);
     defiTextPosition += sf::Vector2f(0.f, 50.f);
-
-    EditTextOnScrollView::Ptr wordTypeTextbox = NewWordTypeFactory::create(this, mFontManager.get(FontID::open_sans), textboxPos, defiViewBackground);
+    EditTextOnScrollView::Ptr wordTypeTextbox = NewWordTypeFactory::create(this, mFontManager.get(FontID::open_sans), wordType, textboxPos, defiViewBackground);
     defiViewBackground->attachView(std::move(wordTypeTextbox));
-    addWordTypeButtonPtr->setPosition(addWordTypeButtonPtr->getPosition().x, addWordTypeButtonPtr->getPosition().y + 50.f);
+
+    if (addWordTypeButtonPtr)
+        addWordTypeButtonPtr->setPosition(addWordTypeButtonPtr->getPosition().x, addWordTypeButtonPtr->getPosition().y + 50.f);
     defiViewAttachType.push_back(DefiViewType::WORD_TYPE);
+
+    if (defiViewBackground->getViews().size() > 6)
+        defiViewBackground->setMaxScrollDistance(defiViewBackground->getMaxScrollDistance() + 50.f);
 }
 
-void DictionaryActivity::attachDefiTextbox()
+void DictionaryActivity::attachDefiTextbox(const std::string &defi)
 {
     const sf::Vector2f textboxPos(defiTextPosition);
     defiTextPosition += sf::Vector2f(0.f, 50.f);
 
-    EditTextOnScrollView::Ptr defiTextbox = NewDefiFactory::create(this, mFontManager.get(FontID::open_sans), textboxPos, defiViewBackground,
+    EditTextOnScrollView::Ptr defiTextbox = NewDefiFactory::create(this, mFontManager.get(FontID::open_sans), defi, textboxPos, defiViewBackground,
     [&](EventListener *listener, const sf::Event &event)
     {
         EditTextOnScrollView *textbox = dynamic_cast<EditTextOnScrollView *>(listener);
@@ -1023,6 +1051,7 @@ void DictionaryActivity::attachDefiTextbox()
             }
             addWordTypeButtonPtr->setPosition(addWordTypeButtonPtr->getPosition().x, addWordTypeButtonPtr->getPosition().y + 20.f);
             defiTextPosition += sf::Vector2f(0.f, 20.f);
+            defiViewBackground->setMaxScrollDistance(defiViewBackground->getMaxScrollDistance() + 20.f);
         }
         else if (textbox->alertWrapUp())
         {
@@ -1033,10 +1062,65 @@ void DictionaryActivity::attachDefiTextbox()
             }
             addWordTypeButtonPtr->setPosition(addWordTypeButtonPtr->getPosition().x, addWordTypeButtonPtr->getPosition().y - 20.f);
             defiTextPosition -= sf::Vector2f(0.f, 20.f);
+            defiViewBackground->setMaxScrollDistance(defiViewBackground->getMaxScrollDistance() - 20.f);
         }
         textbox->disableAlerts();
     });
     defiViewBackground->attachView(std::move(defiTextbox));
-    addWordTypeButtonPtr->setPosition(addWordTypeButtonPtr->getPosition().x, addWordTypeButtonPtr->getPosition().y + 50.f);
+
+    if (addWordTypeButtonPtr)
+        addWordTypeButtonPtr->setPosition(addWordTypeButtonPtr->getPosition().x, addWordTypeButtonPtr->getPosition().y + 50.f);
     defiViewAttachType.push_back(DefiViewType::DEFINITION);
+
+    if (defiViewBackground->getViews().size() > 6)
+        defiViewBackground->setMaxScrollDistance(defiViewBackground->getMaxScrollDistance() + 50.f);
+}
+
+void DictionaryActivity::attachEditingWord(const std::string &word)
+{
+    if (!splitDefintions(word))
+    {
+        std::cout << word << " not found.\n";
+        return;
+    }
+    std::string prevType = "";
+    float scrollIndex = 0;
+    for(auto &pair : currentDefinition)
+    {
+        if (pair.first != prevType && pair.second != "")
+        {
+            std::string processedType = pair.first.substr(1, pair.first.size() - 2);
+            prevType = pair.first;
+            attachWordTypeTextbox(processedType);
+        }
+        
+        std::string displayText = (pair.second == "") ? pair.first : pair.second;
+        attachDefiTextbox(displayText);
+    }
+    adjustDefiSpacing();
+}
+
+void DictionaryActivity::adjustDefiSpacing()
+{
+    defiTextPosition = sf::Vector2f(25.f, 28.f);
+    float scrollIndex = 0;
+    for (int i = 0; auto &view : defiViewBackground->getViews())
+    {
+        if (defiViewAttachType.at(i) == DefiViewType::BUTTON)
+            view->setPosition(defiTextPosition.x + 5.f, defiTextPosition.y);
+        
+        else
+        {
+            EditTextOnScrollView *textbox = dynamic_cast<EditTextOnScrollView *>(view.get());
+            textbox->setPosition(defiTextPosition);
+            defiTextPosition += sf::Vector2f(0.f, (textbox->getNumLines() - 1) * 20.f);
+            scrollIndex += (textbox->getNumLines() - 1) * 0.4;
+        }
+        defiTextPosition += sf::Vector2f(0.f, 50.f);
+        scrollIndex++;
+    }
+    if (scrollIndex > 5)
+        defiViewBackground->setMaxScrollDistance((scrollIndex - 5) * 50.f);
+    else
+        defiViewBackground->setMaxScrollDistance(0.f);
 }

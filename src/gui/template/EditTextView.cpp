@@ -19,15 +19,6 @@ EditTextView::EditTextView(EventPublisher *publisher, const sf::Font &cursorFont
     : ViewGroup(publisher), mRect(size), mText(text, font, characterSize), mCursor("|", cursorFont, characterSize), mIsFocused(false), mWrapEnabled(false), alignment(Alignment::LEFT), numLines(1), mWrapUp(false), mDropdown(false)
 {
     mString = text;
-    // for (int i = 0; i < DEFAULT_LINE_LIMIT; i++)
-    // {
-    //     mTexts.at(i).setFont(font);
-    //     mTexts.at(i).setCharacterSize(characterSize);
-    //     if (i != 0)
-    //         mTexts.at(i).setString("");
-    //     else
-    //         mTexts.at(i).setString(text);
-    // }
     setPosition(position);
     setTextColor(sf::Color::Black);
     updateTextPosition();
@@ -163,6 +154,15 @@ void EditTextView::setText(const std::string &text)
         mText.setString(text);
 
     mString = text;
+    if (mWrapEnabled)
+        for (int i = mString.size() - 1; i >= 0; i--)
+        {
+            if (mString.at(i) == '\n')
+            {
+                mString.erase(i, 1);
+                mString.insert(i, " ");
+            }
+        }
     updateTextPosition();
 }
 
@@ -175,29 +175,37 @@ void EditTextView::appendCharacter(char character)
     mText.setString(formerText + character);
     if (mText.getGlobalBounds().getSize().x <= mRect.getSize().x)
         setText(formerText + character);
-    else if (mWrapEnabled && numLines <= DEFAULT_LINE_LIMIT && mText.getGlobalBounds().getSize().x >= mRect.getGlobalBounds().getSize().x)
-    {
-        std::size_t lastSpaceIndex = 0;
-        for (int i = mText.getString().getSize() - 1; i >= 0; i--)
-        {
-            if (mText.getString()[i] == ' ')
-            {
-                lastSpaceIndex = i;
-                break;
-            }
-        }
-        sf::String str = mText.getString();
-        str.erase(lastSpaceIndex);
-        str.insert(lastSpaceIndex, "\n");
-        mText.setString(str);
-        mRect.setSize(sf::Vector2f(mRect.getGlobalBounds().getSize().x, mText.getGlobalBounds().getSize().y));
-        ++numLines;
-        mDropdown = true;
-    }
+    else if (mWrapEnabled && numLines <= DEFAULT_LINE_LIMIT && mText.getGlobalBounds().getSize().x > mRect.getGlobalBounds().getSize().x)
+        dropdown();
     else
         setText(formerText);
+        
     if (mWrapEnabled)
         setText(mText.getString() + "|");
+}
+
+void EditTextView::dropdown()
+{
+    for (int i = 0; i < mText.getString().getSize(); i++)
+    {
+        if (mText.findCharacterPos(i).x > mRect.getGlobalBounds().getSize().x)
+        {
+            for (int j = i; j >= 0; j--)
+            {
+                if (mText.getString()[j] == ' ')
+                {
+                    sf::String str = mText.getString();
+                    str.erase(j, 1);
+                    str.insert(j, "\n");
+                    setText(str);
+                    numLines++;
+                    break;
+                }
+            }
+            mDropdown = true;
+        }
+    }
+    mRect.setSize(sf::Vector2f(mRect.getGlobalBounds().getSize().x, mText.getGlobalBounds().getSize().y));
 }
 
 void EditTextView::removeCharacter()
@@ -208,7 +216,7 @@ void EditTextView::removeCharacter()
 
     if (!mWrapEnabled && mText.getString().getSize() > 0)
         setText(mText.getString().substring(0, mText.getString().getSize() - 1));
-    else if (mWrapEnabled && mText.getString().getSize() > 0)
+    else if (mWrapEnabled && mText.getString().getSize() > 1)
     {
         setText(mText.getString().substring(0, mText.getString().getSize() - 2));
         setText(mText.getString() + "|");
@@ -313,6 +321,10 @@ void EditTextView::setAlignment(Alignment alignment)
 void EditTextView::setWrapEnabled(bool enable)
 {
     mWrapEnabled = enable;
+    if (mWrapEnabled)
+    {
+        dropdown();
+    }
 }
 
 void EditTextView::setFocusBorder(const sf::Color &color, float thickness)

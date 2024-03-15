@@ -114,23 +114,26 @@ private:
 
     void getFavorites();
     void addFavorites(const std::string &word);
-    void removeFromFavorites(const std::string &word);
+    bool removeFromFavorites(const std::string &word);
 
     void markSideButton(SideButtonMark mark);
     void removeMarks();
 
-    void displayDefi(const std::string &word); // split the definitions and store them in currentDefinitions, then call displayHeaderText and displayDetails
+    bool splitDefintions(const std::string &word);   // return true if word is found, false if word is not found.
+    void displayDefi(const std::string &word);       // split the definitions and store them in currentDefinitions, then call displayHeaderText and displayDetails
     void displayHeaderText(const std::string &word); // display the chosen header text by modifying displayTextPtr
-    void displayDefiDetails(); // display word types and definitions stored in currentDefinitions
+    void displayDefiDetails();                       // display word types and definitions stored in currentDefinitions
 
-    void attachDefiComponents(); // display word and definition already in the dictionary
+    void attachDefiComponents(const std::string &startupWord = "halloo"); // display word and definition already in the dictionary
     void detachDefiComponents();
-    void attachEditComponents(); // display add-new-word view.
+    void attachEditComponents(const std::string &headerText = ""); // display add-new-word view.
     void detachEditComponents();
 
     void setDefiState(bool defiState); // true to enable defi view, disable edit view and vice versa.
-    void attachWordTypeTextbox();
-    void attachDefiTextbox();
+    void attachWordTypeTextbox(const std::string &wordType = "New type");
+    void attachDefiTextbox(const std::string &defi = "New definition");
+    void attachEditingWord(const std::string &word);
+    void adjustDefiSpacing(); // only call when editing an existing word.
 
 private:
     FontManager mFontManager;
@@ -155,6 +158,8 @@ private:
     std::vector<std::string> historyWords;
     std::vector<std::string> dailyWords[Datasets::ID::Count];
     std::vector<std::string> favWords;
+
+    std::string currentDisplayWord;
 
     ScrollRectView *defiViewBackground;
     RectangleView *defiHeaderPtr;

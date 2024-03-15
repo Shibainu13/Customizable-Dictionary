@@ -104,4 +104,8 @@ void ScrollRectView::setMaxScrollDistance(float maxScrollDistance)
     this->maxScrollDistance = maxScrollDistance;
 }
 
+float ScrollRectView::getMaxScrollDistance() const
+{
+    return maxScrollDistance;
+}
 

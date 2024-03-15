@@ -34,8 +34,6 @@ protected:
     bool mWrapEnabled;
     sf::RectangleShape mRect;
     sf::Text mCursor;
-    // std::array<sf::Text, DEFAULT_LINE_LIMIT> mTexts;
-    // std::array<TextView::Ptr, DEFAULT_LINE_LIMIT> mTexts;
     sf::Text mText;
     std::string mString;
     sf::Time mCursorBlinkTime, mCurrentTime;
@@ -80,7 +78,6 @@ public:
 
     bool alertWrapUp() const;
     bool alertDropdown() const;
-
     void disableAlerts();
     
 protected:
@@ -90,6 +87,7 @@ protected:
 
 protected:
     void setText(const std::string &text);
+    void dropdown();
 
     virtual void updateTextPosition();
     void updateBackgroundColor();

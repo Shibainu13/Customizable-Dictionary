@@ -8,7 +8,7 @@
 class NewWordTypeFactory
 {
 public:
-    static EditTextOnScrollView::Ptr create(Activity *publisher, const sf::Font &font, const sf::Vector2f &position, ScrollRectView *scrollRect);
+    static EditTextOnScrollView::Ptr create(Activity *publisher, const sf::Font &font, const std::string &text, const sf::Vector2f &position, ScrollRectView *scrollRect);
 };
 
 #endif

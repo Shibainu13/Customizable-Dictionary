@@ -213,7 +213,6 @@ void Trie::remove_Word_FromTrie(std::string word, std::string &message)
         cur->definition.clear();
         message = "Removing successfully!";
     }
-    message = "There is no " + word + " in the dictionary to remove!";
 }
 
 ///////////////////////////////////////////////////
@@ -495,7 +494,7 @@ void Trie::viewFavoriteList(std::vector<std::string> &fav, std::string &message)
 }
 
 // Question 11 : User can remove a word from their favorite list.
-void Trie::removeAWordFromFavoriteList(const std::string& word, std::string &message)
+bool Trie::removeAWordFromFavoriteList(const std::string& word, std::string &message)
 {
     std::vector<std::string> fav;
     readData_FavoriteList(fav, message);
@@ -504,7 +503,7 @@ void Trie::removeAWordFromFavoriteList(const std::string& word, std::string &mes
     if (!fout.is_open())
     {
         message = "File not found!";
-        return;
+        return false;
     }
 
     for (int i = 0; i < fav.size(); i++)
@@ -516,6 +515,7 @@ void Trie::removeAWordFromFavoriteList(const std::string& word, std::string &mes
     }
     fout.close();
     message = "Remove successfully!";
+    return true;
 }
 
 void Trie::addToHistory(std::string word, std::string &message)
