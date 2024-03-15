@@ -59,6 +59,11 @@ void Trie::build_Trie_From_Origin(std::string &message)
         addWordAndDefiToTrie(word, defi);
         ++num_line;
     }
+    // clear history and favorites
+    std::ofstream historyFout(preAdress + FileName[typeOfDict] + historyName, std::ios_base::trunc);
+    historyFout.close();
+    std::ofstream favoritesFout(preAdress + preFavoriteName + favoriteFileName[typeOfDict], std::ios_base::trunc);
+    favoritesFout.close();
     message = "Init dictionary successfully";
     fin.close();
 }
@@ -503,19 +508,21 @@ bool Trie::removeAWordFromFavoriteList(const std::string& word, std::string &mes
     if (!fout.is_open())
     {
         message = "File not found!";
-        return false;
     }
 
+    bool exist = false;
     for (int i = 0; i < fav.size(); i++)
     {
         if (fav.at(i) != word)
         {
             fout << fav.at(i) << "\n";
         }
+        else if (fav.at(i) == word)
+            exist = true;
     }
     fout.close();
     message = "Remove successfully!";
-    return true;
+    return exist;
 }
 
 void Trie::addToHistory(std::string word, std::string &message)
