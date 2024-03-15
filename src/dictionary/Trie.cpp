@@ -59,6 +59,11 @@ void Trie::build_Trie_From_Origin(std::string &message)
         addWordAndDefiToTrie(word, defi);
         ++num_line;
     }
+    // clear history and favorites
+    std::ofstream historyFout(preAdress + FileName[typeOfDict] + historyName, std::ios_base::trunc);
+    historyFout.close();
+    std::ofstream favoritesFout(preAdress + preFavoriteName + favoriteFileName[typeOfDict], std::ios_base::trunc);
+    favoritesFout.close();
     message = "Init dictionary successfully";
     fin.close();
 }
@@ -213,7 +218,6 @@ void Trie::remove_Word_FromTrie(std::string word, std::string &message)
         cur->definition.clear();
         message = "Removing successfully!";
     }
-    message = "There is no " + word + " in the dictionary to remove!";
 }
 
 ///////////////////////////////////////////////////
@@ -486,6 +490,7 @@ void Trie::readData_FavoriteList(std::vector<std::string> &fav, std::string &mes
         fav.push_back(word);
     fin.close();
     message = "View Favorite List successfully!";
+    std::reverse(fav.begin(), fav.end());
 }
 
 void Trie::viewFavoriteList(std::vector<std::string> &fav, std::string &message)
@@ -494,7 +499,7 @@ void Trie::viewFavoriteList(std::vector<std::string> &fav, std::string &message)
 }
 
 // Question 11 : User can remove a word from their favorite list.
-void Trie::removeAWordFromFavoriteList(int order, std::string &message)
+bool Trie::removeAWordFromFavoriteList(const std::string& word, std::string &message)
 {
     std::vector<std::string> fav;
     readData_FavoriteList(fav, message);
@@ -503,18 +508,21 @@ void Trie::removeAWordFromFavoriteList(int order, std::string &message)
     if (!fout.is_open())
     {
         message = "File not found!";
-        return;
     }
 
+    bool exist = false;
     for (int i = 0; i < fav.size(); i++)
     {
-        if (i != order - 1)
+        if (fav.at(i) != word)
         {
-            fout << fav[i] << "\n";
+            fout << fav.at(i) << "\n";
         }
+        else if (fav.at(i) == word)
+            exist = true;
     }
     fout.close();
     message = "Remove successfully!";
+    return exist;
 }
 
 void Trie::addToHistory(std::string word, std::string &message)

@@ -2,29 +2,23 @@
 
 ToggleButtonView::Ptr AddFavButtonFactory::create(Activity *context, const sf::Texture &texture, const sf::Font &font, const sf::Vector2f &position, EventListener::EventCallback callback)
 {
-    sf::IntRect textureRects[3]
+    sf::IntRect textureRects[2]
     {
-        sf::IntRect(0, 0, 24, 22),
         sf::IntRect(0, 0, 24, 22),
         sf::IntRect(0, 0, 24, 22)
     };
 
-    sf::Vector2f buttonSize(40, 40);
-    sf::Vector2f textureSize(24, 22);
-    ToggleButtonView::Ptr saveIndicator = std::make_unique<ToggleButtonView>(context, texture, font, textureRects, "", 0, position, buttonSize, textureSize);
-    saveIndicator->setCircleButton();
-
-    EventListener::EventDoubleCallback onDoubleEvent = [&](EventListener* listener, const sf::Event& event, EventListener::EventCallback callback)
+    sf::Color borderColors[2]
     {
-        saveIndicator->toggleState();
-        if (saveIndicator->getState())
-            saveIndicator->setBorderColor(sf::Color(22, 199, 154), BORDER_WIDTH);
-        else if (!saveIndicator->getState())
-            saveIndicator->setBorderColor(sf::Color::White, BORDER_WIDTH);
-        callback(listener, event);
+        sf::Color::White,
+        sf::Color(22, 199, 154)
     };
 
-    saveIndicator->setOnMouseButtonReleased(std::bind(onDoubleEvent, std::placeholders::_1, std::placeholders::_2, callback));
+    sf::Vector2f buttonSize(40, 40);
+    sf::Vector2f textureSize(24, 22);
+    ToggleButtonView::Ptr saveIndicator = std::make_unique<ToggleButtonView>(context, texture, font, textureRects, "", 0, position, buttonSize, textureSize, borderColors);
+    saveIndicator->setCircleButton();
+    saveIndicator->setOnMouseButtonReleased(callback);
 
     return std::move(saveIndicator);
 }

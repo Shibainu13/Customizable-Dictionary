@@ -17,13 +17,19 @@
 #include <EditDefButtonFactory.hpp>
 #include <EditDictButtonFactory.hpp>
 #include <AddFavButtonFactory.hpp>
-#include <AddDefButtonFactory.hpp>
-#include <WordButtonFactory.hpp>
+#include <ModDefButtonFactory.hpp>
 #include <SuggestButtonFactory.hpp>
-#include <DelWordButtonFactory.hpp>
+#include <SetStateButtonView.hpp>
+#include <WordButtonView.hpp>
+#include <NewDefiButtonFactory.hpp>
 
 #include <SearchBarFactory.hpp>
-#include <SideBackgroundView.hpp>
+#include <NewWordFactory.hpp>
+#include <NewWordTypeFactory.hpp>
+#include <NewDefiFactory.hpp>
+
+#include <SideViewFactory.hpp>
+#include <DefiViewFactory.hpp>
 #include <RectangleView.hpp>
 #include <TextView.hpp>
 
@@ -33,7 +39,7 @@ class DictionaryActivity : public Activity
 {
 private:
     static constexpr int MAX_SUGGESTIONS = 4;
-    static constexpr int MAX_SIDE_DISPLAY = 20;
+    static constexpr int DEFAULT_HISTORY_QUANTITY = 20;
     static constexpr int DEFAULT_RANDOM_QUANTITY = 10;
     std::string ModeBackgroundTexts[2]{"Search word to definition", "Search definition to word"};
     enum DictionaryMode
@@ -46,7 +52,19 @@ private:
     {
         HISTORY,
         DAILY,
-        FAVORITE,
+        FAVORITE
+    };
+    enum SideButtonMark
+    {
+        DELETE,
+        REMOVE,
+        NONE
+    };
+    enum DefiViewType
+    {
+        BUTTON,
+        WORD_TYPE,
+        DEFINITION
     };
 
 protected:
@@ -70,7 +88,7 @@ private:
     RectangleView::Ptr createSearchbar();
     ColoredButtonView::Ptr createSetLangButton();
     void createSidebar();
-    // void createDictionaryView();
+    void createDefinitionView();
 
     bool getCurrentMode() const;
     void toggleMode();
@@ -82,16 +100,41 @@ private:
     void updateSuggestButtons(std::vector<std::string> &suggestions);
     void emptySuggestButtons();
     bool isSuggestButtonsHovering(const sf::Event &event);
-
     void emptySideButtons();
     void updateSideButtons(std::vector<std::string> &sideButtons);
     void setSidebarState(SidebarState state);
+    void adjustSideViewScroll();
+    bool isSideButtonsHovering(const sf::Event &event);
 
     void getHistory();
     void addHistory(const std::string &word);
     void removeFromHistory(const std::string &word);
 
     void getRandomWords(unsigned int quantity);
+
+    void getFavorites();
+    void addFavorites(const std::string &word);
+    bool removeFromFavorites(const std::string &word);
+
+    void markSideButton(SideButtonMark mark);
+    void removeMarks();
+
+    bool splitDefintions(const std::string &word);   // return true if word is found, false if word is not found.
+    void displayDefi(const std::string &word);       // split the definitions and store them in currentDefinitions, then call displayHeaderText and displayDetails
+    void displayHeaderText(const std::string &word); // display the chosen header text by modifying displayTextPtr
+    void displayDefiDetails();                       // display word types and definitions stored in currentDefinitions
+
+    void attachDefiComponents(const std::string &startupWord = "halloo"); // display word and definition already in the dictionary
+    void detachDefiComponents();
+    void attachEditComponents(const std::string &headerText = ""); // display add-new-word view.
+    void detachEditComponents();
+
+    void setDefiState(bool defiState); // true to enable defi view, disable edit view and vice versa.
+    void attachWordTypeTextbox(const std::string &wordType = "New type");
+    void attachDefiTextbox(const std::string &defi = "New definition");
+    void attachEditingWord(const std::string &word);
+    void adjustDefiSpacing(); // only call when editing an existing word.
+    bool getDefiState() const;
 
 private:
     FontManager mFontManager;
@@ -100,17 +143,40 @@ private:
     Trie *tries[Datasets::ID::Count];
     Trie *currentTrie;
 
-    SideBackgroundView *sideViewBackground;
+    ScrollRectView *sideViewBackground;
     SidebarState sidebarState;
+    SideButtonMark sideButtonMark;
 
     bool currentMode;
+    bool delFlag;
+    bool removeFlag;
+    std::string wordFlagged;
 
     std::list<ColoredButtonView *> suggestButtons;
-    std::list<ButtonView *> sideWordButtons;
+    std::list<WordButtonView *> sideWordButtons;
+    std::list<SpriteView *> sideButtonMarks;
 
     std::vector<std::string> historyWords;
     std::vector<std::string> dailyWords[Datasets::ID::Count];
     std::vector<std::string> favWords;
+
+    std::string currentDisplayWord;
+
+    ScrollRectView *defiViewBackground;
+    RectangleView *defiHeaderPtr;
+    TextView *displayTextPtr;
+    SpriteButtonView *confirmButtonPtr;
+    SpriteButtonView *addDefButtonPtr;
+    ToggleButtonView *addFavButtonPtr;
+    WordButtonView *addWordTypeButtonPtr;
+    WordButtonView *addDefiLineButtonPtr;
+    EditTextView *newWordTextboxPtr;
+
+    std::vector<std::pair<std::string, std::string>> currentDefinition;
+    std::vector<DefiViewType> defiViewAttachType;
+    sf::Vector2f defiTextPosition;
+
+    bool defiState, prevDefiState; // defi mode if true, edit mode if false
 };
 
 #endif

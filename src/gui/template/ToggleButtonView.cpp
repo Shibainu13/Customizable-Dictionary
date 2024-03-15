@@ -13,6 +13,7 @@ ToggleButtonView::ToggleButtonView(EventPublisher *publisher, const sf::Texture 
     {
         mTexts[i] = text;
         mTextureRects[i] = textureRects[i];
+        mBorderColors[i] = sf::Color::Transparent;
     }
 
     mIsOn = false;
@@ -32,6 +33,7 @@ ToggleButtonView::ToggleButtonView(EventPublisher *publisher, const sf::Texture 
     {
         mTexts[i] = text;
         mTextureRects[i] = textureRects[i];
+        mBorderColors[i] = sf::Color::Transparent;
     }
 
     mIsOn = false;
@@ -46,6 +48,7 @@ ToggleButtonView::ToggleButtonView(EventPublisher *publisher, const sf::Texture 
     {
         mTexts[i] = texts[i];
         mTextureRects[i] = textureRects[i];
+        mBorderColors[i] = sf::Color::Transparent;
     }
 
     mIsOn = false;
@@ -60,6 +63,7 @@ ToggleButtonView::ToggleButtonView(EventPublisher *publisher, const sf::Texture 
     {
         mTexts[i] = texts[i];
         mTextureRects[i] = textureRects[i];
+        mBorderColors[i] = sf::Color::Transparent;
     }
 
     mIsOn = false;
@@ -73,6 +77,7 @@ ToggleButtonView::ToggleButtonView(EventPublisher *publisher, const sf::Texture 
     for (int i = 0; i < (int)ButtonType::COUNT; i++)
     {
         mTextureRects[i] = textureRects[i];
+        mBorderColors[i] = sf::Color::Transparent;
     }
 
     mIsOn = false;
@@ -80,16 +85,28 @@ ToggleButtonView::ToggleButtonView(EventPublisher *publisher, const sf::Texture 
     setOnMouseButtonReleased([&](EventListener *listener, const sf::Event &event) {});
 }
 
-// void ToggleButtonView::setOnMouseButtonReleased(EventCallback onMouseButtonReleased)
-// {
-//     EventListener::EventDoubleCallback onDoubleEvent = [this](EventListener *listener, const sf::Event &event, EventCallback callback)
-//     {
-//         this->toggleState();
-//         callback(listener, event);
-//     };
-//     EventListener::EventCallback onEvent = std::bind(onDoubleEvent, std::placeholders::_1, std::placeholders::_2, onMouseButtonReleased);
-//     EventListener::setOnMouseButtonReleased(onEvent);
-// }
+ToggleButtonView::ToggleButtonView(EventPublisher *publisher, const sf::Texture &texture, const sf::Font &font, const sf::IntRect *textureRects, const std::string &text, unsigned int characterSize, const sf::Vector2f &position, const sf::Vector2f &size, const sf::Vector2f &spriteSize, const sf::Color *borderColors)
+    : ButtonView(publisher, texture, font, text, characterSize, position, textureRects[(int)ButtonType::OFF], size, spriteSize)
+{
+    for (int i = 0; i < (int)ButtonType::COUNT; i++)
+    {
+        mTextureRects[i] = textureRects[i];
+        mBorderColors[i] = borderColors[i];
+    }
+    mIsOn = false;
+    setOnMouseButtonReleased([&](EventListener *listener, const sf::Event &event) {});
+}
+
+void ToggleButtonView::setOnMouseButtonReleased(EventCallback onMouseButtonReleased)
+{
+    EventListener::EventDoubleCallback onDoubleEvent = [this](EventListener *listener, const sf::Event &event, EventCallback callback)
+    {
+        this->toggleState();
+        callback(listener, event);
+    };
+    EventListener::EventCallback onEvent = std::bind(onDoubleEvent, std::placeholders::_1, std::placeholders::_2, onMouseButtonReleased);
+    EventListener::setOnMouseButtonReleased(onEvent);
+}
 
 void ToggleButtonView::setState(bool isOn)
 {
@@ -98,11 +115,13 @@ void ToggleButtonView::setState(bool isOn)
     {
         this->setTextureRect(mTextureRects[(int)ButtonType::ON]);
         this->setText(mTexts[(int)ButtonType::ON]);
+        this->setBorderColor(mBorderColors[(int)ButtonType::ON], DEFAULT_BORDER_WIDTH);
     }
     else
     {
         this->setTextureRect(mTextureRects[(int)ButtonType::OFF]);
         this->setText(mTexts[(int)ButtonType::OFF]);
+        this->setBorderColor(mBorderColors[(int)ButtonType::OFF], DEFAULT_BORDER_WIDTH);
     }
 }
 

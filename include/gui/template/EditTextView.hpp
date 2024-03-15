@@ -5,7 +5,9 @@
 #include <ViewGroup.hpp>
 #include <EventListener.hpp>
 #include <AppConfig.hpp>
+#include <TextView.hpp>
 
+#include <array>
 #include <memory>
 #include <iostream>
 
@@ -13,6 +15,7 @@ class EditTextView : public ViewGroup
 {
 public:
     typedef std::unique_ptr<EditTextView> Ptr;
+    static const unsigned int DEFAULT_LINE_LIMIT = 5;
 
 public:
     enum InputType
@@ -26,8 +29,9 @@ public:
         LEFT
     };
 
-private:
+protected:
     bool mIsFocused;
+    bool mWrapEnabled;
     sf::RectangleShape mRect;
     sf::Text mCursor;
     sf::Text mText;
@@ -37,6 +41,10 @@ private:
     InputType mInputType;
     Alignment alignment;
     sf::Color mFocusBackgroundColor, mUnfocusBackgroundColor;
+    int numLines;
+    sf::Color mFocusBorderColor, mUnFocusBorderColor;
+    float focusThickness, unfocusThickness;
+    bool mWrapUp, mDropdown;
 
 public:
     EditTextView(EventPublisher *publisher, const sf::Font &font, const std::string &text, const sf::Vector2f &size);
@@ -59,19 +67,29 @@ public:
     bool isMouseHovering(const sf::Vector2f &mousePoint) const;
     bool isFocused() const;
     void setFocused(bool focused);
+    void setWrapEnabled(bool enable);
 
     void setOnTextEntered(EventCallback onTextEntered) override;
     void setOnMouseButtonReleased(EventCallback onMouseButtonReleased) override;
 
+    int getNumLines() const;
+    void setFocusBorder(const sf::Color &color, float thickness);
+    void setUnFocusBorder(const sf::Color &color, float thickness);
+
+    bool alertWrapUp() const;
+    bool alertDropdown() const;
+    void disableAlerts();
+    
 protected:
-    virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const override;
+    virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual bool isOnMouseButtonPressed(const sf::Event &event) const override;
     virtual bool isOnTextEntered(const sf::Event &event) const override;
 
-private:
+protected:
     void setText(const std::string &text);
+    void dropdown();
 
-    void updateTextPosition();
+    virtual void updateTextPosition();
     void updateBackgroundColor();
     virtual void updateCurrent(sf::Time delta) override;
 
@@ -79,6 +97,8 @@ private:
     void resetBlink();
 
     void setBackgroundColor(const sf::Color &color);
+    void setBorderColor(const sf::Color &color, float thickness);
+    void updateBorderColor();
 };
 
 #endif

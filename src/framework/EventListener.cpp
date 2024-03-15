@@ -98,7 +98,6 @@ void EventListener::eventDispatch(const sf::Event &event)
             if (onTextEntered)
                 onTextEntered(this, event);
         break;
-
     case sf::Event::MouseWheelScrolled:
         if (isOnMouseWheelScrolled(event))
             if (onMouseWheelScrolled)

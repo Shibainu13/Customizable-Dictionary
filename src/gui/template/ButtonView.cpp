@@ -69,7 +69,7 @@ ButtonView::ButtonView(EventPublisher *publisher, const sf::Texture &texture, co
 {
     setPosition(position);
     mShape->setFillColor(sf::Color::Transparent);
-    rescaleTexture(spriteSize);
+    // rescaleTexture(spriteSize);
     centerSprite();
     mText.setOrigin(mText.getGlobalBounds().getPosition() + mText.getGlobalBounds().getSize() / 2.f);
     mText.setPosition(size / 2.f);
@@ -166,6 +166,7 @@ void ButtonView::setCircleButton()
         delete mShape;
     mShape = new sf::CircleShape(radius);
     mShape->setFillColor(color);
+    mShape->setPosition(position.x - radius, position.y - radius);
     mShape->setPosition(position);
 }
 

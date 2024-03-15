@@ -26,7 +26,7 @@ TextView::TextView(EventPublisher *publisher, const std::string &text, const sf:
     setFillColor(color);
 }
 
-void TextView::setText(const std::string &text)
+void TextView::setText(const sf::String &text)
 {
     this->text.setString(text);
 }
@@ -34,6 +34,16 @@ void TextView::setText(const std::string &text)
 void TextView::setFillColor(const sf::Color &color)
 {
     text.setFillColor(color);
+}
+
+void TextView::setCharacterSize(unsigned int size)
+{
+    text.setCharacterSize(size);
+}
+
+sf::Vector2f TextView::findCharacterPos(unsigned int index)
+{
+    return text.findCharacterPos(index);
 }
 
 std::string TextView::getText() const
