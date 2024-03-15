@@ -10,18 +10,19 @@ FetchContent_Declare(SFML
   GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
 
-# # Fetch SQLiteCpp
-# FetchContent_Declare(
-# SQLiteCpp
-# GIT_REPOSITORY https://github.com/SRombauts/SQLiteCpp.git
-# GIT_TAG 3.3.1
-# GIT_CONFIG "core.autocrlf=false")
-# FetchContent_GetProperties(SQLiteCpp)
+# Fetch SQLiteCpp
+FetchContent_Declare(
+  SQLiteCpp
+  GIT_REPOSITORY https://github.com/SRombauts/SQLiteCpp.git
+  GIT_TAG 3.3.1
+  GIT_CONFIG "core.autocrlf=false")
+FetchContent_GetProperties(SQLiteCpp)
 
-# if(NOT SQLiteCpp_POPULATED)
-# FetchContent_Populate(SQLiteCpp)
-# add_subdirectory(${sqlitecpp_SOURCE_DIR} ${sqlitecpp_BINARY_DIR})
-# endif()
+if(NOT SQLiteCpp_POPULATED)
+  FetchContent_Populate(SQLiteCpp)
+  add_subdirectory(${sqlitecpp_SOURCE_DIR} ${sqlitecpp_BINARY_DIR})
+endif()
+
 file(GLOB SRCS CONFIGURE_DEPENDS
   ${CMAKE_SOURCE_DIR}/src/*.cpp
   ${CMAKE_SOURCE_DIR}/src/framework/*.cpp
@@ -38,7 +39,7 @@ file(GLOB SRCS CONFIGURE_DEPENDS
 
 # option(CMAKE_USE_WIN32_THREADS_INIT "using WIN32 threads" ON)
 add_executable(app ${SRCS})
-target_link_libraries(app PRIVATE sfml-graphics sfml-window sfml-system sfml-audio)
+target_link_libraries(app PRIVATE sfml-graphics sfml-window sfml-system sfml-audio sqlite3 SQLiteCpp)
 
 if(UNIX)
   target_link_libraries(app PRIVATE pthread dl)
