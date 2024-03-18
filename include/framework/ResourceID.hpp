@@ -5,6 +5,8 @@
 
 enum class TextureID
 {
+    app_icon,
+
     // definition display
     add_defi,
     edit_defi,
@@ -13,7 +15,6 @@ enum class TextureID
     cancel,
 
     // header
-    app_icon,
     dictionary_icon,
     daily_icon,
     favorite_icon,
@@ -27,6 +28,12 @@ enum class TextureID
     edit_dict,
     del_word,
     remove_word,
+
+    // login
+    saly_mark,
+    profile,
+    x_vec,
+    shaded_rect
 };
 
 enum class ImageID
@@ -39,7 +46,11 @@ enum class FontID
     serif,
     open_sans,
     frank_ruhl,
-    dm_sans
+    dm_sans,
+    poppins_light,
+    poppins_medium,
+    poppins_semibold,
+    poppins_regular
 };
 
 enum class SoundBufferID

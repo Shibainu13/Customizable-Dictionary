@@ -1,11 +1,11 @@
 #include <UserRepo.hpp>
 
 UserRepo::UserRepo()
-    : db("data/users.db", SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE)
+    : db("userdata/users.db", SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE)
 {
     // db.exec("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, highscore INTEGER);");
     db.exec("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT);");
-    db.exec("CREATE TABLE IF NOT EXISTS highscores (username TEXT PRIMARY KEY, easy eng_eng_quiz, eng_vie_quiz INTEGER, vie_eng_quiz INTEGER, eng_emo_quiz INTEGER);");
+    db.exec("CREATE TABLE IF NOT EXISTS highscores (username TEXT PRIMARY KEY, eng_eng_quiz INTEGER, eng_vie_quiz INTEGER, vie_eng_quiz INTEGER, eng_emo_quiz INTEGER);");
 }
 
 UserRepo &UserRepo::getInstance()

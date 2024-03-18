@@ -14,7 +14,7 @@ inline T AppConfig::TypedConfigValue<T>::getValue() const
 
 inline AppConfig::AppConfig()
 {
-    set(ConfigKey::APP_NAME, std::string("Dictionary"));
+    set(ConfigKey::APP_NAME, std::string("Earthium Dictionary"));
     set(ConfigKey::WINDOW_SIZE, sf::Vector2f(1280, 720));
     set(ConfigKey::FPS, int(60));
 }

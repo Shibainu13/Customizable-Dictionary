@@ -1,7 +1,9 @@
 #include <Application.hpp>
 #include <ActivityFactory.hpp>
 #include <DictionaryActivity.hpp>
+#include <SignInActivity.hpp>
 #include <AppConfig.hpp>
+#include <UserRepo.hpp>
 
 int main()
 {
@@ -10,7 +12,7 @@ int main()
     std::string windowTitle = config.get<std::string>(ConfigKey::APP_NAME);
 
     Application app(windowSize.x, windowSize.y, windowTitle);
-    Activity::Ptr launcher = std::make_unique<DictionaryActivity>();
+    Activity::Ptr launcher = std::make_unique<SignInActivity>();
     app.addLauncher(std::move(launcher));
     app.run();
 }
