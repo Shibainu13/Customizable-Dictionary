@@ -13,6 +13,7 @@ ColoredButtonView::Ptr SignInButtonFactory::create(Activity *context, const sf::
     unsigned int buttonCharacterSize = 16;
     ColoredButtonView::Ptr button = std::make_unique<ColoredButtonView>(context, font, text, buttonCharacterSize, position, buttonSize, buttonColors);
     button->setTextColor(sf::Color::White);
+    button->setCornersRadius(10.f, 4);
     button->setOnMouseButtonReleased(onMouseButtonReleased);
 
     return std::move(button);

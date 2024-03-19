@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <ViewGroup.hpp>
 #include <EventListener.hpp>
+#include <RoundedRectangleShape.hpp>
 
 #include <iostream>
 #include <memory>
@@ -13,11 +14,20 @@ class ButtonView : public ViewGroup
 public:
     typedef std::unique_ptr<ButtonView> Ptr;
 
+public:
+    enum ButtonShape
+    {
+        rect,
+        rounded_rect,
+        circle
+    };
+    const unsigned int DEFAULT_CORNER_POINT = 4;
+
 private:
-    // sf::RectangleShape mRect;
     sf::Shape *mShape;
     sf::Sprite mSprite;
     sf::Text mText;
+    ButtonShape currentShape;
 
 public:
     ButtonView(EventPublisher *publisher, const sf::Texture &texture, const sf::Font &font, const std::string &text);
@@ -50,6 +60,10 @@ public:
     sf::FloatRect getGlobalBounds() const;
     sf::FloatRect getLocalBounds() const;
     std::string getText() const;
+
+    void setCornersRadius(float radius, unsigned int point);
+    float getCornersRadius() const;
+    unsigned int getCornerPoint() const;
 
 protected:
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const override;

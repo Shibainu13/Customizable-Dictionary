@@ -71,10 +71,16 @@ UserRepo::Leaderboard UserRepo::getLeaderboard(UserData::GameMode gameMode) cons
     return leaderboard;
 }
 
-void UserRepo::addUser(const UserData &user)
+bool UserRepo::addUser(const UserData &user)
 {
     if (user.notAUser())
         throw std::runtime_error("REPO ERR: Updating not a user");
+    
+    if (userExist(user.getUsername()))
+    {
+        std::cerr << "REPO LOG: User already exists.\n";
+        return false;
+    }
 
     SQLite::Statement userQuery(db, "INSERT INTO users (username, password) VALUES (?, ?);");
     userQuery.bind(1, user.getUsername());
@@ -89,6 +95,7 @@ void UserRepo::addUser(const UserData &user)
 
     userQuery.exec();
     scoreQuery.exec();
+    return true;
 }
 
 void UserRepo::updateUser(const UserData &user)

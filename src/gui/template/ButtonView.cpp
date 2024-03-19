@@ -16,7 +16,7 @@ ButtonView::ButtonView(EventPublisher *publisher, const sf::Texture &texture, co
 }
 
 ButtonView::ButtonView(EventPublisher *publisher, const sf::Texture &texture, const sf::Font &font, const std::string &text, unsigned int characterSize, const sf::Vector2f &position, const sf::Vector2f &size)
-    : ViewGroup(publisher), mSprite(texture), mShape(new sf::RectangleShape(size)), mText(text, font, characterSize)
+    : ViewGroup(publisher), mSprite(texture), mShape(new sf::RectangleShape(size)), mText(text, font, characterSize), currentShape(ButtonShape::rect)
 {
     setPosition(position);
     mShape->setFillColor(sf::Color::Transparent);
@@ -26,7 +26,7 @@ ButtonView::ButtonView(EventPublisher *publisher, const sf::Texture &texture, co
 }
 
 ButtonView::ButtonView(EventPublisher *publisher, const sf::Texture &texture, const sf::Font &font, const std::string &text, unsigned int characterSize, const sf::Vector2f &position, const sf::IntRect &textureRect)
-    : ViewGroup(publisher), mSprite(texture, textureRect), mShape(new sf::RectangleShape(sf::Vector2f(textureRect.width, textureRect.height))), mText(text, font, characterSize)
+    : ViewGroup(publisher), mSprite(texture, textureRect), mShape(new sf::RectangleShape(sf::Vector2f(textureRect.width, textureRect.height))), mText(text, font, characterSize), currentShape(ButtonShape::rect)
 {
     setPosition(position);
     mShape->setFillColor(sf::Color::Transparent);
@@ -35,7 +35,7 @@ ButtonView::ButtonView(EventPublisher *publisher, const sf::Texture &texture, co
 }
 
 ButtonView::ButtonView(EventPublisher *publisher, const sf::Texture &texture, const sf::Font &font, const std::string &text, unsigned int characterSize, const sf::Vector2f &position, const sf::IntRect &textureRect, const sf::Vector2f &size)
-    : ViewGroup(publisher), mSprite(texture, textureRect), mShape(new sf::RectangleShape(size)), mText(text, font, characterSize)
+    : ViewGroup(publisher), mSprite(texture, textureRect), mShape(new sf::RectangleShape(size)), mText(text, font, characterSize), currentShape(ButtonShape::rect)
 {
     setPosition(position);
     mShape->setFillColor(sf::Color::Transparent);
@@ -56,7 +56,7 @@ ButtonView::ButtonView(EventPublisher *publisher, const sf::Font &font, const st
 }
 
 ButtonView::ButtonView(EventPublisher *publisher, const sf::Font &font, const std::string &text, unsigned int characterSize, const sf::Vector2f &position, const sf::Vector2f &size, const sf::Color &fillColor)
-    : ViewGroup(publisher), mSprite(), mShape(new sf::RectangleShape(size)), mText(text, font, characterSize)
+    : ViewGroup(publisher), mSprite(), mShape(new sf::RectangleShape(size)), mText(text, font, characterSize), currentShape(ButtonShape::rect)
 {
     setPosition(position);
     mShape->setFillColor(fillColor);
@@ -65,7 +65,7 @@ ButtonView::ButtonView(EventPublisher *publisher, const sf::Font &font, const st
 }
 
 ButtonView::ButtonView(EventPublisher *publisher, const sf::Texture &texture, const sf::Font &font, const std::string &text, unsigned int characterSize, const sf::Vector2f &position, const sf::IntRect &textureRect, const sf::Vector2f &size, const sf::Vector2f &spriteSize)
-    : ViewGroup(publisher), mSprite(texture, textureRect), mShape(new sf::RectangleShape(size)), mText(text, font, characterSize)
+    : ViewGroup(publisher), mSprite(texture, textureRect), mShape(new sf::RectangleShape(size)), mText(text, font, characterSize), currentShape(ButtonShape::rect)
 {
     setPosition(position);
     mShape->setFillColor(sf::Color::Transparent);
@@ -158,16 +158,19 @@ bool ButtonView::isOnMouseMoved(const sf::Event &event) const
 
 void ButtonView::setCircleButton()
 {
-    // sf::CircleShape circle(mShape.getSize().x / 2.f);
+    currentShape = ButtonShape::circle;
     float radius = mShape->getGlobalBounds().getSize().x / 2.f;
-    sf::Color color = mShape->getFillColor();
+    sf::Color fillColor = mShape->getFillColor();
     sf::Vector2f position = mShape->getPosition();
+    sf::Color borderColor = mShape->getOutlineColor();
+    float borderThickness = mShape->getOutlineThickness();
     if (mShape)
         delete mShape;
     mShape = new sf::CircleShape(radius);
-    mShape->setFillColor(color);
-    mShape->setPosition(position.x - radius, position.y - radius);
+    mShape->setFillColor(fillColor);
     mShape->setPosition(position);
+    mShape->setOutlineColor(borderColor);
+    mShape->setOutlineThickness(borderThickness);
 }
 
 void ButtonView::setBorderColor(const sf::Color &color, float thickness)
@@ -190,4 +193,53 @@ void ButtonView::centerSprite()
 std::string ButtonView::getText() const
 {
     return mText.getString();
+}
+
+void ButtonView::setCornersRadius(float radius, unsigned int cornerPoint)
+{
+    if (currentShape == ButtonShape::circle)
+    {
+        std::cout << "Button ERR: Cannot set corner radius to circle.\n";
+        return;
+    }
+    else if (currentShape == ButtonShape::rect)
+    {
+        const sf::Vector2f size = mShape->getGlobalBounds().getSize();
+        sf::Color fillColor = mShape->getFillColor();
+        sf::Vector2f position = mShape->getPosition();
+        sf::Color borderColor = mShape->getOutlineColor();
+        float borderThickness = mShape->getOutlineThickness();
+        delete mShape;
+
+        mShape = new sf::RoundedRectangleShape(size, radius, DEFAULT_CORNER_POINT);
+        mShape->setFillColor(fillColor);
+        mShape->setPosition(position);
+        mShape->setOutlineColor(borderColor);
+        mShape->setOutlineThickness(borderThickness);
+
+        sf::RoundedRectangleShape *mRoundedRect = dynamic_cast<sf::RoundedRectangleShape *>(mShape);
+        mRoundedRect->setCornersRadius(radius);
+        mRoundedRect->setCornerPointCount(cornerPoint);
+        currentShape = ButtonShape::rounded_rect;
+    }
+    else
+    {
+        sf::RoundedRectangleShape *mRoundedRect = dynamic_cast<sf::RoundedRectangleShape *>(mShape);
+        mRoundedRect->setCornersRadius(radius);
+        mRoundedRect->setCornerPointCount(cornerPoint);
+    }
+}
+
+unsigned int ButtonView::getCornerPoint() const
+{
+    if (sf::RoundedRectangleShape *mRoundedRect = dynamic_cast<sf::RoundedRectangleShape *>(mShape))
+        return mRoundedRect->getPointCount();
+    return 0;
+}
+
+float ButtonView::getCornersRadius() const
+{
+    if (sf::RoundedRectangleShape *mRoundedRect = dynamic_cast<sf::RoundedRectangleShape *>(mShape))
+        return mRoundedRect->getCornersRadius();
+    return 0;
 }

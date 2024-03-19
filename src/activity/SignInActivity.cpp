@@ -22,7 +22,8 @@ void SignInActivity::onLoadResource()
 void SignInActivity::onCreate()
 {
     attachStaticElements();
-    attachSignInBox();
+    // attachSignInBox();
+    attachSignUpBox();
 }
 
 void SignInActivity::onAttach()
@@ -190,4 +191,90 @@ void SignInActivity::attachSignInBox()
     signInBoxPtr->attachView(std::move(passwordTextbox));
     signInBoxPtr->attachView(std::move(signInButton));
     signInBoxPtr->attachView(std::move(signInError));
+}
+
+void SignInActivity::attachSignUpBox()
+{
+    const sf::Vector2f headerTextPos(33.f, 23.f);
+    unsigned int headerCharacterSize = 16;
+    TextView::Ptr headerText = std::make_unique<TextView>(this, "Welcome to", mFontManager.get(FontID::poppins_medium), headerTextPos, headerCharacterSize);
+
+    const sf::Vector2f headerBoldPos = sf::Vector2f(102.f, -1.f);
+    TextView::Ptr headerBold = std::make_unique<TextView>(this, "Earthium", mFontManager.get(FontID::poppins_bold), headerBoldPos, headerCharacterSize, sf::Color(24, 197, 153));
+    headerText->attachView(std::move(headerBold));
+
+    const sf::Vector2f titlePos(33.f, 56.f);
+    unsigned int titleCharacterSize = 55;
+    TextView::Ptr title = std::make_unique<TextView>(this, "Sign up", mFontManager.get(FontID::poppins_medium), titlePos, titleCharacterSize);
+
+    const sf::Vector2f accountStatePos(350.f, 25.f);
+    unsigned int accountStateCharacterSize = 13;
+    TextView::Ptr accountState = std::make_unique<TextView>(this, "Already Signup?", mFontManager.get(FontID::poppins_regular), accountStatePos, accountStateCharacterSize);
+
+    const sf::Vector2f signInButtonPos(348.f, 39.f);
+    const sf::Vector2f signInButtonSize(49.f, 20.f);
+    TextButtonView::Ptr signInButton = LoginHyperTextButtonFactory::create(this, mFontManager.get(FontID::poppins_regular), "Sign in", signInButtonPos, signInButtonSize, 
+    [&](EventListener *listener, const sf::Event &event)
+    {
+        // change to sign in view
+    });
+
+    const sf::Vector2f usernameTextboxPos(56.f, 204.f);
+    const std::string usernameOverText = "Enter your username or email address";
+    const std::string usernameForegroundText = "Username or email address";
+    EditTextView::Ptr usernameTextbox = SignInFormFactory::create(this, mFontManager.get(FontID::poppins_light), usernameForegroundText, mFontManager.get(FontID::poppins_regular), usernameOverText, usernameTextboxPos);
+    EditTextView *usernameTextboxPtr = usernameTextbox.get();
+
+    const sf::Vector2f passwordTextboxPos(56.f, 311.f);
+    const std::string passwordOverText = "Enter your Password";
+    const std::string passwordForegroundText = "Password";
+    EditTextView::Ptr passwordTextbox = SignInFormFactory::create(this, mFontManager.get(FontID::poppins_light), passwordForegroundText, mFontManager.get(FontID::poppins_regular), passwordOverText, passwordTextboxPos);
+    passwordTextbox->setInputType(EditTextView::InputType::PASSWORD);
+    EditTextView *passwordTextboxPtr = passwordTextbox.get();
+
+    const sf::Vector2f confirmTextboxPos(56.f, 421.f);
+    const std::string confirmOverText = "Confirm your Password";
+    const std::string confirmForegroundText = "Password";
+    EditTextView::Ptr confirmTextbox = SignInFormFactory::create(this, mFontManager.get(FontID::poppins_light), confirmForegroundText, mFontManager.get(FontID::poppins_regular), confirmOverText, confirmTextboxPos);
+    confirmTextbox->setInputType(EditTextView::InputType::PASSWORD);
+    EditTextView *confirmTextboxPtr = confirmTextbox.get();
+
+    const sf::Vector2f errorPos(78.f, 469.f);
+    unsigned int errorCharacterSize = 14;
+    TextView::Ptr signUpError = std::make_unique<TextView>(this, "", mFontManager.get(FontID::poppins_medium), errorPos, errorCharacterSize, sf::Color(216, 104, 114));
+    TextView *signUpErrorPtr = signUpError.get();
+
+    const sf::Vector2f signUpButtonPos(33.f, 493.f);
+    ColoredButtonView::Ptr signUpButton = SignInButtonFactory::create(this, mFontManager.get(FontID::poppins_medium), "Sign up", signUpButtonPos, 
+    [this, usernameTextboxPtr, passwordTextboxPtr, confirmTextboxPtr, signUpErrorPtr](EventListener *listener, const sf::Event &event)
+    {
+        std::cout << "Input: " << usernameTextboxPtr->getText() << ' ' << passwordTextboxPtr->getText() << std::endl;
+        UserRepo &repo = UserRepo::getInstance();
+        if (passwordTextboxPtr->getText() != confirmTextboxPtr->getText())
+        {
+            signUpErrorPtr->setText("Password does not match.");
+            signUpErrorPtr->setPosition(144.f, 469.f);
+            return;
+        }
+        if (!repo.addUser(UserData(usernameTextboxPtr->getText(), passwordTextboxPtr->getText())))
+        {
+            signUpErrorPtr->setText("Account has already been taken.");
+            signUpErrorPtr->setPosition(115.f, 469.f);
+            return;
+        }
+        else
+        {
+            std::cout << "Sign up: " << usernameTextboxPtr->getText() << ' ' << passwordTextboxPtr->getText() << std::endl;
+        }
+    });
+
+    signInBoxPtr->attachView(std::move(headerText));
+    signInBoxPtr->attachView(std::move(title));
+    signInBoxPtr->attachView(std::move(accountState));
+    signInBoxPtr->attachView(std::move(signInButton));
+    signInBoxPtr->attachView(std::move(usernameTextbox));
+    signInBoxPtr->attachView(std::move(passwordTextbox));
+    signInBoxPtr->attachView(std::move(confirmTextbox));
+    signInBoxPtr->attachView(std::move(signUpButton));
+    signInBoxPtr->attachView(std::move(signUpError));
 }

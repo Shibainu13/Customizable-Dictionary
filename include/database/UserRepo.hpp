@@ -22,7 +22,7 @@ public:
     UserData getUserByLogin(const std::string &username, const std::string &password) const;
     bool checkUser(const std::string &username, const std::string &password) const;
     Leaderboard getLeaderboard(UserData::GameMode gameMode) const;
-    void addUser(const UserData &user);
+    bool addUser(const UserData &user);
     void updateUser(const UserData &user);
     void deleteUser(const std::string &username);
     bool userExist(const std::string &username);
