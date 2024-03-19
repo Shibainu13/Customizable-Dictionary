@@ -6,6 +6,7 @@
 #include <EventListener.hpp>
 #include <AppConfig.hpp>
 #include <TextView.hpp>
+#include <RoundedRectangleShape.hpp>
 
 #include <array>
 #include <memory>
@@ -32,7 +33,7 @@ public:
 protected:
     bool mIsFocused;
     bool mWrapEnabled;
-    sf::RectangleShape mRect;
+    sf::RoundedRectangleShape mRect;
     sf::Text mCursor;
     sf::Text mText;
     std::string mString;
@@ -79,7 +80,9 @@ public:
     bool alertWrapUp() const;
     bool alertDropdown() const;
     void disableAlerts();
-    
+
+    void setCornersRadius(float radius);
+
 protected:
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual bool isOnMouseButtonPressed(const sf::Event &event) const override;

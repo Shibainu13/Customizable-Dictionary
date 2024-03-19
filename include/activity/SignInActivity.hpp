@@ -4,11 +4,18 @@
 #include <Activity.hpp>
 #include <ResourceID.hpp>
 #include <AppConfig.hpp>
+#include <UserData.hpp>
+#include <UserRepo.hpp>
 
 #include <SpriteView.hpp>
 #include <RectangleView.hpp>
 #include <TextView.hpp>
 #include <SpriteView.hpp>
+#include <TextButtonView.hpp>
+
+#include <LoginHyperTextButtonFactory.hpp>
+#include <SignInFormFactory.hpp>
+#include <SignInButtonFactory.hpp>
 
 class SignInActivity : public Activity
 {
@@ -26,10 +33,14 @@ protected:
 
 private:
     void attachStaticElements();
+    void attachSignInBox();
+    void attachSignUpBox();
 
 private:
     TextureManager mTextureManager;
     FontManager mFontManager;
+
+    SpriteView *signInBoxPtr;
 };
 
 #endif

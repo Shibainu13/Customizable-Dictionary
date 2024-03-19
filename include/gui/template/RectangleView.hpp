@@ -1,6 +1,7 @@
 #ifndef RECTANGLE_VIEW_HPP
 #define RECTANGLE_VIEW_HPP
 
+#include <SFML/Graphics.hpp>
 #include <ViewGroup.hpp>
 #include <EventListener.hpp>
 

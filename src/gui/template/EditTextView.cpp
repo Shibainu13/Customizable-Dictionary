@@ -16,7 +16,7 @@ EditTextView::EditTextView(EventPublisher *publisher, const sf::Font &font, cons
 }
 
 EditTextView::EditTextView(EventPublisher *publisher, const sf::Font &cursorFont, const sf::Font &font, unsigned int characterSize, const std::string &text, const sf::Vector2f &position, const sf::Vector2f &size)
-    : ViewGroup(publisher), mRect(size), mText(text, font, characterSize), mCursor("|", cursorFont, characterSize), mIsFocused(false), mWrapEnabled(false), alignment(Alignment::LEFT), numLines(1), mWrapUp(false), mDropdown(false)
+    : ViewGroup(publisher), mRect(size, 0.f, 4), mText(text, font, characterSize), mCursor("|", cursorFont, characterSize), mIsFocused(false), mWrapEnabled(false), alignment(Alignment::LEFT), numLines(1), mWrapUp(false), mDropdown(false)
 {
     mString = text;
     setPosition(position);
@@ -171,7 +171,7 @@ void EditTextView::appendCharacter(char character)
     if (mWrapEnabled) // remove the cursor
         setText(mText.getString().substring(0, mText.getString().getSize() - 1));
 
-    std::string formerText = mText.getString();
+    std::string formerText = getText();
     mText.setString(formerText + character);
     if (mText.getGlobalBounds().getSize().x <= mRect.getSize().x)
         setText(formerText + character);
@@ -179,7 +179,7 @@ void EditTextView::appendCharacter(char character)
         dropdown();
     else
         setText(formerText);
-        
+
     if (mWrapEnabled)
         setText(mText.getString() + "|");
 }
@@ -369,4 +369,9 @@ void EditTextView::disableAlerts()
 {
     mDropdown = false;
     mWrapUp = false;
+}
+
+void EditTextView::setCornersRadius(float radius)
+{
+    mRect.setCornersRadius(radius);
 }

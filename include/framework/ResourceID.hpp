@@ -49,8 +49,9 @@ enum class FontID
     dm_sans,
     poppins_light,
     poppins_medium,
+    poppins_regular,
     poppins_semibold,
-    poppins_regular
+    poppins_bold
 };
 
 enum class SoundBufferID

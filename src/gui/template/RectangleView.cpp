@@ -1,5 +1,3 @@
-#include <SFML/Graphics.hpp>
-#include <iostream>
 #include <RectangleView.hpp>
 
 RectangleView::RectangleView(EventPublisher *publisher, float left, float top, float width, float height)
