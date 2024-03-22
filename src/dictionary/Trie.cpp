@@ -65,6 +65,8 @@ void Trie::build_Trie_From_Origin(std::string &message)
     std::ofstream favoritesFout(preAdress + preFavoriteName + favoriteFileName[typeOfDict], std::ios_base::trunc);
     favoritesFout.close();
     message = "Init dictionary successfully";
+    std::cout << "num line: " << num_line << std::endl;
+    
     fin.close();
 }
 
@@ -127,7 +129,7 @@ bool Trie::findWordExistedToGetDefi(std::string word, std::vector<std::string> &
 void Trie::Serialization_DFS(std::string &message)
 {
     std::ofstream fout;
-    fout.open(preAdress + FileName[typeOfDict] + serializeName);
+    fout.open("userdata/" + UserSession::getInstance().getCurrentUser().getUsername() + "/" + FileName[typeOfDict] + serializeName);
     if (!fout.is_open())
     {
         message = "File cannot open!";
@@ -141,7 +143,7 @@ void Trie::Serialization_DFS(std::string &message)
 void Trie::Deserialization_DFS(std::string &message)
 {
     std::ifstream fin;
-    fin.open(preAdress + FileName[typeOfDict] + serializeName);
+    fin.open("userdata/" + UserSession::getInstance().getCurrentUser().getUsername() + "/" + FileName[typeOfDict] + serializeName);
     if (!fin.is_open())
     {
         message = "File cannot open!";
@@ -256,6 +258,7 @@ void Trie::getRandomWordAndDefi(std::string &word, std::vector<std::string> &def
         for (int i = 1; i < line; ++i)
             fin.ignore(500, '\n');
         getline(fin, tmpWord, (char)9);
+        std::cout << tmpWord << std::endl;
         if (tmpWord == "")
             continue;
         if (findWordInTrie(tmpWord, defiList))
@@ -279,7 +282,7 @@ std::string Trie::getRandomWord()
 
     while (true)
     {
-        int line = generator() % num_line;
+        int line = generator() % originNumLines[typeOfDict];
         for (int i = 1; i < line; ++i)
             fin.ignore(500, '\n');
         getline(fin, word, (char)9);
@@ -453,7 +456,7 @@ void Trie::search_and_addToFavoriteList(std::string &subWord)
     std::cout << "Your choice is : ";
     std::cin >> choice;
 
-    std::ofstream fout(preAdress + preFavoriteName + favoriteFileName[typeOfDict], std::ios_base::app);
+    std::ofstream fout("userdata/" + UserSession::getInstance().getCurrentUser().getUsername() + "/" + preFavoriteName + favoriteFileName[typeOfDict], std::ios_base::app);
     if (!fout.is_open())
         std::cout << "File not found";
     else
@@ -463,7 +466,7 @@ void Trie::search_and_addToFavoriteList(std::string &subWord)
 
 void Trie::addToFavoriteList(std::string word, std::string &message)
 {
-    std::ofstream fout(preAdress + preFavoriteName + favoriteFileName[typeOfDict], std::ios_base::app);
+    std::ofstream fout("userdata/" + UserSession::getInstance().getCurrentUser().getUsername() + "/" + preFavoriteName + favoriteFileName[typeOfDict], std::ios_base::app);
     if (!fout.is_open())
     {
         message = "File not found";
@@ -477,9 +480,10 @@ void Trie::addToFavoriteList(std::string word, std::string &message)
 // Question 10 : User can view their favorite list
 void Trie::readData_FavoriteList(std::vector<std::string> &fav, std::string &message)
 {
+    std::cout << "fetching favorites...\n";
     fav.clear();
     std::ifstream fin;
-    fin.open(preAdress + preFavoriteName + favoriteFileName[typeOfDict]);
+    fin.open("userdata/" + UserSession::getInstance().getCurrentUser().getUsername() + "/" + preFavoriteName + favoriteFileName[typeOfDict]);
     if (!fin.is_open())
     {
         message = "File not found\n";
@@ -504,7 +508,7 @@ bool Trie::removeAWordFromFavoriteList(const std::string& word, std::string &mes
     std::vector<std::string> fav;
     readData_FavoriteList(fav, message);
 
-    std::ofstream fout(preAdress + preFavoriteName + favoriteFileName[typeOfDict], std::ios_base::trunc);
+    std::ofstream fout("userdata/" + UserSession::getInstance().getCurrentUser().getUsername() + "/" + preFavoriteName + favoriteFileName[typeOfDict], std::ios_base::trunc);
     if (!fout.is_open())
     {
         message = "File not found!";
@@ -527,7 +531,7 @@ bool Trie::removeAWordFromFavoriteList(const std::string& word, std::string &mes
 
 void Trie::addToHistory(std::string word, std::string &message)
 {
-    std::ofstream fout(preAdress + FileName[typeOfDict] + historyName, std::ios_base::app);
+    std::ofstream fout("userdata/" + UserSession::getInstance().getCurrentUser().getUsername() + "/" + FileName[typeOfDict] + historyName, std::ios_base::app);
     if (fout.is_open())
     {
         fout << word << "\n";
@@ -543,7 +547,7 @@ void Trie::addToHistory(std::string word, std::string &message)
 void Trie::takeHistory(std::vector<std::string> &historyList, std::string &message)
 {
     historyList.clear();
-    std::ifstream fin(preAdress + FileName[typeOfDict] + historyName);
+    std::ifstream fin("userdata/" + UserSession::getInstance().getCurrentUser().getUsername() + "/" + FileName[typeOfDict] + historyName);
     if (fin.is_open())
     {
         std::string s;
@@ -573,7 +577,7 @@ void Trie::removeFromHistory(const std::string &word, std::string &message)
         return;
     currentHistory.erase(found);
 
-    std::ofstream fout(preAdress + FileName[typeOfDict] + historyName);
+    std::ofstream fout("userdata/" + UserSession::getInstance().getCurrentUser().getUsername() + "/" + FileName[typeOfDict] + historyName);
     for (auto &word : currentHistory)
         addToHistory(word, message);
 }

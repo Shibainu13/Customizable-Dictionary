@@ -1,6 +1,7 @@
 #include <UserData.hpp>
 
 const char *UserData::gameModeNames[GameMode::GameModeCount] = {"eng_eng_quiz", "eng_vie_quiz", "vie_eng_quiz", "eng_emo_quiz"};
+const char *UserData::LOGOUT_TIME_FORMAT = "%Y-%m-%d-%H:%M:%S";
 
 UserData::UserData()
     : username(""), password("")
@@ -11,8 +12,8 @@ UserData::UserData()
     }
 }
 
-UserData::UserData(std::string username, std::string password, int eng_eng_quiz, int eng_vie_quiz, int vie_eng_quiz, int eng_emo_quiz)
-    : username(username), password(password)
+UserData::UserData(std::string username, std::string password, std::string logoutTime, int eng_eng_quiz, int eng_vie_quiz, int vie_eng_quiz, int eng_emo_quiz)
+    : username(username), password(password), lastLogoutTime(logoutTime)
 {
     highscore.at(GameMode::eng_eng_quiz) = eng_eng_quiz;
     highscore.at(GameMode::eng_vie_quiz) = eng_vie_quiz;
@@ -73,4 +74,14 @@ void UserData::updateHighscore(int newHighscore, GameMode gameMode)
 bool UserData::notAUser() const
 {
     return (username == "") || (password == "");
+}
+
+void UserData::setLogoutTime(const std::string &logoutTime)
+{
+    lastLogoutTime = logoutTime;
+}
+
+std::string UserData::getLastLogOutTime() const
+{
+    return lastLogoutTime;
 }

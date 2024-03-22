@@ -79,7 +79,7 @@ auto TrieNode::Deserialize_Traversal_DFS(std::ifstream &fin, int index) -> TrieN
     {
         fin >> index;
         fin.ignore(10, '_');
-        this->edges[index] = new TrieNode;
+        this->edges[index] = new TrieNode();
         getline(fin, str, '_');
         if (str == "0")
             this->edges[index]->isEndOfWord = false;

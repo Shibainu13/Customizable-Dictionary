@@ -4,7 +4,7 @@ UserRepo::UserRepo()
     : db("userdata/users.db", SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE)
 {
     // db.exec("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, highscore INTEGER);");
-    db.exec("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT);");
+    db.exec("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, logout_time TEXT);");
     db.exec("CREATE TABLE IF NOT EXISTS highscores (username TEXT PRIMARY KEY, eng_eng_quiz INTEGER, eng_vie_quiz INTEGER, vie_eng_quiz INTEGER, eng_emo_quiz INTEGER);");
 }
 
@@ -29,7 +29,7 @@ UserData UserRepo::getUserByLogin(const std::string &username, const std::string
     scoreQuery.bind(1, username);
 
     if (userQuery.executeStep() && scoreQuery.executeStep())
-        return UserData(userQuery.getColumn(0), userQuery.getColumn(1), scoreQuery.getColumn(1), scoreQuery.getColumn(2), scoreQuery.getColumn(3), scoreQuery.getColumn(4));
+        return UserData(userQuery.getColumn(0), userQuery.getColumn(1), userQuery.getColumn(2), scoreQuery.getColumn(1), scoreQuery.getColumn(2), scoreQuery.getColumn(3), scoreQuery.getColumn(4));
 
     return UserData("", "");
 }
@@ -82,9 +82,10 @@ bool UserRepo::addUser(const UserData &user)
         return false;
     }
 
-    SQLite::Statement userQuery(db, "INSERT INTO users (username, password) VALUES (?, ?);");
+    SQLite::Statement userQuery(db, "INSERT INTO users (username, password, logout_time) VALUES (?, ?, ?);");
     userQuery.bind(1, user.getUsername());
     userQuery.bind(2, user.getPassword());
+    userQuery.bind(3, user.getLastLogOutTime());
 
     SQLite::Statement scoreQuery(db, "INSERT INTO highscores (username, eng_eng_quiz, eng_vie_quiz, vie_eng_quiz, eng_emo_quiz) VALUES (?, ?, ?, ?, ?);");
     scoreQuery.bind(1, user.getUsername());
@@ -106,9 +107,10 @@ void UserRepo::updateUser(const UserData &user)
     if (!userExist(user.getUsername()))
         throw std::runtime_error("User with username " + user.getUsername() + " not found.");
 
-    SQLite::Statement userQuery(db, "UPDATE users SET password = ? WHERE username = ?;");
+    SQLite::Statement userQuery(db, "UPDATE users SET password = ?, logout_time = ? WHERE username = ?;");
     userQuery.bind(1, user.getPassword());
-    userQuery.bind(2, user.getUsername());
+    userQuery.bind(3, user.getUsername());
+    userQuery.bind(2, user.getLastLogOutTime());
 
     SQLite::Statement scoreQuery(db, "UPDATE highscores SET eng_eng_quiz = ?, eng_vie_quiz = ?, vie_eng_quiz = ?, eng_emo_quiz = ? WHERE username = ?;");
     scoreQuery.bind(1, user.getHighscore(UserData::GameMode::eng_eng_quiz));
@@ -145,4 +147,19 @@ bool UserRepo::userExist(const std::string &username)
         return query.getColumn(0).getInt() > 0;
 
     return false;
+}
+
+void UserRepo::updatePassword(const std::string &username, const std::string &newPassword)
+{
+    if (username == "" || newPassword == "")
+        throw std::runtime_error("REPO ERR: Updating not a user");
+
+    if (!userExist(username))
+        throw std::runtime_error("User with username " + username + " not found.");
+
+    SQLite::Statement userQuery(db, "UPDATE users SET password = ? WHERE username = ?;");
+    userQuery.bind(1, newPassword);
+    userQuery.bind(2, username);
+
+    userQuery.exec();
 }

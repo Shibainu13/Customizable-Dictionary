@@ -12,14 +12,12 @@ UserSession &UserSession::getInstance()
 UserSession::UserSession()
     : isLogin(false), repo(UserRepo::getInstance())
 {
-    loadLoginState("userdata/login.txt");
 }
 
 UserSession::~UserSession()
 {
     if (isLoggedin())
     {
-        saveLoginState("userdata/login.txt");
         repo.updateUser(currentUser);
     }
 }
@@ -45,12 +43,11 @@ void UserSession::loginUser(const std::string &username, const std::string &pass
 
     isLogin = true;
     std::cout << username << " logged in.\n";
-
-    saveLoginState(loginStateFilename);
 }
 
 void UserSession::logoutUser()
 {
+    saveLoginState(loginStateFilename);
     if (!isLoggedin())
     {
         std::cerr << "User is not logged in!\n";
@@ -64,38 +61,40 @@ void UserSession::logoutUser()
     isLogin = false;
     currentUser = UserData();
 
-    saveLoginState(loginStateFilename);
 }
 
-void UserSession::loadLoginState(const std::string &filename)
+UserSession::UserAccesses UserSession::loadLoginState(const std::string &filename)
 {
+    UserAccesses userList;
     std::ifstream inf{filename};
     if (!inf)
     {
         std::cerr << filename + " not found.\n";
-        return;
+        return userList;
     }
 
-    std::string name;
-    std::string pass;
 
     while (inf)
     {
-        inf >> name >> pass;
-        if (name != "" && pass != "")
+        std::string name, logoutTime;
+        inf >> name >> logoutTime;
+        if (name != "" && logoutTime != "")
         {
-            loginUser(name, pass);
-            return;
+            std::string duration = UtilitySave::calculateTimeDifference(logoutTime);
+            UserAccess user(name, duration);
+            userList.push_back(user);
         }
     }
-
     inf.close();
+    return userList;
 }
 
 void UserSession::saveLoginState(const std::string &filename)
 {
-    std::ofstream outf(filename, std::ofstream::out | std::ofstream::trunc);
-    outf << currentUser.getUsername() << ' ' << currentUser.getPassword();
+    std::ofstream outf(filename, std::ofstream::out | std::ofstream::app);
+    outf << currentUser.getUsername() << ' ' << UtilitySave::getCurrentDateTime() << "\n";
+    currentUser.setLogoutTime(UtilitySave::getCurrentDateTime());
+    repo.updateUser(currentUser);
     std::cerr << "Login state saved.\n";
     outf.close();
 }

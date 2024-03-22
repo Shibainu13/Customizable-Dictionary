@@ -10,6 +10,7 @@ TextButtonView::Ptr LoginHyperTextButtonFactory::create(Activity *context, const
     };
     unsigned int characterSize = 13;
     TextButtonView::Ptr hyperTextButton = std::make_unique<TextButtonView>(context, font, text, characterSize, position, size, textColors);
+    hyperTextButton->setOnMouseButtonReleased(onMouseReleased);
 
     return std::move(hyperTextButton);
 }

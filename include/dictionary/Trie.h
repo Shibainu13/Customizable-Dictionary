@@ -4,6 +4,7 @@
 #include "DatasetIdentifiers.h"
 #include "TrieNode.h"
 #include "checkerSubString.h"
+#include <UserSession.hpp>
 
 #include <queue>
 #include <algorithm>
@@ -83,6 +84,8 @@ public:
 private:
     void readData_FavoriteList(std::vector<std::string> &fav, std::string &message);
 
+private:
+    const int originNumLines[Datasets::ID::Count] = {160486, 51473, 51473, 9615};
     TrieNode *root;
     Datasets::ID typeOfDict;
     checker checkerST;

@@ -72,6 +72,13 @@ void DictionaryActivity::saveDictionary()
 
 void DictionaryActivity::onCreate()
 {
+    std::string dirPath = "userdata/" + UserSession::getInstance().getCurrentUser().getUsername();
+    std::error_code err;
+    if (!UtilitySave::CreateDirectoryRecursive(dirPath, err)) 
+    {
+        std::cerr << "SAVE FAILURE, ERR: " << err << std::endl;
+    }
+
     tries[Datasets::ID::Eng_Eng] = new Trie(Datasets::ID::Eng_Eng);
     tries[Datasets::ID::Eng_Viet] = new Trie(Datasets::ID::Eng_Viet);
     tries[Datasets::ID::Viet_Eng] = new Trie(Datasets::ID::Viet_Eng);
@@ -85,7 +92,10 @@ void DictionaryActivity::onCreate()
 
     currentDisplayWord = "halloo";
 
-    createDictionaryFromOrigin();
+    if (getIntent()->getAction() == ACTION_BUILD_FROM_ORIGIN)
+        createDictionaryFromOrigin();
+    else if (getIntent()->getAction() == ACTION_DESERIALIZE)
+        loadDictionary();
 
     getHistory();
     getRandomWords(DEFAULT_RANDOM_QUANTITY);
@@ -113,10 +123,11 @@ void DictionaryActivity::onResume()
 
 void DictionaryActivity::onDestroy()
 {
+    saveDictionary();
     for (int i = 0; i < Datasets::ID::Count; i++)
         delete tries[i];
 
-    // serialize tries
+    UserSession::getInstance().logoutUser();
 }
 
 void DictionaryActivity::onActivityResult(int requestCode, int resultCode, Intent::Ptr data)
@@ -245,7 +256,8 @@ void DictionaryActivity::createHeader()
     {
         if (!defiState)
             return;
-        // log out
+        
+        this->finish();
     });
 
     header->attachView(std::move(appIcon));
@@ -581,10 +593,10 @@ void DictionaryActivity::getHistory()
     {
         std::vector<std::string> startupWords = currentTrie->take_First_K_Word(DEFAULT_HISTORY_QUANTITY - historyWords.size());
         historyWords.insert(historyWords.end(), startupWords.begin(), startupWords.end());
-        std::cout << historyWords.at(0) << std::endl;
     }
     else if (historyWords.size() > DEFAULT_HISTORY_QUANTITY)
         historyWords.erase(historyWords.begin() + DEFAULT_HISTORY_QUANTITY - 1, historyWords.end() - 1);
+    std::cout << "History fetched.\n";
 }
 
 void DictionaryActivity::addHistory(const std::string &word)
@@ -956,7 +968,7 @@ void DictionaryActivity::attachEditComponents(const std::string &headerText)
     SpriteButtonView::Ptr cancelButton = ModDefButtonFactory::create(this, mTextureManager.get(TextureID::cancel), mFontManager.get(FontID::open_sans), cancelPos,
     [&](EventListener *listener, const sf::Event &event)
     {
-        currentDisplayWord = "halloo";
+        currentDisplayWord = currentTrie->getRandomWord();
         prevDefiState = !prevDefiState;
     });
     confirmButton->attachView(std::move(cancelButton));

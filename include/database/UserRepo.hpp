@@ -26,6 +26,7 @@ public:
     void updateUser(const UserData &user);
     void deleteUser(const std::string &username);
     bool userExist(const std::string &username);
+    void updatePassword(const std::string &username, const std::string &newPassword);
 
 private:
     SQLite::Database db;

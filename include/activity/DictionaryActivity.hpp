@@ -6,6 +6,9 @@
 #include <AppConfig.hpp>
 #include <Trie.h>
 #include <DatasetIdentifiers.h>
+#include <UtilitySave.hpp>
+#include <ActivityFactory.hpp>
+#include <SignInActivity.hpp>
 
 #include <DictionaryButtonFactory.hpp>
 #include <DailyButtonFactory.hpp>
@@ -37,6 +40,13 @@
 
 class DictionaryActivity : public Activity
 {
+public:
+    enum Action
+    {
+        ACTION_BUILD_FROM_ORIGIN,
+        ACTION_DESERIALIZE
+    };
+
 private:
     static constexpr int MAX_SUGGESTIONS = 4;
     static constexpr int DEFAULT_HISTORY_QUANTITY = 20;
